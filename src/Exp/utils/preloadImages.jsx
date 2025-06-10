@@ -6,6 +6,6 @@ const preloadImage = (url) => {
 export const preloadImgs = (dataObj) => {
   Object.values(dataObj).forEach(entry => {
     preloadImage(entry.mainImg);
-    entry.miniImgs.forEach(preloadImage);
+    if(entry.miniImgs) entry.miniImgs.forEach(preloadImage);
   });
 };
