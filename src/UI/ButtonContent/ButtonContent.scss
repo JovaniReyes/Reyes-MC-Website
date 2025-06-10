@@ -1,0 +1,48 @@
+@use "../../Styles/variables.scss" as styles;
+
+.content-container{
+    padding: 12px;
+}
+.content-section{
+    padding: 12px;
+
+}
+.image-wrapper{
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+.content-image{
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+}
+.section-header{
+    padding: 8px;
+   
+    color: white;
+    background-color: styles.$color-base-darker-gray-two;
+}
+
+.section-paragraph{
+    font-size: .825em;
+    margin: 8px 0;
+    color: white;
+    white-space: pre-wrap;
+    tab-size: 2;
+    line-height: 1.25em;
+
+    &.accent-first-line::first-line {
+        color: #ffcf33
+    }
+
+}
+
+@media (max-width: 1415px) {
+    .section-paragraph{
+        font-size: .7em;
+    }
+    .section-header{
+        font-size: .75em;
+    }
+}

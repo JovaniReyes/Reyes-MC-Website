@@ -1,0 +1,36 @@
+@use "../../Styles/variables.scss" as styles;
+
+
+
+
+.about-section{ padding: 12px; }
+.about-container { padding: 12px; }
+
+.image-wrapper {
+  width: 100;          // optional; only needed if you add borders
+}
+
+.about-image {
+  width: 100%;
+  height: 100%;              // let the img decide its own height
+  object-fit: cover;;
+  overflow: hidden;     // or just remove this line; default works too
+  display: block;
+}
+.section-header{
+    padding: 8px;
+    color: white;
+    background-color: styles.$color-base-darker-gray-two;
+}
+
+.section-paragraph{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    color: white;
+}
+
+@media (max-width: 1415px) {
+    .section-header{
+        font-size: .8em;
+    }
+}

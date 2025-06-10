@@ -1,0 +1,10 @@
+@use "./Styles/fonts.scss";
+@use "./Styles/reset.scss";
+@use "./Styles/variables.scss";
+@forward "./Styles/fonts.scss";
+@forward "./Styles/reset.scss";
+@forward "./Styles/variables.scss";
+
+* {
+    box-sizing: border-box;
+}

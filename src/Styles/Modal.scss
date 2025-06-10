@@ -1,0 +1,145 @@
+@use "../index.scss" as styles;
+
+@keyframes entering {
+    0% {opacity: 1; transform: translate(-50%, -200%) scale(1);}
+    100%{opacity: 1; transform: translate(-50%, -50%) scale(1);}
+}
+
+//Keyframes for exiting out from the bottom
+@keyframes exiting {
+    0% {opacity: 1; transform: translate(-50%, -50%) scale(1);
+    }
+    100%{opacity: 1; transform: translate(-50%, 200%) scale(1);}
+}
+
+
+.overlay{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: styles.$color-base-overlay-gray;
+}
+
+.modal{
+    z-index: 120;
+    position: absolute;        // keep your centring styles
+    top: 50%; left: 50%;
+    transform: translate(-50%, -150%);
+
+    width: 100%;
+    max-width: 700px;
+    height: clamp(360px, 55vh, 500px);
+
+    display: flex;            
+    flex-direction: column;    
+    //transform: translate(-50%, -150%) scale(1);
+    border: .2em solid black;
+    border-radius: 15px;
+    //Entering view
+    &.enter{animation: entering 1s ease both;}
+
+    //Exiting view
+    &.exit{
+        animation: exiting 1s ease both;
+    }
+}
+
+.modal-header{
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    background-color: styles.$color-base-gray;
+    padding: 16px 30px;
+
+    border-radius: 10px 10px 0px 0px;
+    width: 100%;
+}
+
+.modal-header-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.modal-title{
+    font-size: 1.32em;
+}
+
+.modal-close-button{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    display: flex;
+    place-content: center;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    color: styles.$color-base-dark-gray;
+    &:hover{
+        cursor:pointer;
+        background-color: styles.$color-base-darker-gray-two;
+        color: white;
+    }
+}
+
+.modal-body{
+    flex: 1 1 auto;            // takes the remaining space
+    overflow-y: auto;          // scrolls when needed
+    border: .3em solid styles.$color-base-darker-gray-two;
+    background-color: styles.$color-base-darker-gray-three;
+    border-radius: 0 0 10px 10px;
+    box-sizing: border-box;    // so borders are included in the flex math
+    /* width */
+    &::-webkit-scrollbar {
+        width: 15px;
+    }
+  
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background-color: styles.$color-base-gray;
+    }
+    
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        border: 3px solid styles.$color-base-darker-gray-four;
+        background-color: styles.$color-base-gray;
+        box-shadow: inset 0px 2px #ffffffc0, inset 0px 2px #323232;
+    }
+}
+
+
+@media (min-width: 1415px) {          /* ≥ 1415 px ⇒ square modal   */
+  .modal {
+    height: 80%;
+  }
+}
+
+@media (max-width: 1415px) {
+    .modal {
+        top: 40%;
+        height: 62.5%;
+        &.button{
+            top: 52.5%;
+            height: 80%;
+        }
+    }
+  .modal-body{height: auto;}
+  .modal-title{font-size: .9em;}
+  .modal-close-button{
+    position: absolute;
+    left: 90%;
+  }
+}
+@media (max-width: 500px){
+    .modal-close-button{
+        position: absolute;
+        left: 86%;
+    }
+}
