@@ -1,6 +1,6 @@
 // modalStore.js
 import aboutMeData from "../../UI/About/AboutMeData";
-import { useMiniModalsStore } from "./miniModals";
+import { useMiniModalsStore } from "./miniModalStore";
 import { playSound } from "../../Utils/buttonSound";
 import { create } from "zustand";
 const EXIT_ANIM_MS = 500;          

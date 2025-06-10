@@ -2,7 +2,7 @@ import React, {useState, useLayoutEffect, useEffect } from "react";
 import "../../Styles/Modal.scss";
 import { useModalStore } from "../../Exp/stores/modalStore";
 import {playSound} from "../../Utils/buttonSound";
-import {useMiniModalsStore} from "../../Exp/stores/miniModals"
+import {useMiniModalsStore} from "../../Exp/stores/miniModalStore"
 
 const Modal = () => {
     const {isModalOpen, modalTitle, modalContent, closeModal, animation, modalType} = useModalStore();

@@ -1,5 +1,5 @@
 import { useLayoutEffect, useMemo, useState } from "react";
-import { useMiniModalsStore } from "./miniModals";
+import { useMiniModalsStore } from "../../Exp/stores/miniModalStore";
 import "../../Styles/miniModals.scss";
 
 /* —- tweakables —- */
