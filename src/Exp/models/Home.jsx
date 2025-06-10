@@ -30,7 +30,8 @@ export default React.memo(function Model({ progress = 0, ...props }) {
     '/GLBs/Home/HWT-transformed.glb',
     '/GLBs/Home/HFT-transformed.glb',
     '/GLBs/Home/H7_1T-transformed.glb',
-    '/GLBs/Home/H8T-transformed.glb'
+    '/GLBs/Home/H8T-transformed.glb',
+    '/GLBs/Home/HW2T-transformed.glb',
   ];
 
   const gltfResults = gltfPaths.map(useGLTFWithKTX2);
@@ -51,7 +52,8 @@ export default React.memo(function Model({ progress = 0, ...props }) {
     { nodes: n7, materials: mat7 },
     { nodes: n10, materials: mat10 },
     { nodes: n8, materials: mat8 },
-    { nodes: n11, materials: mat11 }
+    { nodes: n11, materials: mat11 },
+    { nodes: n12, materials: mat12},
   ] = gltfResults;
 
   useMemo(() => {
@@ -66,7 +68,8 @@ export default React.memo(function Model({ progress = 0, ...props }) {
     convertMaterialsToMeshBasicMaterial(mat9)
     convertMaterialsToMeshBasicMaterial(mat10)
     convertMaterialsToMeshBasicMaterial(mat11)
-  }, [mat1, mat2, mat3, mat4, mat5, mat6, mat7, mat8, mat9, mat10, mat11]);
+    convertMaterialsToMeshBasicMaterial(mat12)
+  }, [mat1, mat2, mat3, mat4, mat5, mat6, mat7, mat8, mat9, mat10, mat11, mat12]);
 
   const doorRefTop = useRef()
   const doorRefBottom = useRef()
@@ -144,11 +147,13 @@ export default React.memo(function Model({ progress = 0, ...props }) {
 
 
       {/* HFrameT */}
-      <mesh geometry={n10.OakPlanks_Baked.geometry} material={mat10.OakPlanks_Baked} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh geometry={n10.SprucePlanksHome_Baked.geometry} material={mat10['SprucePlanksHome_Baked.001']} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
       <mesh geometry={n10.WhiteConcrete_Baked.geometry} material={mat10['WhiteConcrete_Baked.002']} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
 
       <mesh geometry={n11['minecraft_painting-meditative_Baked'].geometry} material={mat11.H8_Baked} position={[10.582, 21.911, 3.023]} rotation={[Math.PI / 2, 0, 0]} />
+
+      {/* HWood2 */}
+      <mesh geometry={n12.OakPlanks_Baked.geometry} material={mat12.OakPlanks_Baked} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh geometry={n12.SprucePlanksHome_Baked.geometry} material={mat12['SprucePlanksHome_Baked.001']} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
     </group>
   )
 });
