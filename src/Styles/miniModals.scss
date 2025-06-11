@@ -85,6 +85,7 @@
     position : static !important;
     transform: none   !important;
     background: styles.$color-base-darker-gray-three;
+    flex: 0 0 var(--mini)
   }
 
   .mini-modal-body{
@@ -96,7 +97,8 @@
     flex-wrap: wrap;
     place-content: center;
     align-items: center;
-    gap      : .1em;
+    gap        : var(--gap);  
+    padding-block: var(--gap);
   }
 
   .mini-modals-wrapper {
