@@ -141,12 +141,11 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
       const end = i+1;
       if(prog >= start && prog <= end){
         const lerpZ = (prog - start) / (end - start);
-        console.log(lerpZ);
+        
       }
     }
   });
 
-  const lerpZoom = (a, b, amount) => (1 - amount) * a + amount * b;
 
   useFrame((state) => {
     if(!camera) return;
@@ -159,18 +158,17 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
       targetScrollProgress.current = 0;
       newProgress = 0;
     } 
-    // console.log(targetScrollProgress.current.toFixed(4));
     if(newProgress > 0.2374 && newProgress < .2386){
       if(fov == 70){
         fov = 60;
         setFieldOfView(60);
-        console.log("60");
+      
       }
     } else {
       if (fov == 60){
         fov = 70;
         setFieldOfView(70);
-        console.log("70");
+      
       }
     }
     scrollRef.current = newProgress;
