@@ -17,7 +17,11 @@ const About = ({ aboutID }) => {
       {about.content.map((section, index) => (
         <div key={index} className='about-section'> 
           <h2 className='section-header'>{section.header}</h2>
-          <p className='section-paragraph'>{section.paragraph}</p>
+          {section.paragraphs.map(({text, highlight}, idx) => (
+            <p key={idx} className={`section-paragraph${highlight ? " accent-first-line" : ""}`}>
+              {text}
+            </p>
+          ))}
         </div>
       ))}
     </div>

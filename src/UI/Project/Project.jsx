@@ -12,11 +12,7 @@ const Project = ({ projectID }) => {
   return (
     <div className="project-container">
       <div className="image-wrapper">
-        <img 
-        src={project.mainImg}
-        alt={project.name}
-        className="project-image"
-        />
+        <img src={project.mainImg} alt={project.name} className="project-image"/>
       </div>
       <Button href={project.externalLink} type={"link"}> Visit {project.name} </Button>
       {project.content.map((section, index) => (

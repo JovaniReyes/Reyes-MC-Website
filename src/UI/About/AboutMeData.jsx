@@ -15,8 +15,22 @@ const aboutMeData = {
     ],
     content: [
       {
-        header: "Header One",
-        paragraph: "This is the first paragraph."
+        header: "Introduction",
+        paragraphs: [
+          {text: "Thank you for taking the time to tour my website! This project has been in development for over 5 months with over +400 hours put into the creation. If you find any bugs while looking around, reach out to me through email: Jovani.reyes.contact@gmail.com and I'll list your name under the citations section!", highlight: false},
+        ]
+      },
+      {
+        header: "Interactables",
+        paragraphs: [
+          {text: "Throughout the home are photos of myself and others that are a part of my life as well as other projects I have made. Photos that are interactable have a glowing pulse when approached.", highlight: false},
+        ]
+      },
+      {
+        header: "Under The Hood",
+        paragraphs: [
+          {text: "The code for this website is built on Javascript XML (JSX) for writing the HTML code directly within Javascript and styled with SCSS for creating variables in stylesheets for reusable CSS code. The scene is entirely made of GLB files which contain the 3D objects and their textures which are manipulated in JSX.", highlight: false},
+        ]
       }
     ]
   },
@@ -30,10 +44,14 @@ const aboutMeData = {
     ],
     content: [
       { header: "Header One",
-        paragraph: "This is the first paragraph."
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
       },
       { header: "Header Two",
-        paragraph: "This is the second paragraph."
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
       }
     ]
   },
@@ -50,10 +68,14 @@ const aboutMeData = {
     ],
     content: [
       { header: "Header One",
-        paragraph: "This is the first paragraph."
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
       },
       { header: "Header Two",
-        paragraph: "This is the second paragraph."
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
       }
     ]
   },
@@ -67,10 +89,14 @@ const aboutMeData = {
     ],
     content: [
       { header: "Header One",
-        paragraph: "This is the first paragraph."
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
       },
       { header: "Header Two",
-        paragraph: "This is the second paragraph."
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
       }
     ]
   },
@@ -92,7 +118,14 @@ const aboutMeData = {
     ],
     content: [
       { header: "Header One",
-        paragraph: "This is the first paragraph."
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
+      },
+      { header: "Header Two",
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
       }
     ]
   },
@@ -106,10 +139,14 @@ const aboutMeData = {
     ],
     content: [
       { header: "Header One",
-        paragraph: "This is the first paragraph."
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
       },
       { header: "Header Two",
-        paragraph: "This is the second paragraph."
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
       }
     ]
   } 

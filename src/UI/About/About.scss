@@ -24,9 +24,14 @@
 }
 
 .section-paragraph{
-    margin-top: 8px;
-    margin-bottom: 8px;
+    font-size: .8em;
+    margin: 8px 0;
     color: white;
+    white-space: pre-wrap; 
+    tab-size: 2;
+    &.accent-first-line::first-line {
+        color: #ffcf33;        // highlight hue – change or override per paragraph
+    } 
 }
 
 @media (max-width: 1415px) {

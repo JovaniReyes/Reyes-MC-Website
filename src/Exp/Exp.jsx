@@ -173,7 +173,6 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     }
     scrollRef.current = newProgress;
     const newFov = getSegmentedFov(newProgress);
-    console.log(newProgress.toFixed(4));
     if(camera.current.fov !== newFov){
       camera.current.fov = newFov;
       camera.current.updateProjectionMatrix();
