@@ -164,7 +164,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     if(!camera) return;
     //Pulse of photos
     //setPulseIntensity((Math.sin(state.clock.elapsedTime * 3) + 1) / 2);
-    pulseRef.current = (Math.sin(state.clock.elapsedTime * 3) + 1) / 2;
+    pulseRef.current = (Math.sin(state.clock.elapsedTime * 6) + 1) / 2;
     //Progress Interpolation
     let newProgress = THREE.MathUtils.lerp(scrollRef.current, targetScrollProgress.current, lerpFactor);
     if(newProgress >= .9999 || newProgress < 0){

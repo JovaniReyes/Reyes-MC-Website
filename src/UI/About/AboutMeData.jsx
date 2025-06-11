@@ -17,38 +17,48 @@ const aboutMeData = {
       {
         header: "Introduction",
         paragraphs: [
-          {text: "Thank you for taking the time to tour my website! This project has been in development for over 5 months with over +400 hours put into the creation. If you find any bugs while looking around, reach out to me through email: Jovani.reyes.contact@gmail.com and I'll list your name under the citations section!", highlight: false},
+          {text: "Welcome, and thanks for stopping by! Over the last five months I've invested more than 400 hours into crafting this portfolio, and I'm thankful for you taking the time to explore it. If you run into any bugs or have any suggestions, please let me know at Jovani.Reyes.Contact@gmail.com—I'll happily add your name to the credits.", highlight: false},
         ]
       },
       {
         header: "Interactables",
         paragraphs: [
-          {text: "Throughout the home are photos of myself and others that are a part of my life as well as other projects I have made. Photos that are interactable have a glowing pulse when approached.", highlight: false},
+          {text: "Throughout the homepage you'll see photos of me, the people who are close to me, and snapshots of other projects I've built. Images that can be clicked emit a pulsing glow when nearby, so feel free to poke around and discover the hidden details.", highlight: false},
         ]
       },
       {
         header: "Under The Hood",
         paragraphs: [
-          {text: "The code for this website is built on Javascript XML (JSX) for writing the HTML code directly within Javascript and styled with SCSS for creating variables in stylesheets for reusable CSS code. The scene is entirely made of GLB files which contain the 3D objects and their textures which are manipulated in JSX.", highlight: false},
+          {text: "The site is built with JSX (JavaScript XML), for embeddingHTML directly in JavaScript, and styled with SCSS for reusable, variable-driven CSS. Every object you see in the 3-D scene comes from a GLB file containing its geometry and textures, all manipulated through ThreeJS.\n\n\nEnjoy your visit!\n\n-Jovani Reyes", highlight: false},
         ]
       }
     ]
   },
 
   'P2.0': {
-    name: "My Values & Character",
+    name: "My Character",
     mainImg: "./images/AboutMePhotos/P2_0.webp",
     miniImgs: [
       "./images/AboutMePhotos/P2_1.webp",
       "./images/AboutMePhotos/P2_2.webp"
     ],
     content: [
-      { header: "Header One",
+      { header: "Core Values",
         paragraphs: [
           {text: "First", highlight: false},
         ]
       },
-      { header: "Header Two",
+      { header: "Work Ethic",
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
+      },
+      { header: "Interpersonal Style",
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
+      },
+      { header: "Creative Identity",
         paragraphs: [
           {text: "First", highlight: false},
         ]
@@ -67,16 +77,36 @@ const aboutMeData = {
       "./images/AboutMePhotos/P3_5.webp"
     ],
     content: [
-      { header: "Header One",
+      { header: "Growing Up",
         paragraphs: [
           {text: "First", highlight: false},
         ]
       },
-      { header: "Header Two",
+      { header: "Early Influences",
         paragraphs: [
           {text: "First", highlight: false},
         ]
-      }
+      },
+      { header: "Academic Path",
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
+      },
+      { header: "Breakthrough",
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
+      },
+      { header: "Aspirations",
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
+      },
+      { header: "Development",
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
+      },
     ]
   },
 
@@ -88,16 +118,31 @@ const aboutMeData = {
       "./images/AboutMePhotos/P4_2.webp"
     ],
     content: [
-      { header: "Header One",
+      { header: "Creative Outlets",
         paragraphs: [
           {text: "First", highlight: false},
         ]
       },
-      { header: "Header Two",
+      { header: "Retired Gamer",
         paragraphs: [
           {text: "First", highlight: false},
         ]
-      }
+      },
+      { header: "Fitness",
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
+      },
+      { header: "What I learn for fun",
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
+      },
+      { header: "Unusual Interest",
+        paragraphs: [
+          {text: "First", highlight: false},
+        ]
+      },
     ]
   },
 
@@ -117,12 +162,12 @@ const aboutMeData = {
       "./images/AboutMePhotos/P5_10.webp"
     ],
     content: [
-      { header: "Header One",
+      { header: "Furry Friends In My Life",
         paragraphs: [
           {text: "First", highlight: false},
         ]
       },
-      { header: "Header Two",
+      { header: "What I've Learned From Them",
         paragraphs: [
           {text: "First", highlight: false},
         ]

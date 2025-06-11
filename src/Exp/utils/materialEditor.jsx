@@ -85,7 +85,6 @@ const setPhotos = (materials) =>{
     Object.entries(uniqueMaterials).forEach(([name, ids]) => {
         const original = materials[name];
         if(materials[name] == null){
-            //console.log("No material name found for: "+name);
             return;
         }
         ids.forEach(id => {
@@ -125,7 +124,7 @@ const setComputer = (materials) => {
 };
 
 export const getMaterial = ({...props}) => {
-    const { progressRange, materialSet, pulseIntensity, hoveredMesh, progress, elementID } = props;
+    const { progressRange, materialSet, pulseIntensity, hoveredMesh, progress, elementID, color } = props;
     const materials = materialSet[elementID];
     const [min, max] = progressRange;
     
@@ -139,11 +138,15 @@ export const getMaterial = ({...props}) => {
         return materials.hover;
     }
     else if (progress >= min && progress <= max) {
-      const pulseColor =  1 + pulseIntensity * 5;
+      const pulseColor =  1 + pulseIntensity * 2;
+      const blue = (color === "Blue") ? 24 : 0;
+      const green = (color === "Green") ? 6 : 0;
       //materials.pulse.color.setRGB(30, 77, 43);
      
       //materials.pulse.color.set(pulseColor);
-       materials.pulse.color.setRGB(pulseColor, pulseColor, pulseColor);
+       materials.pulse.color.setRGB(pulseColor, pulseColor+green, pulseColor+blue);
+      
+
       return materials.pulse;
     }
     return materials.base;
