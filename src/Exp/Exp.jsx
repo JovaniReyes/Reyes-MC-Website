@@ -11,12 +11,37 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { DebugCurve, CameraHelper } from './utils/DebugTools';
 import { Environment, PerspectiveCamera } from "@react-three/drei";
 import React, { Suspense, useEffect, useRef, useState, useMemo, useCallback} from 'react';
+//G2: 0.2545, 0.2555
+//G3: 0.4135, 0.4150
+//G4: 0.5210, 0.5220
+//G5: 0.5310, 0.5320
+//G6: 0.5500, 0.5510
+const FOV_ZIN = 60;
+const FOV_ZOUT = 70;
+const FOV_WINDOWS = [
+  [0.2370, 0.2380],
+  [0.2540, 0.2560],
+  [0.4145, 0.4165],
+  [0.5230, 0.5260],
+  [0.5330, 0.5360],
+  [0.5500, 0.5520],
+];
+const getSegmentedFov = (prog) => {
+  for (let i = 0; i < FOV_WINDOWS.length; i++) {
+    const [start, end] = FOV_WINDOWS[i];
+    if (prog >= start && prog <= end) {
+      const t     = (prog - start) / (end - start); // 0‒1 in window
+      const ease  = Math.abs(2 * t - 1);            // 1→0→1 tri-ease
+      return THREE.MathUtils.lerp(FOV_ZIN, FOV_ZOUT, ease);
+    }
+  }
+  return FOV_ZOUT; // not inside any window
+};
 
 const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerpFactor, mouseOffset, setFieldOfView, }) => {
   //const [pulseIntensity, setPulseIntensity] = useState(0);
-  const pulseRef = useRef(0);
-  let fov = 70;
   const prevScrollProgress = useRef(0);
+  const pulseRef = useRef(0);
   const posPoints = useMemo( () => new THREE.CatmullRomCurve3([
     //                  X      Z       Y
     new THREE.Vector3(-38.0, 17.30, -17.0),  //1st step
@@ -68,7 +93,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     {prog: 0.188, rot: new THREE.Euler(-2.063, -1.394, -2.100)},
 
     {prog: 0.219, rot: new THREE.Euler(-1.355, -1.529, -1.353)},
-    {prog: 0.235, rot: new THREE.Euler(-2.975, -0.04, -3.151)},//
+    {prog: 0.235, rot: new THREE.Euler(-3.10, -0.1, -3.125)},//
     {prog: 0.255, rot: new THREE.Euler( 0.000, -1.000,  0.000)},
     {prog: 0.270, rot: new THREE.Euler( 0.000,  0.50,  0.000)},
 
@@ -83,7 +108,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
 
     {prog: 0.500, rot: new THREE.Euler(-3.135,  0.835,  3.139)},
     {prog: 0.534, rot: new THREE.Euler(-3.335, -0.200,  3.139)},
-    {prog: 0.552, rot: new THREE.Euler( 2.924, -0.007, -3.140)},
+    {prog: 0.552, rot: new THREE.Euler( 3.00, -0.400, -3.180)},
     {prog: 0.564, rot: new THREE.Euler( 0.500,  1.500, -.5000)},
     {prog: 0.575, rot: new THREE.Euler(-0.500, -0.168,  0.000)},
     {prog: 0.594, rot: new THREE.Euler(-0.535,  0.168,  0.099)},
@@ -135,18 +160,6 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     return lerpedR.copy(rotPoints.at(-1).rot);
   },[rotPoints, startQ, endQ, lerpedR]);
 
-  const getLerpedZoom = useCallback((prog, steps) => {
-    for (let i = 0; i < steps; i++){
-      const start = i;
-      const end = i+1;
-      if(prog >= start && prog <= end){
-        const lerpZ = (prog - start) / (end - start);
-        
-      }
-    }
-  });
-
-
   useFrame((state) => {
     if(!camera) return;
     //Pulse of photos
@@ -157,21 +170,15 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     if(newProgress >= .9999 || newProgress < 0){
       targetScrollProgress.current = 0;
       newProgress = 0;
-    } 
-    if(newProgress > 0.2374 && newProgress < .2386){
-      if(fov == 70){
-        fov = 60;
-        setFieldOfView(60);
-      
-      }
-    } else {
-      if (fov == 60){
-        fov = 70;
-        setFieldOfView(70);
-      
-      }
     }
     scrollRef.current = newProgress;
+    const newFov = getSegmentedFov(newProgress);
+    console.log(newProgress.toFixed(4));
+    if(camera.current.fov !== newFov){
+      camera.current.fov = newFov;
+      camera.current.updateProjectionMatrix();
+      setFieldOfView(newFov);
+    }
     //Refresh React UI at most 5 times a second
     if(state.clock.elapsedTime - prevScrollProgress.current > 0.05){//Change .2 to lower value for higher fps
       prevScrollProgress.current = state.clock.elapsedTime;
@@ -216,7 +223,7 @@ const Exp = () => {
   const scrollRef = useRef(0);
   const controls = useRef();
   const camera = useRef();
-  const scrollSpeed = 0.0020;//0.0010 good for touch
+  const scrollSpeed = 0.002;//0.0010 good for touch
   const lerpFactor = 0.08;
   const mouseMultiplier = 0.17;
   const touchMultiplier = 0.25;

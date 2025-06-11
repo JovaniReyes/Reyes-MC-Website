@@ -4,7 +4,7 @@ import "../../Styles/miniModals.scss";
 
 /* ——— tweakables ——— */
 const MAX_SIZE = 300;           // largest card edge
-const MIN_SIZE = 175;           // smallest card edge
+const MIN_SIZE = 150;           // smallest card edge
 const BREAK    = 1415;          // desktop / mobile switch
 const GAP_DESK = 30;            // gap ≥ BREAK
 const GAP_MOB  = 2;            // gap <  BREAK
