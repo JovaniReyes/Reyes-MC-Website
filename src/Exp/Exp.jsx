@@ -16,15 +16,15 @@ import React, { Suspense, useEffect, useRef, useState, useMemo, useCallback} fro
 //G4: 0.5210, 0.5220
 //G5: 0.5310, 0.5320
 //G6: 0.5500, 0.5510
-const FOV_ZIN = 60;
+const FOV_ZIN = 63;
 const FOV_ZOUT = 70;
 const FOV_WINDOWS = [
-  [0.2370, 0.2380],
+  [0.2370, 0.2385],
   [0.2540, 0.2560],
-  [0.4145, 0.4165],
-  [0.5230, 0.5260],
-  [0.5330, 0.5360],
-  [0.5500, 0.5520],
+  [0.4180, 0.4200],
+  [0.5135, 0.5165],
+  [0.5260, 0.5290],
+  [0.5450, 0.5480],
 ];
 const getSegmentedFov = (prog) => {
   for (let i = 0; i < FOV_WINDOWS.length; i++) {
@@ -58,20 +58,20 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     new THREE.Vector3( 7.00, 18.35,  4.00),           //By Couch
     new THREE.Vector3( 2.25, 18.35,  2.35),            //On Couch
     new THREE.Vector3( 5.25, 18.35,  2.00),             //Looking at staircase
-    new THREE.Vector3( 9.00, 19.50,  1.75),              //Bottom of Staircase
-    new THREE.Vector3( 9.50, 23.50,  7.25),               //Top Of staircase
-    new THREE.Vector3( 7.5, 23.50,  8.50),                //Looking into bedroom
-    new THREE.Vector3( 7.00, 23.50,  10.5),                 //Looking at desk paintings
+    new THREE.Vector3( 8.50, 19.50,  1.75),              //Bottom of Staircase
+    new THREE.Vector3( 9.00, 23.5,  7.25),               //Top Of staircase
+    new THREE.Vector3( 6.5, 23.5,  8.50),                //Looking into bedroom
+    new THREE.Vector3( 7.75, 23.5,  10.5),                 //Looking at desk paintings
 
     new THREE.Vector3( 9.00, 23.50,  11.25),                 //Heading Back to staircase
-    new THREE.Vector3( 9.50, 23.00,  6.50),                //Top Of staircase
+    new THREE.Vector3( 9.50, 23.00,  6.00),                //Top Of staircase
     new THREE.Vector3( 9.00, 19.00,  1.75),               //Bottom of Staircase
-    new THREE.Vector3( 6.65, 18.45,  2.00),              //Looking at staircase
-    new THREE.Vector3( 7.50, 18.45,  8.00),             //Looking into living room
-    new THREE.Vector3( 6.50, 18.45,  11.0),            //Infront of Kitchen
-    new THREE.Vector3( 2.00, 18.45,  11.1),           //First Step inside (Door Opens)
-    new THREE.Vector3(-3.00, 18.45,  11.1),          //Infront Of door 
-    new THREE.Vector3(-3.00, 18.45,  5.00),         //Outside of door (Door Closes)
+    new THREE.Vector3( 6.65, 18.35,  2.00),              //Looking at staircase
+    new THREE.Vector3( 7.50, 18.35,  8.00),             //Looking into living room
+    new THREE.Vector3( 6.50, 18.35,  11.0),            //Infront of Kitchen
+    new THREE.Vector3( 2.00, 18.35,  11.1),           //First Step inside (Door Opens)
+    new THREE.Vector3(-3.00, 18.35,  11.1),          //Infront Of door 
+    new THREE.Vector3(-3.00, 18.35,  5.00),         //Outside of door (Door Closes)
 
     new THREE.Vector3(-5.50, 18.00,  4.00),       //5th step
     new THREE.Vector3(-12.0, 17.30,  1.00),      //4th step
@@ -102,15 +102,15 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     {prog: 0.395, rot: new THREE.Euler(-2.997,  0.108,  3.126)},
 
     {prog: 0.415, rot: new THREE.Euler( 2.164, -1.318,  2.179)},
-    {prog: 0.430, rot: new THREE.Euler(-3.534, -0.322,  3.123)},
+    {prog: 0.430, rot: new THREE.Euler(-3.950, -1.322,  2.400)},
     {prog: 0.469, rot: new THREE.Euler(-3.083,  0.322,  3.123)},
-    {prog: 0.475, rot: new THREE.Euler(-3.083,  0.322,  3.123)},
+    {prog: 0.475, rot: new THREE.Euler(-3.083,  0.522,  3.123)},
 
-    {prog: 0.500, rot: new THREE.Euler(-3.135,  0.835,  3.139)},
+    {prog: 0.500, rot: new THREE.Euler(-3.135,  0.635,  3.139)},
     {prog: 0.534, rot: new THREE.Euler(-3.335, -0.200,  3.139)},
     {prog: 0.552, rot: new THREE.Euler( 3.00, -0.400, -3.180)},
     {prog: 0.564, rot: new THREE.Euler( 0.500,  1.500, -.5000)},
-    {prog: 0.575, rot: new THREE.Euler(-0.500, -0.168,  0.000)},
+    {prog: 0.575, rot: new THREE.Euler(-0.500, 0.000,  -0.050)},
     {prog: 0.594, rot: new THREE.Euler(-0.535,  0.168,  0.099)},
 
     {prog: 0.605, rot: new THREE.Euler(-0.500,  1.000,  0.000)},
@@ -164,13 +164,14 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     if(!camera) return;
     //Pulse of photos
     //setPulseIntensity((Math.sin(state.clock.elapsedTime * 3) + 1) / 2);
-    pulseRef.current = (Math.sin(state.clock.elapsedTime * 6) + 1) / 2;
+    pulseRef.current = (Math.sin(state.clock.elapsedTime * 4) + 1.2) / 2;
     //Progress Interpolation
     let newProgress = THREE.MathUtils.lerp(scrollRef.current, targetScrollProgress.current, lerpFactor);
     if(newProgress >= .9999 || newProgress < 0){
       targetScrollProgress.current = 0;
       newProgress = 0;
     }
+    console.log(newProgress.toFixed(4));
     scrollRef.current = newProgress;
     const newFov = getSegmentedFov(newProgress);
     if(camera.current.fov !== newFov){
@@ -179,7 +180,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
       setFieldOfView(newFov);
     }
     //Refresh React UI at most 5 times a second
-    if(state.clock.elapsedTime - prevScrollProgress.current > 0.05){//Change .2 to lower value for higher fps
+    if(state.clock.elapsedTime - prevScrollProgress.current > .05){//Change .2 to lower value for higher fps
       prevScrollProgress.current = state.clock.elapsedTime;
       setScrollProgress?.(scrollRef.current);//Triggers Light Render
     }

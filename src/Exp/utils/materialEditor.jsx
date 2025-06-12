@@ -132,7 +132,6 @@ export const getMaterial = ({...props}) => {
     const pulseHexColor = "#1e4d2b"
 
     if (!materials) {
-        //console.warn(`No material found for elementID ${elementID}, using fallback.`);
         return new THREE.MeshBasicMaterial({ color: 0xff00ff });
     } else if (hoveredMesh === elementID) {
         return materials.hover;
