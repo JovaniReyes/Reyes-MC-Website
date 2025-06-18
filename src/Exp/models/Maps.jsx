@@ -20,7 +20,7 @@ const WAYPOINTS_DOWN = [
   new THREE.Vector3(-0.09, -0.189, -0.29),
   new THREE.Vector3(-0.013, -0.139, -0.335),
   new THREE.Vector3( 0.102, -0.077, -0.41),
-  new THREE.Vector3( 0.1, -0.016, -0.471),
+  new THREE.Vector3( 0.095,  -.002, -0.46),
   new THREE.Vector3( -.02, -0.03, -0.455),
   new THREE.Vector3( -.05,  0.008, -0.48),
 ]

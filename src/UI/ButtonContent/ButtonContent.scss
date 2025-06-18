@@ -7,21 +7,21 @@
 /* 1️⃣ Button size & gap */
 $btn-size-desktop : 75px;   // ≥1024 px
 $btn-size-tablet  : 70px;   // 768-1023 px
-$btn-size-mobile  : 50px;   // <768 px
+$btn-size-mobile  : 40px;   // <768 px
 
 $gap-desktop : 22.5px;
 $gap-tablet  : 40px;
 $gap-mobile  : 35px;
 
 /* 2️⃣ Per-button icon sizes (desktop ↔︎ mobile) */
-$icon-audio-d : 40px;  $icon-audio-m : 32px;
-$icon-code-d  : 50px;  $icon-code-m  : 35px;
-$icon-cite-d  : 55px;  $icon-cite-m  : 40px;
-$icon-map-d   : 60px;  $icon-map-m   : 55px;
+$icon-audio-d : 40px;  $icon-audio-m : 25px;
+$icon-code-d  : 50px;  $icon-code-m  : 25px;
+$icon-cite-d  : 55px;  $icon-cite-m  : 30px;
+$icon-map-d   : 60px;  $icon-map-m   : 45px;
 
 /* 3️⃣ Cluster offsets from top edge */
 $cluster-top-desktop : 24px;
-$cluster-top-mobile  :  4px;
+$cluster-top-mobile  :  5px;
 
 /* 4️⃣ Break-points */
 $bp-tablet : 1023px;
