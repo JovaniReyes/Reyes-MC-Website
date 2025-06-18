@@ -3,19 +3,21 @@ import "./LoadingScreen.scss";
 import { useProgress } from '@react-three/drei';
 import Button from '../Button/Button';
 import { useAudioStore } from '../../Exp/stores/audioStore';
-import { music } from '../AudioToggle/AudioToggle';
 import { playSound } from '../../Utils/buttonSound';
+import { useGLTF } from '@react-three/drei';
 
+
+useGLTF.preload('/GLBs/FX/TET-transformed.glb');
+useGLTF.preload('/GLBs/Maps/MapsT-v1.glb');
 export default function LoadingScreen() {
-
     const {progress}= useProgress();
-    const {setIsAudioEnabled} = useAudioStore();
+    const {setIsAudioEnabled, playMusic} = useAudioStore();
     const [isRevealed, setIsRevealed] = useState(false);
     const [isAnimationFinished, setIsAnimationFinished] = useState(false);
     const [displayProg, setDisplayProg] = useState(0);
 
     const handleReveal = () => {
-        music.play();
+        playMusic();
         setIsAudioEnabled(true);
         setIsRevealed(true);
         playSound();

@@ -1,48 +1,120 @@
-@use "../../Styles/variables.scss" as styles;
+/* ToggleButtons.scss  ─ merged styles */
+@use "../../index.scss"          as styles;
+@use "../../Styles/variables.scss" as vars;
+/* ------------------------------------------------------------------
+   CONFIG – tweak these four sections only
+-------------------------------------------------------------------*/
+/* 1️⃣ Button size & gap */
+$btn-size-desktop : 75px;   // ≥1024 px
+$btn-size-tablet  : 70px;   // 768-1023 px
+$btn-size-mobile  : 50px;   // <768 px
 
-.content-container{
-    padding: 12px;
-}
-.content-section{
-    padding: 12px;
+$gap-desktop : 22.5px;
+$gap-tablet  : 40px;
+$gap-mobile  : 35px;
 
-}
-.image-wrapper{
-    width: 100%;
-    height: 400px;
-    overflow: hidden;
-}
-.content-image{
-    width: 100%;
-    height: 100%;
-    object-fit: scale-down;
-}
-.section-header{
-    padding: 8px;
-   
-    color: white;
-    background-color: styles.$color-base-darker-gray-two;
+/* 2️⃣ Per-button icon sizes (desktop ↔︎ mobile) */
+$icon-audio-d : 40px;  $icon-audio-m : 32px;
+$icon-code-d  : 50px;  $icon-code-m  : 35px;
+$icon-cite-d  : 55px;  $icon-cite-m  : 40px;
+$icon-map-d   : 60px;  $icon-map-m   : 55px;
+
+/* 3️⃣ Cluster offsets from top edge */
+$cluster-top-desktop : 24px;
+$cluster-top-mobile  :  4px;
+
+/* 4️⃣ Break-points */
+$bp-tablet : 1023px;
+$bp-mobile : 767px;
+
+/* ------------------------------------------------------------------
+   BASE button visuals (unchanged colours, + overflow safety)
+-------------------------------------------------------------------*/
+.toggle-button {
+  color: styles.$color-base-dark-gray;
+  background: linear-gradient(135deg, #d1d0d0 0%, #585757 100%);
+  border: 1.5px solid styles.$color-base-darker-gray-four;
+  box-shadow: inset 2px 2px #ffffff, inset -3px -3px #3c3c3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  overflow: hidden;          /* ← hides icon leaks */
+  z-index: 125;
+  cursor: pointer;
+
+  &:hover {
+    background: linear-gradient(135deg, #3ebd24 0%, #0f5804 100%);
+    border-color: #fff;
+    color: #fff;
+    box-shadow: inset 1px 1px #53d95af1, inset -2px -2px #0a550e;
+  }
 }
 
-.section-paragraph{
-    font-size: .825em;
-    margin: 8px 0;
-    color: white;
-    white-space: pre-wrap;
-    tab-size: 2;
-    line-height: 1.25em;
+/* ------------------------------------------------------------------
+   DESKTOP  (≥1024 px)
+-------------------------------------------------------------------*/
+.toggle-button {
+  width:  $btn-size-desktop;
+  height: $btn-size-desktop;
+  top:    $cluster-top-desktop;
 
-    &.accent-first-line::first-line {
-        color: #ffcf33
-    }
-
+  &.audio-position { right: $gap-desktop; }
+  &.code-position  { right: calc($gap-desktop + $btn-size-desktop + $gap-desktop); }
+  &.cite-position  { right: calc($gap-desktop + ($btn-size-desktop + $gap-desktop) * 2); }
+  &.map-position   { right: calc($gap-desktop + ($btn-size-desktop + $gap-desktop) * 3); }
 }
 
-@media (max-width: 1415px) {
-    .section-paragraph{
-        font-size: .7em;
-    }
-    .section-header{
-        font-size: .75em;
-    }
+/* desktop icon sizes */
+.audio-position .button-img { width:$icon-audio-d; height:$icon-audio-d }
+.code-position  .button-img { width:$icon-code-d;  height:$icon-code-d  * .7; }
+.cite-position  .button-img { width:$icon-cite-d;  height:$icon-cite-d  * .7; }
+.map-position   .button-img { width:$icon-map-d;   height:$icon-map-d }
+
+/* ------------------------------------------------------------------
+   TABLET  (768-1023 px) — shrink but keep right-aligned cluster
+-------------------------------------------------------------------*/
+@media (max-width: $bp-tablet) {
+  .toggle-button {
+    width:  $btn-size-tablet;
+    height: $btn-size-tablet;
+    top:    $cluster-top-desktop;
+  }
+
+  .audio-position { right: $gap-tablet; }
+  .code-position  { right: calc($gap-tablet + $btn-size-tablet + $gap-tablet); }
+  .cite-position  { right: calc($gap-tablet + ($btn-size-tablet + $gap-tablet) * 2); }
+  .map-position   { right: calc($gap-tablet + ($btn-size-tablet + $gap-tablet) * 3); }
+
+  .button-img { width: 70%; height:50%; } /* quick scale-down */
+}
+
+/* ------------------------------------------------------------------
+   MOBILE (<768 px) — centred cluster
+-------------------------------------------------------------------*/
+@media (max-width: $bp-mobile) {
+  /* helper vars */
+  $cluster-btns   : 4;
+  $cluster-w      : ($btn-size-mobile * $cluster-btns) +
+                    ($gap-mobile     * ($cluster-btns - 1));
+  $base-left      : calc(50% - #{calc($cluster-w / 2)});
+
+  .toggle-button {
+    width:  $btn-size-mobile;
+    height: $btn-size-mobile;
+    top:    $cluster-top-mobile;
+    left:   auto;  /* reset right-aligned layout */
+    right:  auto;
+  }
+
+  .audio-position { left: calc($base-left + ($btn-size-mobile + $gap-mobile) * 3); }
+  .code-position  { left: calc($base-left + ($btn-size-mobile + $gap-mobile) * 2); }
+  .cite-position  { left: calc($base-left + ($btn-size-mobile + $gap-mobile) * 1); }
+  .map-position   { left: $base-left }
+
+  /* mobile-specific icon sizes */
+  .audio-position .button-img { width:$icon-audio-m; height:$icon-audio-m * .7; }
+  .code-position  .button-img { width:$icon-code-m;  height:$icon-code-m  * .7; }
+  .cite-position  .button-img { width:$icon-cite-m;  height:$icon-cite-m  * .7; }
+  .map-position   .button-img { width:$icon-map-m;   height:$icon-map-m   * .7; }
 }

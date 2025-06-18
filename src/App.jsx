@@ -1,9 +1,6 @@
 
 import './App.scss'
 import Exp from './Exp/Exp';
-import AudioToggle from './UI/AudioToggle/AudioToggle';
-import CodeToggle from './UI/CodeToggle/CodeToggle';
-import CitationToggle from './UI/CitationToggle/CitationsToggle';
 import LoadingScreen from './UI/LoadingScreen/LoadingScreen';
 import Modal from './UI/Modal/Modal';
 import MiniModalsManager from "./UI/Modal/miniModal";
@@ -12,6 +9,7 @@ import { useEffect } from 'react';
 import aboutMeData from './UI/About/AboutMeData';
 import projectData from './UI/Project/ProjectData';
 import { preloadImgs } from './Exp/utils/preloadImages';
+import { CitationToggle, CodeToggle, AudioToggle, MapToggle} from './UI/ButtonContent/ButtonContent';
 
 function App() {
  //For preloading images
@@ -27,6 +25,7 @@ function App() {
     <AudioToggle/>
     <CodeToggle/>
     <CitationToggle/>
+    <MapToggle/>
     <Modal>
       <Project></Project>
     </Modal>

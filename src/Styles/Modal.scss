@@ -12,7 +12,6 @@
     100%{opacity: 1; transform: translate(-50%, 200%) scale(1);}
 }
 
-
 .overlay{
     height: 100%;
     width: 100%;
@@ -20,7 +19,7 @@
     top: 0;
     left: 0;
     z-index: 100;
-    background-color: styles.$color-base-overlay-gray;
+    //background-color: styles.$color-base-overlay-gray;
 }
 
 .modal{
@@ -113,6 +112,20 @@
         box-shadow: inset 0px 2px #ffffffc0, inset 0px 2px #323232;
     }
 }
+.teleport {
+  position: fixed;
+  inset: 0;
+  background: rgba(153, 113, 255, 0.642); /* purple & see-through */
+  z-index: 150;
+  pointer-events: none;
+
+  &.begin { animation: fadeFlash 0.5s ease both; }
+  &.end  { animation: fadeFlash 0.5s ease both; }
+}
+@keyframes fadeFlash {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
 
 
 @media (min-width: 1415px) {          /* ≥ 1415 px ⇒ square modal   */
@@ -142,4 +155,215 @@
         position: absolute;
         left: 86%;
     }
+}
+
+
+/* ───────────────── shared vars ───────────────── */
+$stroke-dark: styles.$color-base-darker-gray-four;
+$bg-stone-1:  rgba(styles.$color-base-gray, 0.55);
+$bg-stone-2:  rgba(styles.$color-base-gray, 0.75);
+$bg-green-1:  #62f544;
+$bg-green-2:  #275f13;
+
+/* ───────────────── edge arrows ───────────────── */
+.edge-btn {
+  position: fixed;
+  top: 33vh;                 /* thumb-height, centred vertically */
+  transform: translateY(-50%);
+  opacity: .6;
+  font-size: 5.5rem;         /* big glyph */
+  line-height: 1;
+  color: #fff;
+  background: none;
+  border: none;
+  width: 100px;               /* invisible hit-box for accessibility */
+  height: 110px;
+  cursor: pointer;
+  z-index: 1000;
+  -webkit-tap-highlight-color: transparent;
+
+  &.left-arrow  { left: -10px; }
+  &.right-arrow { right: -25px; }
+
+  &:hover,
+  &:focus-visible {
+    color: grey;
+  }
+}
+
+/* ───────────────── floating cluster ───────────────── */
+.mobile-controls {
+  position: fixed;
+  right: 2%;
+  bottom: calc(14px + env(safe-area-inset-bottom)); /* stay above iOS bar */
+  display: flex;
+  flex-direction: row;  /* floor toggle sits *above* the FAB */
+  align-items: center;
+  gap: 40px;
+  z-index: 1000;
+}
+
+/* base pill style reused by both buttons */
+.control-btn {
+  width: 68px;
+  height: 68px;
+  border-radius: 12px;
+  font-size: 2.2rem;
+  color: #171717;
+  background: $bg-stone-1;
+  border: 2px solid $stroke-dark;
+  box-shadow: inset 2px 2px #ffffff90, inset -2px -2px #32323290;
+  cursor: pointer;
+  transition: background 120ms ease, transform 80ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background: linear-gradient(135deg, $bg-green-1 0%, $bg-green-2 100%);
+    color: #fff;
+    outline: none;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+/* larger “GO” FAB */
+.fab {
+  width: 84px;
+  height: 84px;
+  .teleport-btn-img {
+    display: block;            /* remove inline-img whitespace */
+    width: 100%;                /* desktop default */
+    height: 100%;
+    object-fit: contain;       /* shrink-to-fit, keep aspect */
+    pointer-events: none;      /* avoid accidental drags */
+  }
+}
+
+/* slightly smaller floor toggle */
+.floor-toggle {
+   width: 84px;
+  height: 84px;
+  font-size: 1.6rem;
+}
+
+
+
+/* Desktop dropdown ------------------------------------------------------*/
+$gray-base:          #e6e6e6;
+$gray-border:        #4f4f4f;
+$green-hover:        #00bb6e;        // parent - hover /
+// -------------  layout container -------------
+.desktop-controls {
+  position: fixed;
+  top: 24px;                // same offset you already had
+  left: 50%;                // centre horizontally
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;            // keeps future siblings easy to align
+  justify-content: center;
+}
+
+// -------------  clickable parent -------------
+.desktop-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 2px solid styles.$color-base-darker-gray-four;
+  box-shadow: inset 2px 2px #ffffffc0, inset -2px -2px #323232c0;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  // colour cue on hover *or* when open
+  &:not(:hover) {
+    background: linear-gradient(135deg, #E8E8E8 0%, #686868 100%);
+  }
+  &:hover {
+    border: 2px solid white;
+    background-color: styles.$color-base-green;
+    box-shadow: inset 2px 2px #53d95ac0, inset -2px -2px #118316c0;
+   >span{
+    color: white;
+   }
+
+  }
+   &.open{
+    border-radius: 6px 6px 0px 0px;
+   }
+    &.open:not(:hover){
+      background: linear-gradient(135deg, #fffdfd61 0%, #fffcfc86 50%);
+    }
+}
+
+// -------------  dropdown menu -------------
+.desktop-dropdown-content {
+  /* position directly under the parent, centred */
+  position: absolute;
+  top: calc(100%);
+  left: 50%;
+  transform: translateX(-50%);
+
+  /* sizing: double the clickable width (200%) and a safety min-width */
+  width: 450%;
+  min-width: 200px;
+
+  /* visuals */
+  padding: 8px 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #e8e8e8a2 0%, #959494b1 100%);
+  border: 2px solid styles.$color-base-darker-gray-four;
+  box-shadow: inset 2px 2px #ffffff83, inset -2px -2px #323232c0;
+
+  text-align: center;
+
+  /* hidden by default */
+  display: none;
+
+  /* React toggles `.show` when open */
+  &.show {
+    display: block;
+  }
+
+  /* ------------- list styling ------------- */
+  ul,
+  .command-list {               /* allow either selector */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      /* two centred columns (command | key) */
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      place-items: center;
+      padding: 6px 0;
+      width: 100%;
+      cursor: pointer;
+      transition: background-color 0.15s ease, color 0.15s ease;
+
+      /* optional: tighter vertical spacing for multi-line commands */
+      .cmd, .key {
+        line-height: 1.2;
+      }
+    }
+  }
+}
+/* -----------------------------------------------------------------------*/
+/*                  Responsive visibility toggles                         */
+/* -----------------------------------------------------------------------*/
+@media (min-width: 1414px) {
+  .mobile-controls, .edge-btn {
+    display: none;
+  }
+}
+
+@media (max-width: 1413.98px) {
+  .desktop-controls {
+    display: none;
+  }
 }

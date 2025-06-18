@@ -13,6 +13,13 @@ export const useModalStore = create((set, get) => ({
   modalContent: null,
   modalType   : "",
   animation   : "",
+  isModalMap  : false,
+  isTeleportModal: false,
+  isMapOpen : false,
+  pendingModal: null,
+
+  openAfterMapCloses:(title, body, id) => set({pendingModal: {title, body, id}}),
+  clearPending: () => set({ pendingModal: null}),
 
   // Opens UI modal 
   openModal: (title, content, type, aboutID ) => {
@@ -61,7 +68,8 @@ export const useModalStore = create((set, get) => ({
 
   //Opens a UI modal if its a new one, removes the old modal if present on the UI
   checkForOpenModal: (title, content, type, aboutID) => {
-    const { isModalOpen, modalTitle, closeModal, openModal } = get();
+    const { isModalOpen, modalTitle, closeModal, openModal, closeMapModal, isMapOpen } = get();
+    if(isMapOpen) closeMapModal();
     if(isModalOpen && modalTitle === title) return;
     else if(isModalOpen){
       closeModal();
@@ -71,7 +79,63 @@ export const useModalStore = create((set, get) => ({
       openModal(title, content, type, aboutID);
     }
   },
+  /* ───── open a *teleport* modal (purple flash) ───── */
+  openTeleportModal : () => {
+    // reject if another modal is already visible
+    const {isModalOpen, closeMapModal, openMapModal} = get();
+    
+    set({
+      isModalOpen : true,
+      isModalMap  : true,
+      isMapOpen : true,
+      animation   : "begin",
+      isTeleportModal : true,
+    });
+    closeMapModal()
+
+    /* auto-close after 1 s */
+    setTimeout(() => {
+      set({ animation:"end", isTeleportModal : false,});
+      set({ isModalOpen:false, isModalMap:false });
+      openMapModal();
+    }, 500);
+},
+
+openMapModal : () => {
+    // reject if another modal is already visible
+    const {isMapOpen, isModalMap, isTeleportModal} = get();
+    if (isMapOpen){
+      return;
+    }
+      set({
+        isModalOpen: true,
+        isModalMap  : true,
+        isMapOpen : true,
+        animation   : "begin",
+      });
+      //console.log("OPENED map modal..")
+    
+    
+},
+closeMapModal : () => {
+    // reject if another modal is already visible
+    const {isMapOpen, closeModal, isTeleportModal} = get();
+    if (!isMapOpen){
+      if(!isTeleportModal) return;
+    }
+    set({
+      isMapOpen : false,
+      isModalOpen: false,
+      isModalMap  : false,
+      animation   : "end",
+    });
+    //console.log("CLOSING map modal..")
+},
+
 
   //Sets animation state
   setAnimation: (anim) => set({ animation: anim }),
 }));
+
+
+

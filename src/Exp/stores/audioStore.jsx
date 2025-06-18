@@ -1,6 +1,12 @@
 import { create } from "zustand";
 
+const music = new Audio("/Sounds/MoogCity2.ogg");
+
 export const useAudioStore = create((set) =>({
     isAudioEnabled: false,
-    setIsAudioEnabled: (state) => set({isAudioEnabled: state})
+    isTeleporting: false,
+    setIsAudioEnabled: (state) => set({isAudioEnabled: state}),
+    setIsTeleporting: (state) => set({isTeleporting: state}),
+    playMusic: () => music.play(),
+    pauseMusic: () => music.pause()
 }));

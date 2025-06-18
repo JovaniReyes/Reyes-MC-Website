@@ -1,11 +1,11 @@
-import React, { useRef, useMemo } from 'react'
+import React, { useRef, useMemo, memo } from 'react'
 import { useGLTFWithKTX2 } from '../utils/useGLTFWithKTX2'
 import { convertMaterialsToMeshBasicMaterial } from '../utils/convertMaterial'
 import { useAudioStore } from '../stores/audioStore'
 
 /** Pre-load your door sounds */
-const doorOpening = new Audio('/Music/DoorOpen.ogg')
-const doorClosing = new Audio('/Music/DoorClose.ogg')
+const doorOpening = new Audio('/Sounds/DoorOpen.ogg')
+const doorClosing = new Audio('/Sounds/DoorClose.ogg')
 doorClosing.volume = 0.25
 doorOpening.volume = 0.25
 
@@ -18,7 +18,7 @@ const doorAnimation = (state, anim, dRT, dRB, dS) => {
 }
 
 
-export default React.memo(function Model({ progress = 0, ...props }) {
+export default memo(function Model({ progress = 0, ...props }) {
   const gltfPaths = [
     '/GLBs/Home/H1T-transformed.glb',
     '/GLBs/Home/H2T-transformed.glb',
@@ -89,8 +89,8 @@ export default React.memo(function Model({ progress = 0, ...props }) {
   const p1Open = progress >= anim.pivotOne && progress < anim.pivotOneEnd;
   const p2Open = progress >= anim.pivotTwo && progress < anim.pivotTwoEnd;
   const p1Close = progress >= anim.pivotOneEnd && progress < anim.pivotTwo;
-  const p2Close = progress >= anim.pivotTwoEnd || progress < anim.pivotOne
- 
+  const p2Close = progress >= anim.pivotTwoEnd || progress < anim.pivotOne;
+  
   // On each render, check "progress" for door open/close
   if ((p1Open || p2Open) && doorState.current === 'closed') {
     doorAnimation("open", anim, doorRefTop, doorRefBottom, doorState);
