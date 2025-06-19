@@ -7,10 +7,12 @@ import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
 /* ---------- constants --------------------------- */
-const MAP_POS = new THREE.Vector3(-0, -0.46, 0)
 const MAP_ROT = new THREE.Euler(Math.PI / 20, Math.PI / 1.0, 0)//y - 0.92
+const MAP_POS = new THREE.Vector3(-0, -0.46, 0)
+
 const PROG_DOWN = [0.01, 0.1363, 0.215, 0.252, 0.3318, 0.416]
 const PROG_UP   = [0.465, 0.7923, 0.01]
+
 const SLIDE_DIST = -2   // metres (-1 ⇒ “below camera”)
 const OPEN_MS  = 100;   // pull-out 
 const CLOSE_MS = 800;   // slide-back 
@@ -63,19 +65,18 @@ export default function Maps ({
   }),[nodes,materials])
 
   /* ---------- refs / state ------------------------------------- */
-  const cardRef  = useRef()
-  const pearlRef = useRef()
-  const floorRef = useRef('down')       // mutable mirror
+  const {openMapModal, closeMapModal, checkForOpenModal} = useModalStore();
+  const targetY  = useRef(visible ? 0 : SLIDE_DIST)
+  const [waypoint, setWaypoint ] = useState(0)
   const [floor, setFloor] = useState('down')
-
-  const [waypoint, setWaypoint ]   = useState(0)
-  const idxRef            = useRef(0)
+  const slideY   = useRef(SLIDE_DIST) // current offset
+  const durMs    = useRef(OPEN_MS)
+  const floorRef = useRef('down') 
+  const cardRef  = useRef()
+  const pearlRef = useRef()    
+  const idxRef = useRef(0) 
 
   /* ---------- slide-in/out state ------------------------------- */
-  const durMs    = useRef(OPEN_MS)
-  const slideY   = useRef(SLIDE_DIST)      // current offset
-  const targetY  = useRef(visible ? 0 : SLIDE_DIST)
-  const {openMapModal, closeMapModal, checkForOpenModal} = useModalStore();
 
   useEffect(() => {
     if(!visible){
@@ -88,6 +89,7 @@ export default function Maps ({
     }
     else openMapModal();
   }, [visible, openMapModal, closeMapModal]);
+
   /* open / close trigger */
   useEffect(()=>{ 
     targetY.current = visible ? 0 : SLIDE_DIST
@@ -98,10 +100,11 @@ export default function Maps ({
   const advance = (dir)=>
     setWaypoint(old=>{
       const len = floorData[floorRef.current].pts.length
-      const n   = (old + dir + len) % len
-      idxRef.current = n
-      return n
+      const nxt = (old + dir + len) % len
+      idxRef.current = nxt
+      return nxt
   });
+
   const handleTeleport = useCallback(() => {
     const {prg} = floorData[floorRef.current];
     onTeleport(prg[idxRef.current]);
@@ -109,12 +112,13 @@ export default function Maps ({
 
   const toggleFloor = () =>
     setFloor(p=>{
-      const newFloor = p==='down'?'up':'down'
+      const newFloor = p === 'down' ? 'up' : 'down'
       floorRef.current = newFloor
       idxRef.current = 0
       setWaypoint(0)
       return newFloor
   });
+
   useEffect(() => {
     useMapControls.getState().registerHandlers({
       advance,
@@ -127,14 +131,13 @@ export default function Maps ({
     const h = e => {
       if(e.key==='d') advance(+1)
       else if(e.key==='a') advance(-1)
-
       else if(e.key==='e'){
         const {prg}=floorData[floorRef.current]
         onTeleport(prg[idxRef.current])
       }
       else if(e.key==='w'){               // toggle floor
         setFloor(p=>{
-          const nxt = p==='down'?'up':'down'
+          const nxt = p === 'down'?'up':'down'
           floorRef.current = nxt
           idxRef.current = 0
           setWaypoint(0)

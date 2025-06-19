@@ -5,13 +5,17 @@ import {playSound} from "../../Utils/buttonSound";
 import {useMiniModalsStore} from "../../Exp/stores/miniModalStore"
 import closeSymbol from '../../images/Buttons/CloseSymbol.svg';
 import teleportSymbol from "../../images/Buttons/EnderPearl.webp"
+import downstairsSymbol from "../../images/Buttons/DownstairsSymbol.webp";
+import upstairsSymbol from "../../images/Buttons/UpstairsSymbol.webp";
 import { useMapControls } from "../../Exp/stores/mapControlsStore";
+
 
 const Modal = () => {
     const {isModalOpen, modalTitle, modalContent, closeModal, animation, modalType, isModalMap, isTeleportModal} = useModalStore();
     const { advance, teleport, toggleFloor } = useMapControls();
     const [isDsktpCmdsOpen, setIsDsktpCmdsOpen] = useState(false);
     const { closeAllMiniModals } = useMiniModalsStore();
+    const [isFirstFloor, setIsFirstFloor] = useState(true)
     const dsktpCmdsRef = useRef(null);
     
     const type = (modalType === "Code" || modalType === "Citation") ? "button " : "";
@@ -39,6 +43,9 @@ const Modal = () => {
         //closeAllMiniModals();
         playSound();
     }
+    function switchFloor(){
+        setIsFirstFloor((prev) => !prev);
+    }
     if (isModalMap) {
         return (
         <>
@@ -52,8 +59,8 @@ const Modal = () => {
 
             {/* floating “GO / teleport” + floor toggle stacked together */}
             <div className="mobile-controls">
-                <button onClick={teleport}              className="control-btn fab"> <img src={teleportSymbol} alt="Teleport" className="teleport-btn-img" /> </button>
-                <button onClick={toggleFloor}           className="control-btn floor-toggle"> ⤒ </button>
+                <button onClick={teleport} className="control-btn fab"> <img src={teleportSymbol} alt="Teleport" className="teleport-btn-img" /> </button>
+                <button onClick={() => {switchFloor(), toggleFloor()}} className="control-btn floor-toggle"> <img src={isFirstFloor ? downstairsSymbol : upstairsSymbol} alt="FloorLevel" className="floor-btn-img"/> </button>
             </div>
 
             {/* ≥1414 px → dropdown */}
@@ -68,9 +75,7 @@ const Modal = () => {
                     <span>Key Binds</span>
                     <div className={`desktop-dropdown-content ${isDsktpCmdsOpen ? "show" : ""}`}>
                         <ul className="command-list">
-                            <li>
-                                <span className="cmd">Toggle Map Floor Level</span><span className="key">W</span>
-                            </li>
+                            <li><span className="cmd">Toggle Map Floor Level</span><span className="key">W</span></li>
                             <li>
                                 <span className="cmd">Previous Waypoint</span><span className="key">A</span>
                             </li>

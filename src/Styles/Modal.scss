@@ -185,9 +185,8 @@ $bg-green-2:  #275f13;
   &.left-arrow  { left: -10px; }
   &.right-arrow { right: -25px; }
 
-  &:hover,
-  &:focus-visible {
-    color: grey;
+  &:active {
+    color: rgb(120, 250, 137);
   }
 }
 
@@ -216,17 +215,10 @@ $bg-green-2:  #275f13;
   cursor: pointer;
   transition: background 120ms ease, transform 80ms ease;
 
-  &:hover,
-  &:focus-visible {
-    background: linear-gradient(135deg, $bg-green-1 0%, $bg-green-2 100%);
-    color: #fff;
-    outline: none;
-    transform: translateY(-2px);
+  &:active {
+    transform: translateY(7px);
   }
 
-  &:active {
-    transform: translateY(1px);
-  }
 }
 
 /* larger “GO” FAB */
@@ -241,13 +233,21 @@ $bg-green-2:  #275f13;
     pointer-events: none;      /* avoid accidental drags */
   }
 }
-
-/* slightly smaller floor toggle */
 .floor-toggle {
-   width: 84px;
+  width: 84px;
   height: 84px;
-  font-size: 1.6rem;
+  position: relative;      /* just in case */
+  overflow: hidden;        /* hide any bleed */
+
+  .floor-btn-img {
+    display: block;        /* kill inline-img whitespace */
+    width: 98%;            /* desktop / default */
+    height: 98%;
+    object-fit: contain;   /* scale without distortion */
+    pointer-events: none;  /* so tap/click hits the button */
+  }
 }
+
 
 
 
