@@ -17,7 +17,7 @@
     width: 100%;
     background-color: styles.$color-base-darker-gray-four;
 
-    transition: transform 1s ease-in-out 0.5s;
+    transition: transform 1s ease .75s;
 } 
 .background-top{
     top: 0;
@@ -86,4 +86,110 @@
     justify-content: center;
     align-items: center;
     margin-top: 24px;
+}
+/* …everything that is already in your file keeps its place … */
+/* ───────────────────────── helper-icons bundle ───────────────────────── */
+
+.helper-icons-container {
+  position: fixed;
+  top: 60vh;              /* roughly “one phone‐height” from the top   */
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;  /* phone / hand / label all flush-right      */
+  text-align: right;
+  pointer-events: none;
+
+  /* desktop / tablet (default ≥ 600 px) ------------------------------ */
+ 
+
+  /* phone portrait (≤ 599 px) ---------------------------------------- */
+  @media (max-width: 599px) {
+    left: 50%;            /* centre horizontally …                     */
+    transform: translateX(-50%);  /* …by pulling itself back half-width */
+    right: auto;          /* drop the desktop value                    */
+    top: 63%;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* hide when you add .revealed */
+  &.revealed { display: none; }
+
+  /* keep the hand floating while visible */
+  &:not(.revealed) .pixel-hand {
+     @media (max-width: 599px) {
+      top: 60%;
+      animation: handFloat 6s ease-in-out infinite alternate;
+    }
+     @media (min-width: 599px) {
+      z-index: 10;
+      display: none;
+    }
+    
+  }
+}
+
+/* PHONE ─ scales fluidly with viewport width */
+.pixel-phone {
+  width:  clamp(90px, 18vw, 90px);   /* 90 px on tiny phones → 160 px on 4K */
+  height: auto;
+   @media (min-width: 600px) {
+    position: fixed;
+    display: none;
+  }
+}
+
+/* HAND ─ tracks phone size and sits slightly over its screen edge */
+.pixel-hand {
+  width:  clamp(55px, 11vw, 60px);
+  height: auto;
+  margin-top: -90%;   /* tucks the finger over the phone’s lower bezel */
+  
+  @media (max-width: 599px) {
+    position: absolute;
+    bottom: 100%;
+    align-items: center;
+    text-align: center;
+  }
+  @media (min-width: 600px) {
+     margin-top: -40%;   /* tucks the finger over the phone’s lower bezel */
+      display: none;
+     
+  }
+}
+
+
+/* LABEL (“Forwards/Backwards”) */
+.gesture-label {
+  position: fixed;
+  top: 120%;
+  color: #ffffff;
+  font-size: clamp(30px, 3.5vw, 28px);
+   @media (max-width: 599px) {
+    top: 120%;
+   }
+   @media (min-width: 600px) {
+    display: none;
+    top: 70%;
+   }
+  
+}
+
+/* ───────────────────────── unchanged keyframes ───────────────────────── */
+/* keep your existing @keyframes handFloat block */
+
+/* keyframes for the gentle up–down loop */
+@keyframes handFloat {
+   /* 0 %–10 %  ── finger resting, full size */
+  0%, 2%   { transform: translateY(0) scale(1); }
+
+  /* quick “press-in” right after the hold */
+  11%       { transform: translateY(0) scale(0.9); }
+
+  /* stay pressed while sliding down */
+  89%       { transform: translateY(100px) scale(0.9); }
+
+  /* 90 %–100 % ── drag finished, finger released, full size again */
+  98%, 100% { transform: translateY(100px) scale(1); }
 }
