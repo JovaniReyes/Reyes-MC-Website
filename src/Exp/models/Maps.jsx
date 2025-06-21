@@ -43,7 +43,7 @@ export default function Maps ({
 })
 {
   /* ---------- load & prepare ----------------------------------- */
-  const { nodes, materials } = useGLTFWithKTX2('/GLBs/Maps/MapsT-v1.glb');
+  const { nodes, materials } = useGLTFWithKTX2('/GLBs/Maps/MapsT-v1.glb') || {};
   const ready = nodes && materials?.MapFF_Baked?.map
   useMemo(() => ready && convertMaterialsToMeshBasicMaterial(materials), [ready, materials])
   if (!ready) return null

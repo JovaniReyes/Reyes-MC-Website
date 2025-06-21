@@ -1,4 +1,3 @@
-// useGLTFWithKTX2.jsx
 import { useThree } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import { KTX2Loader } from "three-stdlib";
