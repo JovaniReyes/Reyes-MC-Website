@@ -66,6 +66,25 @@ const ButtonContentData = {
         ]
       },
       {
+        header: "Building Desktop & Compatible UI Layouts",
+        paragraphs: [
+          {text: "After creating the UI buttons and modals came creating variations of the user interface layout. I decided to have two versions Desktop and Phone, to figure out the users screen size, I access the width of the users window that displays the site. For any window width above 1,415 pixels I display the overlay settings for the Desktop version.\n\nThe Mini modal images gave me the most trouble for this step, I really enjoyed having them to the sides of the main model for desktop view, however this was not possible for phone users. I leveraged the extra vertical space phone users have and created a container for the mini images to fill the extra space beneath the main modal. Allowing me to keep both layout versions consistent with the content displayed.", highlight: false},
+        ]
+      },
+      {
+        header: "Loading Screen User Control Context",
+        paragraphs: [
+          {text: "After creating the UI buttons, modals", highlight: false},
+        ]
+      },
+      {
+        header: "Features Recommended By Users",
+        paragraphs: [
+          {text: "Subtle Zoom For UI Pictures\n", highlight: true},
+          {text: "Fast Traveling\n", highlight: true},
+        ]
+      },
+      {
         header: "Impediments & Lessons",
         paragraphs: [
           {text: "Paragraph.", highlight: false},

@@ -43,21 +43,13 @@ const aboutMeData = {
       "./images/AboutMePhotos/P2_2.webp"
     ],
     content: [
-      { header: "Core Values & trait",
+      { header: "Core Values & Traits",
         paragraphs: [
           {text: "Intellectual Humility\nI treat my perspective as incomplete and challengeable. Staying open to new ideas and alternative viewpoints helps me refine my own ideas, learn quickly, and build stronger relationships in my life.", highlight: true},
           {text:"Clear Communication\nHonest transparent language, timely updates, and attentive listening keep relationships, projects, and teams moving smoothly. For me having quality communication has turned potential roadblocks into small bumps.", highlight: true},
           {text:"Resilience\nI view challenges as prime real estate for personal growth. Every struggle, failure, and setback has taught me to regulate stress, adapt to sudden changes, and quickly overcome obstacles. This has helped me challenge myself to create work I'd never imagine I'd be able to do, such as this website!", highlight: true},
-        ]
-      },
-      { header: "Work Ethic",
-        paragraphs: [
-          {text: "I break down my work into small testable incremental steps with due dates to keep progression consistent. I often challenge myself to improve my work as well towards wrapping up a project if I feel it’s a realistic goal. For instance, I rebaked every texture used in this website right before launch, the decision to do so was well worth it.", highlight: false},
-        ]
-      },
-      { header: "Interpersonal Style",
-        paragraphs: [
-          {text: " I like to listen to my teammates to better understand their perspective of our goal and constraints they may face during implementation. I do my best to give constructive feedback that focuses on the problem, never the person. My aim is to create an environment where everyone feels heard as well as comfortable to convey their weaknesses and offer assistance where their strengths lie.", highlight: false},
+          {text: "Work Ethic\nI break down my work into small testable incremental steps with due dates to keep progression consistent. I often challenge myself to improve my work towards wrapping up a project, if I feel it's a realistic goal. For instance, I rebaked every texture used in this website right before launch, the decision to do so was well worth it.", highlight: "true"},
+          {text: "Interpersonal Style\nI like to listen to my teammates to better understand their perspective of our goal and possible constraints. I do my best to give constructive feedback that focuses on the problem, never the person. My aim is to create an environment where everyone feels heard as well as comfortable to convey their weaknesses and offer assistance where their strengths lie.", highlight: "true"},
         ]
       },
     ]
@@ -77,11 +69,7 @@ const aboutMeData = {
       { header: "Growing Up",
         paragraphs: [
           {text: "For the majority of my life I lived in Greenville TX, there wasn't much to do in my hometown and with rough crowds too close to hang out with friends I spent most of my time either gaming or hanging out with my brothers.", highlight: false},
-        ]
-      },
-      { header: "Early Influences",
-        paragraphs: [
-          {text: "My father had a significant impact on my work ethic. I worked for his company doing underground operator work during a period in my life where I was figuring out what I wanted to do with my life. I started to notice how my father carried himself,  being incredibly stoic regardless of how bad a situation was on the job site. He'd always be the first to start figuring out a solution. No matter the size, importance of a task he approached every obligation with a consistent level of effort.", highlight: false},
+          {text: "Early Influences\nMy father had a significant impact on my work ethic. I worked for his company doing underground operator work during a period in my life where I was figuring out what I wanted to do with my life. I started to notice how my father carried himself, stoic regardless of how bad a situation was. He'd be the first to work on a solution and the last to give up. No matter the size or importance of a task he approached each with a consistent level of effort.", highlight: "true"},
         ]
       },
       { header: "What I'm Working Towards",
@@ -105,9 +93,9 @@ const aboutMeData = {
           {text: "Besides using my fingers for coding, I enjoy crocheting, painting, and doing arts and crafts.  I haven't gotten the chance to, but I'd really like to try out pottery!", highlight: false},
         ]
       },
-      { header: "Retired Gamer",
+      { header: "Gaming",
         paragraphs: [
-          {text: "I played games daily up until graduating highschool, my favorite was Ark Survival Evolved. I enjoyed that game so much that I was waking up every 2-3 hours a night to feed adolescent dinosaur milk.", highlight: false},
+          {text: "I played games daily up until graduating highschool, my favorite was Ark Survival Evolved. I enjoyed that game so much that I was waking up every 2-3 hours a night to feed adolescent dinosaurs milk.", highlight: false},
         ]
       },
       { header: "Fitness",
@@ -115,7 +103,7 @@ const aboutMeData = {
           {text: "I grew up playing a few sports, primarily American football. I decided my senior year of highschool to drop all sports to focus on building my fitness and health and got hooked on weightlifting. I also enjoy going on new hikes when traveling as well.", highlight: false},
         ]
       },
-      { header: "What I learn for fun",
+      { header: "Technical Hobbies",
         paragraphs: [
           {text: "Soldering\nMy Arduino Nano v4 robot was something I wanted to do for fun during the summer. I had an operating systems class where we used a raspberry PI to power and operate a sonar pulse sensor to measure distance between the sensor and an object. I learned how to solder fairly well after the Arduino Bot project.", highlight: true},
           {text: "3D Object Designing\nI've gotten into learning 3D modeling in Blender, combining this with my coding experience I can create any 3D object and animation I want within a project. Currently I'm  working on understanding retopology and material designing to create industry standard assets.", highlight: true},
