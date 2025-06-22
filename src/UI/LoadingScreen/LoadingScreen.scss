@@ -108,7 +108,7 @@
     left: 50%;            /* centre horizontally …                     */
     transform: translateX(-50%);  /* …by pulling itself back half-width */
     right: auto;          /* drop the desktop value                    */
-    top: 60.5%;
+    top: 62%;
     align-items: center;
     text-align: center;
   }
@@ -123,8 +123,6 @@
       animation: handFloat 6s ease-in-out infinite alternate;
     }
      @media (min-width: 599px) {
-      z-index: 10;
-      display: none;
     }
     
   }
@@ -132,7 +130,7 @@
 
 /* PHONE ─ scales fluidly with viewport width */
 .pixel-phone {
-  width:  clamp(90px, 18vw, 90px);   /* 90 px on tiny phones → 160 px on 4K */
+  width:  clamp(75px, 18vw, 90px);   /* 90 px on tiny phones → 160 px on 4K */
   height: auto;
    @media (min-width: 600px) {
     position: fixed;
@@ -142,7 +140,7 @@
 
 /* HAND ─ tracks phone size and sits slightly over its screen edge */
 .pixel-hand {
-  width:  clamp(55px, 11vw, 60px);
+  width:  clamp(40px, 11vw, 60px);
   height: auto;
   margin-top: -90%;   /* tucks the finger over the phone’s lower bezel */
   
@@ -165,13 +163,13 @@
   position: fixed;
   top: 120%;
   color: #ffffff;
-  font-size: clamp(30px, 3.5vw, 28px);
+  font-size: clamp(15px, 3.5vw, 28px);
    @media (max-width: 599px) {
     top: 120%;
    }
    @media (min-width: 600px) {
-    display: none;
     top: 70%;
+    align-self: center;
    }
   
 }
@@ -188,8 +186,8 @@
   11%       { transform: translateY(0) scale(0.9); }
 
   /* stay pressed while sliding down */
-  89%       { transform: translateY(100px) scale(0.9); }
+  89%       { transform: translateY(85px) scale(0.9); }
 
   /* 90 %–100 % ── drag finished, finger released, full size again */
-  98%, 100% { transform: translateY(100px) scale(1); }
+  98%, 100% { transform: translateY(85px) scale(1); }
 }

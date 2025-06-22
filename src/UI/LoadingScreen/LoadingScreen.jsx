@@ -10,8 +10,7 @@ import PhoneSymbol from '../../images/Helpers/PhoneSymbol.webp';
 import MouseSymbol  from "../../images/Helpers/MouseSymbol.webp";
 import SpinSymbol  from "../../images/Helpers/SpinSymbol.webp";
 
-useGLTF.preload('/GLBs/FX/TET-transformed.glb');
-useGLTF.preload('/GLBs/Maps/MapsT-v1.glb');
+
 
 function useMediaQuery(query) {
   const [matches, setMatches] = React.useState(
@@ -44,6 +43,8 @@ export default function LoadingScreen() {
     /* pick the right asset just-in-time */
     const controlImg  = isMobile ? PixelHandSymbol  : SpinSymbol;
     const deviceImg = isMobile ? PhoneSymbol : MouseSymbol;
+    const forwardCtrls = isMobile ? "Forwards" : "Scroll Down to Move Forwards";
+    const backwardsCtrl = isMobile ? "Backwards" : "Scroll Up to Move Downards";
 
     const handleReveal = () => {
         playMusic();
@@ -75,7 +76,7 @@ export default function LoadingScreen() {
                     <div className={`helper-icons-container ${isRevealed ? 'revealed' : ''}`}>
                         <img className="pixel-hand" src={controlImg} alt='Pixel Hand' onAnimationIteration={() => setIsForwardPhase(prev => !prev)}/ >
                         <img className="pixel-phone" src={deviceImg} alt='Pixel Phone'/>
-                        <p className="gesture-label">{isForwardPhase ? "Forwards" : "Backwards"}</p>
+                        <p className="gesture-label">{isForwardPhase ? forwardCtrls : backwardsCtrl}</p>
                     </div>
                     <div className={`instructions-container ${isRevealed ? 'revealed' : ''}`}>
                         <br></br><br></br>
