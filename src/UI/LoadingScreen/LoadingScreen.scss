@@ -108,7 +108,7 @@
     left: 50%;            /* centre horizontally …                     */
     transform: translateX(-50%);  /* …by pulling itself back half-width */
     right: auto;          /* drop the desktop value                    */
-    top: 62%;
+    top: 64%;
     align-items: center;
     text-align: center;
   }
@@ -163,7 +163,7 @@
   position: fixed;
   top: 120%;
   color: #ffffff;
-  font-size: clamp(15px, 3.5vw, 28px);
+  font-size: clamp(20px, 3.5vw, 28px);
    @media (max-width: 599px) {
     top: 120%;
    }
