@@ -193,5 +193,62 @@ export const CodeToggle = () => (
     posClass="code-position"
   />
 );
+/* ------------------------------------------------------------------
+ *  ProjectToggle — opens a modal with the current project’s write-up
+ *                   (same mutual-exclusion logic as other toggles)
+ * ------------------------------------------------------------------ */
+export const ProjectToggle = ({ modalTitle, contentID }) => {
 
+  const {
+    isModalOpen,
+    modalTitle: curTitle,
+    checkForOpenModal,
+    closeModal,
+  } = useModalStore();
+
+  const { isMapOpen, closeMap } = useMapControls();
+
+  const handleClick = () => {
+    playSound();
+
+    /* clicking again on an open modal ⇒ close it */
+    if (isModalOpen && curTitle === modalTitle) {
+      closeModal();
+      return;
+    }
+
+    /* if the map is open, close it first, then open the modal */
+    if (isMapOpen && closeMap) {
+      closeMap();
+      useModalStore
+        .getState()
+        .openAfterMapCloses(
+          modalTitle,
+          <ButtonContent ContentID={contentID} />,
+          contentID,
+        );
+      return;
+    }
+
+    /* otherwise just open / switch the modal */
+    checkForOpenModal(
+      modalTitle,
+      <ButtonContent ContentID={contentID} />,
+      contentID,
+    );
+  };
+
+  /* ❗  Uses the original `.button-default` styles (no imgSrc / posClass) */
+  return (
+    <button
+      className="button-default"
+      title="ProjectBtn"
+      onClick={handleClick}
+    >
+      {modalTitle}
+    </button>
+  );
+};
+
+/* keep the legacy default export intact */
 export default AudioToggle;

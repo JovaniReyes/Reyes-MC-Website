@@ -347,8 +347,8 @@ const Exp = () => {
     useMapControls.getState().registerToggleMap(toggleMap, () => setIsMapOpen(false));
     useModalStore.getState().closeMapModal();
   }, []);                 // runs once
+  
   useEffect(() =>{
-    
     useMapControls.getState().openMap(isMapOpen)
   }, [isMapOpen]);
 

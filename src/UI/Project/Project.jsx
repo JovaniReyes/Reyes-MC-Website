@@ -1,8 +1,8 @@
 import React from 'react'
 import "./Project.scss"
-import Button from '../Button/Button'
+//import Button from '../Button/Button'
 import projectData from './ProjectData'
-
+import { ProjectToggle } from '../ButtonContent/ButtonContent'
 
 const Project = ({ projectID }) => {
   const project = projectData[projectID];
@@ -14,7 +14,10 @@ const Project = ({ projectID }) => {
       <div className="image-wrapper">
         <img src={project.mainImg} alt={project.name} className="project-image"/>
       </div>
-      <Button href={project.externalLink} type={"link"}> Visit {project.name} </Button>
+      <ProjectToggle
+        modalTitle={`${project.name} Project Status`}
+        contentID={projectID}   /* "Project1", "Project2", … */
+      />
       {project.content.map((section, index) => (
         <div key={index} className='project-section'> 
           <h2 className='section-header'>{section.header}</h2>

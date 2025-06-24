@@ -12,8 +12,7 @@
     align-items: center;
     padding: 10px;
     font-size: 1em;
-    margin-top: 7px;
-    margin-bottom: 16px;
+    margin: 7px auto 16px auto;
     text-decoration: none;
     &:hover{
         color: white;
@@ -22,4 +21,5 @@
         cursor: pointer;
         box-shadow: inset 2px 2px #53d95ac0, inset -2px -2px #118316c0;
     }
+   
 }
