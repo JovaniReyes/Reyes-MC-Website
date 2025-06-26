@@ -1,11 +1,11 @@
 import Teleport from "../models/Teleport";
 import * as THREE from "three";
 import { useFrame} from "@react-three/fiber";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, memo } from "react";
 
 /** One-shot effect that cleans itself up after `duration` ms */
 const ROOT_OFFSET = new THREE.Vector3(.6, 25.589, 36);
-export default function TeleportFX({
+function TeleportFX({
   position,
   duration = 15000,        // full-brightness time
   rotation = [0, 0, 0],
@@ -48,3 +48,29 @@ const fixed = new THREE.Vector3(...position).sub(ROOT_OFFSET).toArray();
     </group>
   );
  }
+
+const areEqual = (prev, next) =>{
+  prev.position === next.position &&
+  prev.rotation === next.rotation &&
+  prev.duration === next.duration &&
+  prev.shrinkDuration === next.shrinkDuration;
+}
+
+export default memo(TeleportFX, areEqual);
+
+
+export function TeleportFXPreload() {
+  const [show, setShow] = useState(true);
+
+  // Render exactly once; the FX removes itself in the same tick.
+  if (!show) return null;
+
+  return (
+    <TeleportFX
+      position={[0, 0, 0]}   // any dummy coords
+      duration={0}            // instant
+      shrinkDuration={0}      // instant
+      onDone={() => setShow(false)}
+    />
+  );
+}

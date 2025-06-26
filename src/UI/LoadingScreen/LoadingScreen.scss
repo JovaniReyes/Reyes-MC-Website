@@ -2,7 +2,7 @@
 
 .loading-screen{
     position: absolute;
-    top: 0;
+    top: -10%;
     left: 0;
     height: 100%;
     width: 100%;
@@ -16,7 +16,6 @@
     height: 50%;
     width: 100%;
     background-color: styles.$color-base-darker-gray-four;
-
     transition: transform 1s ease .75s;
 } 
 .background-top{
@@ -89,105 +88,142 @@
 }
 /* …everything that is already in your file keeps its place … */
 /* ───────────────────────── helper-icons bundle ───────────────────────── */
+/* ───────────────────────── helper-icons bundle ───────────────────────── */
 
 .helper-icons-container {
   position: fixed;
-  top: 60vh;              /* roughly “one phone‐height” from the top   */
+  top: 60vh;               /* mobile default: a phone-height from top          */
   z-index: 100;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;  /* phone / hand / label all flush-right      */
+  align-items: flex-end;
   text-align: right;
   pointer-events: none;
 
-  /* desktop / tablet (default ≥ 600 px) ------------------------------ */
- 
+  &.revealed { display: none; }
 
-  /* phone portrait (≤ 599 px) ---------------------------------------- */
-  @media (max-width: 599px) {
-    left: 50%;            /* centre horizontally …                     */
-    transform: translateX(-50%);  /* …by pulling itself back half-width */
-    right: auto;          /* drop the desktop value                    */
+  /* phone portrait ( ≤ 599 px ) ----------------------------------------- */
+  @media (max-width: 1414px) {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
     top: 64%;
     align-items: center;
     text-align: center;
-  }
 
-  /* hide when you add .revealed */
-  &.revealed { display: none; }
-
-  /* keep the hand floating while visible */
-  &:not(.revealed) .pixel-hand {
-     @media (max-width: 599px) {
+    &:not(.revealed) .pixel-hand {
       top: 60%;
       animation: handFloat 6s ease-in-out infinite alternate;
     }
-     @media (min-width: 599px) {
-    }
-    
   }
 }
 
-/* PHONE ─ scales fluidly with viewport width */
+/* phone / mouse image --------------------------------------------------- */
 .pixel-phone {
-  width:  clamp(75px, 18vw, 90px);   /* 90 px on tiny phones → 160 px on 4K */
+  width: clamp(75px, 18vw, 90px);
   height: auto;
-   @media (min-width: 600px) {
-    position: fixed;
-    display: none;
+
+  @media (min-width: 1415px) {
+    display: block;        /* show mouse on desktop */
   }
 }
 
-/* HAND ─ tracks phone size and sits slightly over its screen edge */
+/* arrow image ----------------------------------------------------------- */
 .pixel-hand {
-  width:  clamp(40px, 11vw, 60px);
+  width: clamp(40px, 11vw, 60px);
   height: auto;
-  margin-top: -90%;   /* tucks the finger over the phone’s lower bezel */
-  
-  @media (max-width: 599px) {
+  margin-top: -90%;        /* finger overlaps phone on mobile */
+
+  @media (max-width: 1414px) {
     position: absolute;
     bottom: 100%;
-    align-items: center;
-    text-align: center;
   }
-  @media (min-width: 600px) {
-     margin-top: -40%;   /* tucks the finger over the phone’s lower bezel */
-      display: none;
-     
+
+  @media (min-width: 1415px) {
+    display: block;        /* was “none” in mobile rule */
+    margin-top: 0;         /* cancel the mobile offset  */
+    width: clamp(48px, 4vw, 64px);
   }
 }
 
-
-/* LABEL (“Forwards/Backwards”) */
+/* label ----------------------------------------------------------------- */
 .gesture-label {
-  position: fixed;
-  top: 120%;
   color: #ffffff;
   font-size: clamp(20px, 3.5vw, 28px);
-   @media (max-width: 599px) {
+
+  /* mobile: sits under the phone/arrow */
+  @media (max-width: 1414px) {
+    position: fixed;
     top: 120%;
-   }
-   @media (min-width: 600px) {
-    top: 70%;
-    align-self: center;
-   }
-  
+  }
+
+  /* desktop: pin close to bottom edge */
+  @media (min-width: 1415px) {
+    position: fixed;
+    bottom: 10vh;
+    left: 200%;
+    font-size: clamp(30px, 1.6vw, 30px);
+    pointer-events: none;
+  }
 }
 
-/* ───────────────────────── unchanged keyframes ───────────────────────── */
-/* keep your existing @keyframes handFloat block */
+@media (min-width: 1415px) {
 
-/* keyframes for the gentle up–down loop */
+  /* centre the whole stack roughly mid-screen */
+  .helper-icons-container {
+    top: 72vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* mouse — the only element that affects flex layout height */
+  .pixel-phone {
+    position: relative;            /* establishes the containing block        */
+    width: clamp(90px, 8vw, 120px);
+    height: auto;
+  }
+
+  /* arrow — absolutely anchored to the mouse with a 16 px gap */
+  .pixel-hand {
+    position: absolute;
+    left: 24%;
+    width: clamp(48px, 4vw, 64px);
+    transform: translateX(-50%);
+    /* pointer-events:none;  (inherited via container) */
+  }
+
+  /* arrow ABOVE mouse, points up  ── “Scroll Up to Move Downwards” */
+  .helper-icons-container.backward .pixel-hand {
+    bottom: calc(100% + 16px);     /* 16 px gap */
+    animation: arrowPulseUp 3s ease-in-out infinite;
+  }
+
+  /* arrow BELOW mouse, points down ── “Scroll Down to Move Forwards” */
+  .helper-icons-container.forward .pixel-hand {
+    top:   calc(100% + 16px);      /* 16 px gap */
+    animation: arrowPulseDown 3s ease-in-out infinite;
+  }
+
+  /* label – sits close to bottom of viewport & stays on one line */
+  .gesture-label {
+    position: fixed;
+    bottom: 40%;
+    left: 110%;
+    font-size: clamp(35px, 1.6vw, 40px);
+    white-space: nowrap;           /* ← keeps it on a single line             */
+    max-width: 90vw;               /* fallback: wrap only on very small widths */
+    pointer-events: none;
+  }
+}
+
+/* ───────────────────── keyframes (unchanged) ─────────────────────────── */
+
+@keyframes arrowPulseUp   { 0%,100%{transform:scale(1);} 50%{transform:scale(1.2);} }
+@keyframes arrowPulseDown { 0%,100%{transform:rotate(180deg) translateX(-2%) scale(1); } 50%{transform:rotate(180deg) translateX(-2%) scale(1.2);} }
+
 @keyframes handFloat {
-   /* 0 %–10 %  ── finger resting, full size */
-  0%, 2%   { transform: translateY(0) scale(1); }
-
-  /* quick “press-in” right after the hold */
-  11%       { transform: translateY(0) scale(0.9); }
-
-  /* stay pressed while sliding down */
-  89%       { transform: translateY(85px) scale(0.9); }
-
-  /* 90 %–100 % ── drag finished, finger released, full size again */
-  98%, 100% { transform: translateY(85px) scale(1); }
+  0%, 2%   { transform: translateY(0)   scale(1); }
+  11%      { transform: translateY(0)   scale(0.9); }
+  89%      { transform: translateY(85px) scale(0.9); }
+  98%,100% { transform: translateY(85px) scale(1); }
 }

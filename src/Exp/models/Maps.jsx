@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useState, useEffect, useCallback } from 'react'
+import { useRef, useMemo, useState, useEffect, useCallback, memo } from 'react'
 import { convertMaterialsToMeshBasicMaterial } from '../utils/convertMaterial'
 import { useGLTFWithKTX2 } from '../utils/useGLTFWithKTX2'
 import { useModalStore } from '../stores/modalStore'
@@ -35,7 +35,7 @@ const WAYPOINTS_UP = [
 ]
 
 
-export default function Maps ({ pos = [0,0,0], rot = new THREE.Euler(), visible = false, onTeleport = () => {}, ...props}){
+function Maps ({ pos = [0,0,0], rot = new THREE.Euler(), visible = false, onTeleport = () => {}, ...props}){
   //Load maps & ender pearl meshes/materials
   const { nodes, materials } = useGLTFWithKTX2('/GLBs/Maps/MapsT-v1.glb') || {};
   const ready = nodes && materials?.MapFF_Baked?.map
@@ -167,6 +167,17 @@ export default function Maps ({ pos = [0,0,0], rot = new THREE.Euler(), visible 
     </group>
   )
 }
+
+
+const propsEqual = (p, n) => p.pos === n.pos && p.rot === n.rot && p.visible === n.visible;
+export default memo(Maps, propsEqual);
+
+export function MapsPreload() {
+  useGLTFWithKTX2('/GLBs/Maps/MapsT-v1.glb'); // fetch & parse
+  return null;                                // render nothing
+}
+
+
 
 //Export downstairs & upstairs waypoint progress values to Exp.jsx for teleport(prg)
 export const WPT_PRG_DOWN  = PRG_PTS_D

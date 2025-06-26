@@ -8,9 +8,9 @@ import Background from "./Background";
 import Button from "../Button/Button";
 import { useAssetStore } from "../../Exp/stores/AssetStore";
 import PixelHandSymbol from "../../images/Helpers/PixelHandSymbol.webp";
-import PhoneSymbol      from "../../images/Helpers/PhoneSymbol.webp";
-import MouseSymbol      from "../../images/Helpers/MouseSymbol.webp";
-import SpinSymbol       from "../../images/Helpers/SpinSymbol.webp";
+import PhoneSymbol from "../../images/Helpers/PhoneSymbol.webp";
+import MouseSymbol from "../../images/Helpers/MouseSymbol.webp";
+import ArrowSymbol from "../../images/Helpers/ArrowSymbol.webp";
 
 /* ─────────────────── Helpers ─────────────────── */
 
@@ -28,9 +28,10 @@ function useMediaQuery(query) {
 }
 
 /** Animated hand + device + label */
-const HelperIcons = memo(function HelperIcons({revealed, controlImg, deviceImg, label, flipPhase,}) {
+const HelperIcons = memo(function HelperIcons({revealed, controlImg, deviceImg, label, flipPhase,isForwardPhase}) {
+  const containerClass = `helper-icons-container` + (revealed ? ` revealed` : ``) + (isForwardPhase ? ` forward` : ` backward`);
   return (
-    <div className={`helper-icons-container ${revealed ? "revealed" : ""}`}>
+    <div className={containerClass}>
       <img className="pixel-hand" src={controlImg} alt="Hand icon" onAnimationIteration={flipPhase} />
       <img className="pixel-phone" src={deviceImg} alt="Device icon" />
       <p className="gesture-label">{label}</p>
@@ -63,19 +64,17 @@ export default function LoadingScreen() {
   const [animationFinished, setAnimationFinished] = useState(false);
   const [prog, setProg] = useState(0);
   const canEnterWorld = prog === 100 && pendingAssets === 0;
-  const isMobile = useMediaQuery("(max-width: 599px)");
+  const isMobile = useMediaQuery("(max-width: 1414px)");
 
   /* Assets & labels chosen once */
-  const { controlImg, deviceImg, labels } = useMemo(() => {
-    return {
-      controlImg: isMobile ? PixelHandSymbol : SpinSymbol,
-      deviceImg:  isMobile ? PhoneSymbol     : MouseSymbol,
-      labels: {
-        fwd:  isMobile ? "Forwards"  : "Scroll Down to Move Forwards",
-        back: isMobile ? "Backwards" : "Scroll Up to Move Downards",
-      },
-    };
-  }, [isMobile]);
+  const { controlImg, deviceImg, labels } = useMemo(() => ({
+    controlImg: isMobile ? PixelHandSymbol : ArrowSymbol,
+    deviceImg:  isMobile ? PhoneSymbol     : MouseSymbol,
+    labels: {
+      fwd:  isMobile ? "Forwards"  : "Scroll Down to Move Forwards",
+      back: isMobile ? "Backwards" : "Scroll Up to Move Backwards",
+    },
+  }), [isMobile]);
 
   /* Hand ↔️ flip */
   const flipPhase = useCallback(() => setIsForwardPhase((p) => !p), []);
@@ -113,6 +112,7 @@ export default function LoadingScreen() {
           deviceImg={deviceImg}
           label={isForwardPhase ? labels.fwd : labels.back}
           flipPhase={flipPhase}
+          isForwardPhase={isForwardPhase}
         />
 
         {/* optional instructions block, left blank in original */}

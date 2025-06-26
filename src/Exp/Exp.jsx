@@ -1,19 +1,19 @@
-
-import * as THREE from "three";
-import Mobs from "./models/Mobs";
-import Home from "./models/Home";
-import Maps from "./models/Maps";
-import Photos from "./models/Photo";
-import Nature from "./models/Nature";
-import TeleportFX from './utils/TeleportFX';
-import normalizeWheel from 'normalize-wheel';
+import { Suspense, useEffect, useRef, useState, useMemo, useCallback} from 'react';
+import { Environment, PerspectiveCamera } from "@react-three/drei";
+import { DebugCurve, CameraHelper } from './utils/DebugTools';
+import { useMapControls } from "./stores/mapControlsStore";
+import { Canvas, useFrame } from '@react-three/fiber';
 import { useModalStore } from './stores/modalStore';
 import { useAudioStore } from "./stores/audioStore";
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useMapControls } from "./stores/mapControlsStore";
-import { DebugCurve, CameraHelper } from './utils/DebugTools';
-import { Environment, PerspectiveCamera } from "@react-three/drei";
-import React, { Suspense, useEffect, useRef, useState, useMemo, useCallback} from 'react';
+import normalizeWheel from 'normalize-wheel';
+import TeleportFX, {TeleportFXPreload} from './utils/TeleportFX';
+import Nature from "./models/Nature";
+import Photos from "./models/Photo";
+import Mobs from "./models/Mobs";
+import Home from "./models/Home";
+import Maps, {MapsPreload} from "./models/Maps";
+import * as THREE from "three";
+
 
 let mapSoundIndex = 0;//Toggles between opening and closing map sound
 const TELEPORT_DURATION = 0.35;//How long the Teleport FOV effect takes place
@@ -448,6 +448,8 @@ const Exp = () => {
   return (
   <>
     <Canvas eventSource={document.getElementById('root')}>
+      <TeleportFXPreload />
+      <MapsPreload />
       <Scene 
         camera={camera} 
         fovShake={fovShake}
