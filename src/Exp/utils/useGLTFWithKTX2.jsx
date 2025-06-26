@@ -1,13 +1,11 @@
 import { useThree } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import { KTX2Loader } from "three-stdlib";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useAssetStore } from "../stores/AssetStore";
-import { useEffect } from "react";
 
 const sharedKTX2 = new KTX2Loader().setTranscoderPath("/basis/");
 let glSeen = null;
-let supportDetectedForGL = null;
 
 export function useGLTFWithKTX2(path) {
   const { gl } = useThree();
