@@ -23,7 +23,7 @@
 }
 
 .modal{
-    z-index: 120;
+    z-index: 1000;
     position: absolute;        // keep your centring styles
     top: 50%; left: 50%;
     transform: translate(-50%, -150%);
@@ -166,14 +166,14 @@ $bg-green-1:  #62f544;
 $bg-green-2:  #275f13;
 
 /* ───────────────── edge arrows ───────────────── */
-.edge-btn {
+.mobile-move-btn {
   position: fixed;
   top: 33vh;                 /* thumb-height, centred vertically */
   transform: translateY(-50%);
-  opacity: .6;
+  opacity: .65;
   font-size: 5.5rem;         /* big glyph */
   line-height: 1;
-  color: #fff;
+  color: #ffffff;
   background: none;
   border: none;
   width: 100px;               /* invisible hit-box for accessibility */
@@ -187,6 +187,7 @@ $bg-green-2:  #275f13;
 
   &:active {
     color: rgb(120, 250, 137);
+    opacity: 1;
   }
 }
 
@@ -196,7 +197,7 @@ $bg-green-2:  #275f13;
   right: 2%;
   bottom: calc(14px + env(safe-area-inset-bottom)); /* stay above iOS bar */
   display: flex;
-  flex-direction: row;  /* floor toggle sits *above* the FAB */
+  flex-direction: row-reverse;  /* floor toggle sits *above* the FAB */
   align-items: center;
   gap: 40px;
   z-index: 1000;
@@ -357,7 +358,7 @@ $green-hover:        #00bb6e;        // parent - hover /
 /*                  Responsive visibility toggles                         */
 /* -----------------------------------------------------------------------*/
 @media (min-width: 1414px) {
-  .mobile-controls, .edge-btn {
+  .mobile-controls, .mobile-move-btn {
     display: none;
   }
 }

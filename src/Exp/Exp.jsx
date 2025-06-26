@@ -1,79 +1,93 @@
 
 import * as THREE from "three";
-import TeleportFX from './utils/TeleportFX';
-import Mobs from "./models/Mobs"
+import Mobs from "./models/Mobs";
+import Home from "./models/Home";
 import Maps from "./models/Maps";
-import Home from "./models/Home"
-import Photos from "./models/Photo"
-import Nature from "./models/Nature"
+import Photos from "./models/Photo";
+import Nature from "./models/Nature";
+import TeleportFX from './utils/TeleportFX';
 import normalizeWheel from 'normalize-wheel';
 import { useModalStore } from './stores/modalStore';
-import { useMapControls } from "./stores/mapControlsStore";
 import { useAudioStore } from "./stores/audioStore";
 import { Canvas, useFrame } from '@react-three/fiber';
+import { useMapControls } from "./stores/mapControlsStore";
 import { DebugCurve, CameraHelper } from './utils/DebugTools';
 import { Environment, PerspectiveCamera } from "@react-three/drei";
 import React, { Suspense, useEffect, useRef, useState, useMemo, useCallback} from 'react';
 
-let mapIdx = 0;
-const TELEPORT_FOV_SHAKE_SEC = 0.35;      //  ← change to taste
-const BASE_SHAKE_KEYS  = [70, 110, 30, 70];
-const COOLDOWN_MS = 1000;
-const FOV_ZIN = 63;
-const FOV_ZOUT = 70;//SET MAP TO 73
-const FOV_WINDOWS = [
-  [0.2370, 0.2385],
-  [0.2540, 0.2560],
-  [0.4180, 0.4200],
-  [0.5135, 0.5165],
-  [0.5260, 0.5290],
-  [0.5450, 0.5480],
+let mapSoundIndex = 0;//Toggles between opening and closing map sound
+const TELEPORT_DURATION = 0.35;//How long the Teleport FOV effect takes place
+const TELEPORT_COOLDOWN = 1000;//Teleportation Cooldown timer, 1,000 MS = 1 second
+const TELEPORT_FOVS = [73.5, 105, 35, 73.5];//The sequence of FOV switches during teleportation
+const PICTURE_FOV = 63;//FOV when progress is within a ZOOM_POINTS window
+const BASE_FOV = 70;//Base FOV for scene
+const MAP_FOV = 73.5;//FOV when map is opened.
+
+//Progress  points used for setting the FOV to PICTURE_FOV
+const ZOOM_POINTS = [
+  [0.2370, 0.2385],//About Me Set 1
+  [0.2540, 0.2560],//About Me Set 2
+  [0.4180, 0.4200],//About Me Set 3
+  [0.5135, 0.5165],//About Me Set 4
+  [0.5260, 0.5290],//About Me Set 5
+  [0.5450, 0.5480],//About Me Set 6
 ];
+
+//Set the sound arrays
 const mapSounds = [
   new Audio("../../Sounds/Map/MapUpS1.ogg"),
   new Audio("../../Sounds/Map/MapDownS1.ogg"),
 ];
-mapSounds.forEach(aud => {
-  aud.volume = .25;
-  aud.loop = false;
-})
-function playMapSound(){
-  const {isAudioEnabled} = useAudioStore.getState();
-  if(!isAudioEnabled) return;
-  if(mapIdx === 2) mapIdx = 0;
-  mapSounds[mapIdx].play();
-  mapIdx++;
-}
 const teleportSound = [
   new Audio("../../Sounds/Teleport2.ogg"),
   new Audio("../../Sounds/Teleport1.ogg"),
 ];
+
+//Adjust map and teleportation audio as well as disable looping
+mapSounds.forEach(aud => {
+  aud.volume = .25;
+  aud.loop = false;
+})
 teleportSound.forEach(aud => {
   aud.volume = .5;
   aud.loop = false;
 })
+
+//Toggles and plays Map opening/closing sound
+function playMapSound(){
+  const {isAudioEnabled} = useAudioStore.getState();
+  if(!isAudioEnabled) return;
+
+  if(mapSoundIndex === 2) mapSoundIndex = 0;
+  mapSounds[mapSoundIndex].play();
+  mapSoundIndex++;
+}
+//Selects and plays 1 of 2 teleporting sounds
 function playTeleportSound(){
   const {isAudioEnabled, setIsTeleporting} = useAudioStore.getState();
-
   if(!isAudioEnabled) return;
+
   setIsTeleporting(true);
   const sfx = Math.floor(Math.random() * 2);
   teleportSound[sfx].play();
   setIsTeleporting(false);
 }
-const getSegmentedFov = (prog) => {
-  for (let i = 0; i < FOV_WINDOWS.length; i++) {
-    const [start, end] = FOV_WINDOWS[i];
+
+//Lerps FOV between BASE_FOV & PICTURE_FOV
+const getLerpedFov = (prog, newFOV) => {
+  for (let i = 0; i < ZOOM_POINTS.length; i++) {
+    const [start, end] = ZOOM_POINTS[i];
     if (prog >= start && prog <= end) {
-      const t     = (prog - start) / (end - start); // 0‒1 in window
-      const ease  = Math.abs(2 * t - 1);            // 1→0→1 tri-ease
-      return THREE.MathUtils.lerp(FOV_ZIN, FOV_ZOUT, ease);
+      const temp = (prog-start) / (end-start);
+      const ease = Math.abs(2 * temp - 1);// 1→0→1 tri-ease
+      return THREE.MathUtils.lerp(newFOV, BASE_FOV, ease);
     }
   }
-  return FOV_ZOUT; // not inside any window
+  return BASE_FOV; // Not within any ZOOM_POINTS windows
 };
 
-const PATH_POINTS = [
+//XZY points for where the user is placed across the scene
+const POSITIONS = [
   //                  X      Z       Y
   new THREE.Vector3(-38.0, 17.30, -17.0),  //1st step
   new THREE.Vector3(-32.5, 17.30, -13.0),   //2nd step
@@ -101,7 +115,7 @@ const PATH_POINTS = [
   new THREE.Vector3( 7.50, 18.35,  8.00),             //Looking into living room
   new THREE.Vector3( 6.50, 18.35,  11.0),            //Infront of Kitchen
   new THREE.Vector3( 2.00, 18.35,  11.1),           //First Step inside (Door Opens)
-  new THREE.Vector3(-3.00, 18.35,  11.1),          //Infront Of door 
+  new THREE.Vector3(-3.00, 18.35,  11.1),          //Infront of door 
   new THREE.Vector3(-3.00, 18.35,  5.00),         //Outside of door (Door Closes)
 
   new THREE.Vector3(-5.50, 18.00,  4.00),       //5th step
@@ -111,16 +125,16 @@ const PATH_POINTS = [
   new THREE.Vector3(-38.0, 17.30, -17.0),   //1st step
 ];
 
-export const CAT_CURVE = new THREE.CatmullRomCurve3(PATH_POINTS, true);
+export const CAT_CURVE = new THREE.CatmullRomCurve3(POSITIONS, true);
 
 const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerpFactor, mouseOffset, setFieldOfView, isMapOpen, onTeleport, teleportEffects = [], fovShake, }) => {
-  const SHAKE_KEYS = fovShake?.current?.keys ?? BASE_SHAKE_KEYS;
-  const posPoints = useMemo(() => CAT_CURVE, []); 
-  const prevScrollProgress = useRef(0);
-  const pulseRef = useRef(0);
+  const tp_FOVS = fovShake?.current?.keys ?? TELEPORT_FOVS;
+  const positions = useMemo(() => CAT_CURVE, []); 
+  const prevProgress = useRef(0);
+  const matPulseRef = useRef(0);
   
 
-  const rotPoints = useMemo(() =>  [
+  const rotations = useMemo(() =>  [
     {prog: 0.000, rot: new THREE.Euler(-2.762, -1.277, -2.777)},
     {prog: 0.031, rot: new THREE.Euler(-2.935, -1.237, -2.947)},
     {prog: 0.063, rot: new THREE.Euler(-3.097, -1.017, -3.104)},
@@ -174,101 +188,96 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
   ], []);
 
   //Scratch objects
-  const pointV = useRef(new THREE.Vector3()).current;
-  const startQ = useRef(new THREE.Quaternion()).current;
-  const endQ = useRef(new THREE.Quaternion()).current;
-  const lerpedR = useRef(new THREE.Euler()).current;
+  const newPosition = useRef(new THREE.Vector3()).current;
+  const startQuat = useRef(new THREE.Quaternion()).current;
+  const endQuat = useRef(new THREE.Quaternion()).current;
+  const lerpedRotation = useRef(new THREE.Euler()).current;
 
 
   const getLerpedRotation = useCallback((prog) => {
-    for(let i = 0; i < rotPoints.length -1; i++){
-      const start = rotPoints[i];
-      const end = rotPoints[i+1];
+    for(let i = 0; i < rotations.length -1; i++){
+      const start = rotations[i];
+      const end = rotations[i+1];
       if(prog >= start.prog && prog <= end.prog){
         //Get the lerp factor
-        const lerpF = (prog - start.prog)/(end.prog - start.prog);
-        startQ.setFromEuler(start.rot);
-        endQ.setFromEuler(end.rot);
-        startQ.slerp(endQ, lerpF);
-        lerpedR.setFromQuaternion(startQ);
-        return lerpedR;
+        const lerp = (prog - start.prog)/(end.prog - start.prog);
+        startQuat.setFromEuler(start.rot);
+        endQuat.setFromEuler(end.rot);
+        startQuat.slerp(endQuat, lerp);
+        lerpedRotation.setFromQuaternion(startQuat);
+        return lerpedRotation;
       }
     }
-    return lerpedR.copy(rotPoints.at(-1).rot);
-  },[rotPoints, startQ, endQ, lerpedR]);
+    return lerpedRotation.copy(rotations.at(-1).rot);
+  },[rotations, startQuat, endQuat, lerpedRotation]);
 
   useFrame((state) => {
     if(!camera.current) return;
     //Pulse of photos
-    pulseRef.current = (Math.sin(state.clock.elapsedTime * 4) + 1.2) / 2;
+    matPulseRef.current = (Math.sin(state.clock.elapsedTime * 4) + 1.2) / 2;
     //Progress Interpolation
     let newProgress = THREE.MathUtils.lerp(scrollRef.current, targetScrollProgress.current, lerpFactor);
     if(newProgress >= .9999 || newProgress < 0){
       targetScrollProgress.current = 0;
       newProgress = 0;
     }
-    //console.log(newProgress.toFixed(4));
+    
     scrollRef.current = newProgress;
-    let desiredFov;
+    let newFOV;
 
-    if (fovShake?.current?.active) {
-      const tNow   = performance.now() / 1000;
-      const t0     = fovShake.current.t0;
-      const dt     = tNow - t0;
-      const dur    = TELEPORT_FOV_SHAKE_SEC;
+    if (isMapOpen && !(fovShake?.current?.active)) {
+      newFOV = THREE.MathUtils.lerp(camera.current.fov, MAP_FOV, 0.25);
+    }
+    else if (fovShake?.current?.active) {
+      const timestamp = performance.now() / 1000;
+      const activeTime = fovShake.current.activeTime;
+      const elapsed = timestamp - activeTime;
+      const duration = TELEPORT_DURATION;
 
-      if (dt >= dur) {
+      if (elapsed >= duration) {
         fovShake.current.active = false;            // finished
-        desiredFov = SHAKE_KEYS.at(-1);             // last key (70)
+        newFOV = tp_FOVS.at(-1);             // last key (70)
       } else {
-        const segDur  = dur / (SHAKE_KEYS.length - 1);
-        const segIdx  = Math.floor(dt / segDur);
-        const safeIdx = THREE.MathUtils.clamp(segIdx, 0, SHAKE_KEYS.length - 2);
-        const kT      = (dt - safeIdx * segDur) / segDur;
-        const fromFov = SHAKE_KEYS[safeIdx];
-        const toFov   = SHAKE_KEYS[safeIdx + 1];
-        desiredFov    = THREE.MathUtils.lerp(fromFov, toFov, kT);
+        const segDur = duration / (tp_FOVS.length - 1);// 1000 / 3 = .333 seconds per FOV segment
+        const segIdx = Math.floor(elapsed / segDur);//Sets segment index to 0, 1, 2, then 3
+        const safeIdx = THREE.MathUtils.clamp(segIdx, 0, tp_FOVS.length - 1);//Safe index is 0, 1, 2, 3
+        const lerpF = (elapsed - safeIdx * segDur) / segDur;//(.555 - 1 * .333 = .222) / .333 = .66
+        const prevFOV = tp_FOVS[safeIdx];
+        const nextFOV = tp_FOVS[safeIdx + 1];
+        newFOV = THREE.MathUtils.lerp(prevFOV, nextFOV, lerpF);
       }
     } else {
-      desiredFov = getSegmentedFov(newProgress);
+      newFOV = getLerpedFov(newProgress, PICTURE_FOV);
     }
 
-    if (camera.current.fov !== desiredFov) {
-      camera.current.fov = desiredFov;
+    if (camera.current.fov !== newFOV) {
+      camera.current.fov = newFOV;
       camera.current.updateProjectionMatrix();
-      setFieldOfView(desiredFov);
+      setFieldOfView(newFOV);
     }
   
     //Refresh React UI at most 5 times a second
-    if(state.clock.elapsedTime - prevScrollProgress.current > .05){//Change .2 to lower value for higher fps
-      prevScrollProgress.current = state.clock.elapsedTime;
+    if(state.clock.elapsedTime - prevProgress.current > .05){//Change .2 to lower value for higher fps
+      prevProgress.current = state.clock.elapsedTime;
       setScrollProgress?.(scrollRef.current);//Triggers Light Render
     }
     // Camera Position - zero allocations
-    posPoints.getPoint(newProgress, pointV)// Write into pointV
-    pointV.x += mouseOffset.current.x;
-    pointV.y += mouseOffset.current.y;
-    camera.current.position.lerp(pointV, 0.5);
-  
+    positions.getPoint(newProgress, newPosition)// Write into newPosition
+    newPosition.x += mouseOffset.current.x;
+    newPosition.y += mouseOffset.current.y;
+    camera.current.position.lerp(newPosition, 0.5);
     // Camera Rotation - zero allocations
     camera.current.rotation.copy(getLerpedRotation(newProgress));
+    
   });
   return (
     <>
-    {/* <DebugCurve curve={posPoints}/> */}
-      <Environment 
-      background={true}
-      //backgroundRotation={[Math.PI / 7.5, Math.PI/1.85, 0]}
-      backgroundRotation={[0,Math.PI / 1.5, 0]}
-      //px, nx, py, ny, pz, nz
-      files={["/CubeMap/px.webp", "/CubeMap/nx.webp", "/CubeMap/py.webp", "/CubeMap/ny.webp", "/CubeMap/PZMOON.webp", "/CubeMap/nz.webp"]}/>
+    {/* <DebugCurve curve={positions}/> */}
+      <Environment background={true} backgroundRotation={[0,Math.PI / 1.5, 0]} files={["/CubeMap/px.webp", "/CubeMap/nx.webp", "/CubeMap/py.webp", "/CubeMap/ny.webp", "/CubeMap/PZMOON.webp", "/CubeMap/nz.webp"]}/>
       <Suspense fallback={null}>
-        
         {camera.current && <Maps pos={camera.current.position} rot={camera.current.rotation} visible={isMapOpen} onTeleport={onTeleport}/>}
-        {isMapOpen && teleportEffects.map((fx) => (
-          <TeleportFX key={fx.id} position={fx.pos}   onDone={fx.dispose} />
-        ))}
-        <Photos progress={scrollRef.current} pulseIntensity={pulseRef.current}/>
+        {isMapOpen && teleportEffects.map((fx) => (<TeleportFX key={fx.id} position={fx.pos} onDone={fx.dispose} />))}
+        <Photos progress={scrollRef.current} pulseIntensity={matPulseRef.current}/>
         <Home progress={scrollRef.current}/> 
         <Nature/>
         <Mobs />
@@ -279,81 +288,80 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
 
 
 const Exp = () => {
-  const lastTeleport         = useRef({ time: 0, prog: -1 });
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [isMapOpen, setIsMapOpen] =  useState(false);
+  const fovShake = useRef({ active:false, activeTime:0 });
+  const [feildOfView, setFieldOfView] = useState(70);
+  const lastTeleport = useRef({ time: 0, prog: -1 });
+  const [isMapOpen, setIsMapOpen] = useState(false);
   const [teleportFX, setTeleportFX] = useState([]);
-  const fovShake = useRef({ active:false, t0:0 });
   const mouseOffset = useRef(new THREE.Vector3());
   const targetScrollProgress = useRef(0);
-  const {isModalOpen, openMapModal} = useModalStore();
-
+  const {isModalOpen} = useModalStore();
   const lastTouchY = useRef(null);
   const isSwiping = useRef(false);
   const scrollRef = useRef(0);
   const controls = useRef();
   const camera = useRef();
-  const scrollSpeed = 0.002;//0.0010 good for touch
-  const lerpFactor = 0.08;
+
   const mouseMultiplier = 0.17;
   const touchMultiplier = 0.25;
   const sensitivityX = 0.25;
   const sensitivityY = 0.25;
-  const [feildOfView, setFieldOfView] = useState(70);
+  const scrollSpeed = 0.002;
+  const lerpFactor = 0.08;
 
-  
-
-  const handleTeleport = useCallback((prog) => {
+  const teleport = useCallback((prog) => {
     if (!isMapOpen) return;
-    const now = Date.now();
-    if(now - lastTeleport.current.time < COOLDOWN_MS) return;
-    const c = Math.min(Math.max(prog, 0.0001), 0.9999);
-    if (Math.abs(c - lastTeleport.current.prog) < 1e-6) return;
-    lastTeleport.current = { time: now, prog: c };
-    const camRot = camera.current ? camera.current.rotation.clone() : new THREE.Euler();
-    const worldPos = CAT_CURVE.getPoint(c);   // CAT_CURVE is the camera path
-    targetScrollProgress.current = c;
-    scrollRef.current = c;
+    const currentTime = Date.now();
+    if(currentTime - lastTeleport.current.time < TELEPORT_COOLDOWN) return;//Cooldown still active
+    const newProgress = Math.min(Math.max(prog, 0.0001), 0.9999);//
+    if (Math.abs(newProgress - lastTeleport.current.prog) < 1e-6) return;//0.000001 = 1e-6, ignore teleport req if already at location
+    lastTeleport.current = { time: currentTime, prog: newProgress };
+    const newRotation = camera.current ? camera.current.rotation.clone() : new THREE.Euler();
+    const newPosition = CAT_CURVE.getPoint(newProgress);   // CAT_CURVE is the camera path
+    targetScrollProgress.current = newProgress;
+    const oldProgress = scrollRef.current;
+    scrollRef.current = newProgress;
     useModalStore.getState().openTeleportModal();
     const id = Date.now();
     /* kick-off the FOV shake */
-    const tNow   = performance.now() / 1000;
-    const forward  = c > scrollRef.current;
-    const keys     = forward ? BASE_SHAKE_KEYS.slice().reverse()  // 70 → 55 → 85 → 70
-                   : BASE_SHAKE_KEYS; 
+    const goingForward = newProgress > oldProgress;
+    const fovSequence = goingForward ? TELEPORT_FOVS.slice().reverse() : TELEPORT_FOVS; // 70 → 55 → 85 → 70
     fovShake.current = {
-    active : true,
-    t0     : performance.now() / 1000,
-    keys  : keys,
-  };
+      active : true,
+      activeTime : performance.now() / 1000,
+      keys : fovSequence,
+    };
     playTeleportSound();
 
     setTeleportFX([{
       id,
-      pos: worldPos.toArray(),
-      rot: [camRot.x, camRot.y, camRot.z],
+      pos: newPosition.toArray(),
+      rot: [newRotation.x, newRotation.y, newRotation.z],
       dispose() {
         setTeleportFX([]);                // remove self when finished
       },
     }]);
   }, [isMapOpen]);
 
+  //Toggles the map flag
   const toggleMap = () => {
     playMapSound();
     setTimeout(() => setIsMapOpen((v) => !v), 500);
   }
 
+  //Runs once, registers Map control store and
   useEffect(() => {
     useMapControls.getState().registerToggleMap(toggleMap, () => setIsMapOpen(false));
     useModalStore.getState().closeMapModal();
-  }, []);                 // runs once
-  
+  }, []);
+
+  //Calls Map Control Store, toggles Map between open and closed
   useEffect(() =>{
     useMapControls.getState().openMap(isMapOpen)
   }, [isMapOpen]);
 
-  
-  /* Map Controls 'S' */
+  //Desktop Control for opening map with 's'
   useEffect(() => {
     const onKey = (e) => {
       if (e.key.toLowerCase() === 's') toggleMap();
@@ -361,47 +369,54 @@ const Exp = () => {
     window.addEventListener('keydown', onKey);
    return () => window.removeEventListener('keydown', onKey);
   }, []);
+
+  //Clears any teleport FX animations that may have leaked
   useEffect(() => {
     if (!isMapOpen) {
-      setTeleportFX([]);      // dump any FX when the map is hidden
+      setTeleportFX([]);
     }
   }, [isMapOpen]);
 
+  //Handles user controls for moving in the scene
   useEffect(() => {
+
+    //Desktop ~ Mouse Wheel Controller
     const handleWheel = (e) => {
       if (isModalOpen || isMapOpen || targetScrollProgress.current < 0) return;
       const normalized = normalizeWheel(e);
       targetScrollProgress.current += Math.sign(normalized.pixelY) * scrollSpeed * Math.min(Math.abs(normalized.pixelY) / 100, 1);
     };
 
+    //Desktop ~ Mouse Wheel Movement Controller
+    const handlePointerMove = (e) => {
+      if (!isSwiping.current || isMapOpen || targetScrollProgress.current < 0) return;
+      else if (e.pointerType === "touch") return;
+      targetScrollProgress.current += Math.sign(e.movementY) * scrollSpeed * mouseMultiplier;
+    };
+
+    //Desktop ~ Camera Offset based off mouse movement
+    const handleMouseMove = (e) => {
+      if(isMapOpen) return;
+      const mouseX = (e.clientX / window.innerWidth) * 2 -2;
+      const mouseY = (e.clientY / window.innerHeight) * 2 -.7;
+      mouseOffset.current.x = (mouseX * sensitivityX);
+      mouseOffset.current.y = -(mouseY * sensitivityY);
+    };
+
+    //Phone ~ Screen Swiping flag enabler
     const handlePointerDown = () => {
       if (isModalOpen || isMapOpen) return;
       isSwiping.current = true;
     };
 
-    const handlePointerMove = (e) => {
-      if (!isSwiping.current || isMapOpen || targetScrollProgress.current < 0) return;
-      else if(e.pointerType !== "touch"){
-        targetScrollProgress.current += Math.sign(e.movementY) * scrollSpeed * mouseMultiplier;
-      }
-      else return;
-    };
-
+    //Phone ~ Screen Swiping flag disabler
     const handlePointerUp = () => {
       if(isMapOpen) return;
       isSwiping.current = false;
       lastTouchY.current = null;
     };
-
-    const handleMouseMove = (e) => {
-      if(isMapOpen) return;
-      const mouseX = (e.clientX / window.innerWidth) * 2 -2;
-      const mouseY = (e.clientY / window.innerHeight) * 2 -.7;
-
-      mouseOffset.current.x = (mouseX * sensitivityX);
-      mouseOffset.current.y = -(mouseY * sensitivityY);
-    };
-
+    
+    //Phone ~ Swipe Movement Controller
     const handleTouchMove = (e) => {
         if (isMapOpen || !isSwiping.current || targetScrollProgress.current < 0) return;
         const deltaY = e.touches[0].clientY - lastTouchY.current;
@@ -440,7 +455,7 @@ const Exp = () => {
         scrollRef={scrollRef}
         lerpFactor={lerpFactor} 
         mouseOffset={mouseOffset}
-        onTeleport={handleTeleport}
+        onTeleport={teleport}
         teleportEffects={teleportFX} 
         setFieldOfView={setFieldOfView}
         setScrollProgress={setScrollProgress}

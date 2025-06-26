@@ -1,22 +1,16 @@
 @use "../../Styles/variables.scss" as styles;
 
-
-
-
 .about-section{ padding: 12px; }
 .about-container { padding: 12px; }
-
-.image-wrapper {
- display: inline;
-}
+.image-wrapper { display: inline; }
 
 .about-image {
-  width: 100%;
-  height: auto;           // let the img decide its own height
-  object-fit: contain;
-  overflow: hidden;     // or just remove this line; default works too
-  
+    width: 100%;
+    height: auto;           // let the img decide its own height
+    object-fit: contain;
+    overflow: hidden;     // or just remove this line; default works too
 }
+
 .section-header{
     padding: 8px;
     color: white;
@@ -35,7 +29,5 @@
 }
 
 @media (max-width: 1415px) {
-    .section-header{
-        font-size: .8em;
-    }
+    .section-header{ font-size: .8em; }
 }

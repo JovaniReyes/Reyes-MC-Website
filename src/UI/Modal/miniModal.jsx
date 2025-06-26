@@ -82,16 +82,20 @@ export default function MiniModalsManager() {
     return () => window.removeEventListener("resize", chooseLayout);
   }, [miniModals.length]);
 
+  /* how many cards live on each side */
+  const leftCount  = Math.ceil(miniModals.length / 2);
+  const rightCount = Math.floor(miniModals.length / 2);
+
   /* 2 ▸ top offsets for desktop rows (centred vertically) */
-  const tops = useMemo(() => {
-    const rowsPerSide = Math.ceil(Math.ceil(miniModals.length / 2) / cols);
-    const totalH = rowsPerSide * card + (rowsPerSide - 1) * GAP;
+  /* 3 ▸ vertical anchors **per side** — each side is centred on its own */
+  const makeTops = (count) => {
+    const rows = Math.ceil(Math.max(count, 1) / cols);
+    const totalH = rows * card + (rows - 1) * GAP;
     const startY = (window.innerHeight - totalH) / 2;
-    return Array.from(
-      { length: rowsPerSide },
-      (_, r) => startY + r * (card + GAP)
-    );
-  }, [miniModals.length, card, cols]);
+    return Array.from({ length: rows }, (_, r) => startY + r * (card + GAP));
+  };
+  const topsLeft  = useMemo(() => makeTops(leftCount), [leftCount, card, cols]);
+  const topsRight = useMemo(() => makeTops(rightCount), [rightCount, card, cols]);
 
   /* 3 ▸ render nothing if no cards */
   if (!miniModals.length) return null;
@@ -99,6 +103,7 @@ export default function MiniModalsManager() {
   const sideBlockW = cols * card + (cols - 1) * GAP;  // width of one column stack
   const edgeOffset = (window.innerWidth - MAIN_W) / 2 - sideBlockW - GAP;
   const wrapperType = window.innerWidth < BREAK ? `bottom ${animation}` : "";
+
 
   /* helpers to track per-side index */
   let leftIdx = 0;
@@ -113,11 +118,13 @@ export default function MiniModalsManager() {
         {miniModals.map((m, i) => {
           const onRight = i % 2 === 1;
           const idxInSide = onRight ? rightIdx++ : leftIdx++;
+          /* —— column + row inside *that* side —— */
           const row = Math.floor(idxInSide / cols);
           const col = idxInSide % cols;
 
           const x = edgeOffset + col * (card + GAP);
-          const y = tops[row];
+          const y = onRight ? topsRight[row] : topsLeft[row];
+          
 
           return (
             <div

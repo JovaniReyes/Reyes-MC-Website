@@ -1,6 +1,4 @@
-import React from 'react'
 import "./About.scss"
-import Button from '../Button/Button'
 
 const aboutMeData = {
   'P1.0': {

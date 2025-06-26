@@ -1,102 +1,127 @@
-import React, {useEffect, useState} from 'react'
+// LoadingScreen.jsx
+import { useState, useEffect, useCallback, useMemo, memo } from "react";
 import "./LoadingScreen.scss";
-import { useProgress } from '@react-three/drei';
-import Button from '../Button/Button';
-import { useAudioStore } from '../../Exp/stores/audioStore';
-import { playSound } from '../../Utils/buttonSound';
-import { useGLTF } from '@react-three/drei';
-import PixelHandSymbol from '../../images/Helpers/PixelHandSymbol.webp';
-import PhoneSymbol from '../../images/Helpers/PhoneSymbol.webp';
-import MouseSymbol  from "../../images/Helpers/MouseSymbol.webp";
-import SpinSymbol  from "../../images/Helpers/SpinSymbol.webp";
+import { useProgress } from "@react-three/drei";
+import { useAudioStore } from "../../Exp/stores/audioStore";
+import { playSound } from "../../Utils/buttonSound";
+import Background from "./Background";
+import Button from "../Button/Button";
+import { useAssetStore } from "../../Exp/stores/AssetStore";
+import PixelHandSymbol from "../../images/Helpers/PixelHandSymbol.webp";
+import PhoneSymbol      from "../../images/Helpers/PhoneSymbol.webp";
+import MouseSymbol      from "../../images/Helpers/MouseSymbol.webp";
+import SpinSymbol       from "../../images/Helpers/SpinSymbol.webp";
 
-
+/* ─────────────────── Helpers ─────────────────── */
 
 function useMediaQuery(query) {
-  const [matches, setMatches] = React.useState(
-    () => window.matchMedia(query).matches
-  );
+  const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
 
-  React.useEffect(() => {
-    const media = window.matchMedia(query);
-    const listener = () => setMatches(media.matches);
-
-    // modern + fallback for older browsers
-    media.addEventListener?.("change", listener) || media.addListener(listener);
-    return () =>
-      media.removeEventListener?.("change", listener) ||
-      media.removeListener(listener);
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const listener = () => setMatches(mq.matches);
+    mq.addEventListener("change", listener);
+    return () => mq.removeEventListener("change", listener);
   }, [query]);
 
   return matches;
 }
 
-export default function LoadingScreen() {
-    const {progress}= useProgress();
-    const {setIsAudioEnabled, playMusic} = useAudioStore();
-    const [isRevealed, setIsRevealed] = useState(false);
-    const [isForwardPhase, setIsForwardPhase] = useState(true);
-    const [isAnimationFinished, setIsAnimationFinished] = useState(false);
-    const isMobile = useMediaQuery("(max-width: 599px)");
-    const [displayProg, setDisplayProg] = useState(0);
+/** Animated hand + device + label */
+const HelperIcons = memo(function HelperIcons({revealed, controlImg, deviceImg, label, flipPhase,}) {
+  return (
+    <div className={`helper-icons-container ${revealed ? "revealed" : ""}`}>
+      <img className="pixel-hand" src={controlImg} alt="Hand icon" onAnimationIteration={flipPhase} />
+      <img className="pixel-phone" src={deviceImg} alt="Device icon" />
+      <p className="gesture-label">{label}</p>
+    </div>
+  );
+});
 
-    /* pick the right asset just-in-time */
-    const controlImg  = isMobile ? PixelHandSymbol  : SpinSymbol;
-    const deviceImg = isMobile ? PhoneSymbol : MouseSymbol;
-    const forwardCtrls = isMobile ? "Forwards" : "Scroll Down to Move Forwards";
-    const backwardsCtrl = isMobile ? "Backwards" : "Scroll Up to Move Downards";
-
-    const handleReveal = () => {
-        playMusic();
-        setIsAudioEnabled(true);
-        setIsRevealed(true);
-        playSound();
-    }
-
-    const handleAnimationFinished = () => {
-        setIsAnimationFinished(true);
-    }
-    
-    useEffect(() => {
-        setDisplayProg((prev) => {
-            if(progress > prev) return progress;
-            return prev;
-    });
-    }, [progress]);
-
-    let loadingScreen = null;
-
-    if(!isAnimationFinished){
-        loadingScreen = (
-            <>
-            <div className="loading-screen">
-                <div className={`background-top ${isRevealed ? 'revealed' : ''}`} onTransitionEnd={handleAnimationFinished}></div>
-                <div className={`background-bottom ${isRevealed ? 'revealed' : ''}`}></div>
-                <div className="loading-screen-info-container">
-                    <div className={`helper-icons-container ${isRevealed ? 'revealed' : ''}`}>
-                        <img className="pixel-hand" src={controlImg} alt='Pixel Hand' onAnimationIteration={() => setIsForwardPhase(prev => !prev)}/ >
-                        <img className="pixel-phone" src={deviceImg} alt='Pixel Phone'/>
-                        <p className="gesture-label">{isForwardPhase ? forwardCtrls : backwardsCtrl}</p>
-                    </div>
-                    <div className={`instructions-container ${isRevealed ? 'revealed' : ''}`}>
-                        <br></br><br></br>
-                    </div>
-                {displayProg < 100 ? (
-                    <div className="loading-bar-container">
-                        <div className="loading-bar"  style={{width: `${displayProg}%`}}></div>
-                        <div className="percentage">{Math.round(displayProg)}%</div> 
-                    </div>
-                ) : !isRevealed ? (
-                    <Button onClick={handleReveal}>Enter World</Button>
-                ):(null)}
-                    
-                </div>
-                
-            </div>
-            </>
-        )
-    }
-    
-    return <>{loadingScreen}</>
+/** Progress bar */
+function LoadingBar({ progress }) {
+  return (
+    <div className="loading-bar-container">
+      <div className="loading-bar" style={{ width: `${progress}%` }} />
+      <div className="percentage">{Math.round(progress)}%</div>
+    </div>
+  );
 }
 
+/* ─────────────────── Main component ─────────────────── */
+
+export default function LoadingScreen() {
+  /* Drei loader */
+  const { progress } = useProgress();
+  const pendingAssets = useAssetStore(s => s.pending);
+  /* Audio store */
+  const { setIsAudioEnabled, playMusic } = useAudioStore();
+
+  /* Local state */
+  const [isRevealed, setIsRevealed] = useState(false);
+  const [isForwardPhase, setIsForwardPhase] = useState(true);
+  const [animationFinished, setAnimationFinished] = useState(false);
+  const [prog, setProg] = useState(0);
+  const canEnterWorld = prog === 100 && pendingAssets === 0;
+  const isMobile = useMediaQuery("(max-width: 599px)");
+
+  /* Assets & labels chosen once */
+  const { controlImg, deviceImg, labels } = useMemo(() => {
+    return {
+      controlImg: isMobile ? PixelHandSymbol : SpinSymbol,
+      deviceImg:  isMobile ? PhoneSymbol     : MouseSymbol,
+      labels: {
+        fwd:  isMobile ? "Forwards"  : "Scroll Down to Move Forwards",
+        back: isMobile ? "Backwards" : "Scroll Up to Move Downards",
+      },
+    };
+  }, [isMobile]);
+
+  /* Hand ↔️ flip */
+  const flipPhase = useCallback(() => setIsForwardPhase((p) => !p), []);
+
+  /* Reveal click */
+  const handleReveal = () => {
+    playMusic();
+    setIsAudioEnabled(true);
+    setIsRevealed(true);
+    playSound();
+  };
+
+  /* Background finished */
+  const handleAnimationFinished = useCallback(
+    () => setAnimationFinished(true),
+    []
+  );
+
+  /* Smooth % counter */
+  useEffect(() => {
+    setProg((prev) => (progress > prev ? progress : prev));
+  }, [progress]);
+
+  /* ────── RENDER ────── */
+  if (animationFinished) return null;
+
+  return (
+    <div className="loading-screen">
+      <Background isRevealed={isRevealed} onDone={handleAnimationFinished} />
+
+      <div className="loading-screen-info-container">
+        <HelperIcons
+          revealed={isRevealed}
+          controlImg={controlImg}
+          deviceImg={deviceImg}
+          label={isForwardPhase ? labels.fwd : labels.back}
+          flipPhase={flipPhase}
+        />
+
+        {/* optional instructions block, left blank in original */}
+        <div
+          className={`instructions-container ${isRevealed ? "revealed" : ""}`}
+        />
+
+        {prog < 100 ? (<LoadingBar progress={prog}/>) : (!isRevealed && canEnterWorld ? (<Button onClick={handleReveal}>Enter World</Button>) : null)}
+      </div>
+    </div>
+  );
+}

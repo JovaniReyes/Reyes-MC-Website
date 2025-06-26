@@ -1,0 +1,32 @@
+@use "../../index.scss" as styles;
+
+/* Back-drop grid */
+.loading-bg {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);   // rows injected inline
+  pointer-events: none;                    // clicks pass through
+  z-index: -100;                           // sits behind real UI
+}
+
+/* Children inherit pointer-events: none so nothing blocks clicks */
+.loading-bg *,
+.loading-bg { pointer-events: none; }
+
+/* Individual tiles */
+.cell {
+  background: styles.$color-base-darker-gray-four;
+  margin-top: -0.5px;          // tiny overlap
+  height: calc(100% + 0.5px);  // keep total height the same
+
+  will-change: transform, opacity;           // hint for GPU
+  transition-property: transform, opacity;
+  transition-timing-function: cubic-bezier(.55,0,.1,1), ease;
+  transition-duration: inherit;              // from .loading-bg
+  transition-delay: var(--delay), var(--delay);
+}
+
+/* Slide directions */
+.left.revealed  { transform: translateX(-100%); opacity: 0; }
+.right.revealed { transform: translateX( 100%); opacity: 0; }

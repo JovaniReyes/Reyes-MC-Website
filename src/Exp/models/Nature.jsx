@@ -14,7 +14,6 @@ export default function Model(props) {
   ];
 
   const natureResults = natureGLBPaths.map(useGLTFWithKTX2);
-
   const anyNaturePending = natureResults.some(result => result === null);
   if (anyNaturePending) return null; // or <LoadingNatureModels />
 

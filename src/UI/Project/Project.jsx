@@ -1,35 +1,34 @@
-import React from 'react'
-import "./Project.scss"
-//import Button from '../Button/Button'
-import projectData from './ProjectData'
 import { ProjectToggle } from '../ButtonContent/ButtonContent'
+import projectData from './ProjectData'
+import "./Project.scss"
 
 const Project = ({ projectID }) => {
-  const project = projectData[projectID];
+  const { name, mainImg, content } = projectData[projectID];
+  const title = `${name} Project Status`;
 
-  if(!project) return <div>Project Not Found</div>;
+  const Section = ({ header, paragraphs }) => (
+    <section className="project-section">
+      <h2 className="section-header">{header}</h2>
+      {paragraphs.map(({ text, highlight }, i) => (
+        <p key={i} className={`section-paragraph${highlight ? ' accent-first-line' : ''}`}>
+          {text}
+        </p>
+      ))}
+    </section>
+  );
 
+  // 3. the main return is now only three logical blocks
   return (
     <div className="project-container">
-      <div className="image-wrapper">
-        <img src={project.mainImg} alt={project.name} className="project-image"/>
-      </div>
-      <ProjectToggle
-        modalTitle={`${project.name} Project Status`}
-        contentID={projectID}   /* "Project1", "Project2", … */
-      />
-      {project.content.map((section, index) => (
-        <div key={index} className='project-section'> 
-          <h2 className='section-header'>{section.header}</h2>
-          {section.paragraphs.map(({text, highlight}, idx) => (
-            <p key={idx} className={`section-paragraph${highlight ? " accent-first-line" : ""}`}>
-              {text}
-            </p>
-          ))}
-        </div>
+      <figure className="image-wrapper">
+        <img src={mainImg} alt={name} className="project-image"/>
+      </figure>
+      <ProjectToggle modalTitle={title} contentID={projectID}/>
+      {content.map((sec, i) => (
+        <Section key={i} header={sec.header} paragraphs={sec.paragraphs}/>
       ))}
     </div>
   );
-};
+}
 
 export default Project;

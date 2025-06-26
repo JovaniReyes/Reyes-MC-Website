@@ -1,6 +1,6 @@
-import React from 'react'
-import "./Button.scss"
 import {playSound} from "../../Utils/buttonSound";
+import "./Button.scss"
+
 const Button = ({children, type, href, onClick}) => {
   const handleClick = () => {
     playSound();

@@ -8,7 +8,6 @@ import React, {useEffect, useState, useMemo} from 'react'
 import { useGLTFWithKTX2 } from '../utils/useGLTFWithKTX2'
 import { getMaterial, materialSets } from '../utils/materialEditor';
 import { convertMaterialsToMeshBasicMaterial } from '../utils/convertMaterial'
-//import * as THREE from "three";
 const pi = Math.PI;
 
 const projectNames = {
@@ -133,73 +132,74 @@ const meshConfigs = [
 ];
 
 export default function Model({progress = 0, pulseIntensity = 0, ...props}) {
-    const result = useGLTFWithKTX2('/GLBs/Photos/HPT-v1.glb');
-    if(!result) return null;
-    const { nodes, materials } = result;
-    const [hoveredMesh, setHoveredMesh] = useState(null);
-    useMemo(() => {
-      convertMaterialsToMeshBasicMaterial(materials);
-    }, [materials]);
-    
-    const {checkForOpenModal, isMapOpen} = useModalStore();
+  const result = useGLTFWithKTX2('/GLBs/Photos/HPT-v1.glb');
+  if(!result) return null;
+  const { nodes, materials } = result;
+  const [hoveredMesh, setHoveredMesh] = useState(null);
+  
+  useMemo(() => {
+    convertMaterialsToMeshBasicMaterial(materials);
+  }, [materials]);
+  
+  const {checkForOpenModal, isMapOpen} = useModalStore();
 
-    const handleClick = (elementID, photoID) => {
-      if(isMapOpen) return;
-        if(elementID === "about"){
-          if(progress >= 0.3392 && progress <=  0.3916) return; //Prevents clicking behind project picture
-          else if(!aboutNames[photoID]) return;
-          else if(photoID === "P5.0") photoID = "P6.0";
-          else if(photoID === "P6.0") photoID = "P5.0"
-          const mainPhoto= getPhotoGroup(photoID);
-          checkForOpenModal(aboutMeData[mainPhoto].name, <About aboutID={mainPhoto}/>, elementID, mainPhoto);
-        } else  {
-          checkForOpenModal(projectNames[photoID], <Project projectID={photoID}/>, elementID );
-        }
-        playSound();
+  const handleClick = (elementID, photoID) => {
+    if(isMapOpen) return;
+    if(elementID === "about") {
+      if(progress >= 0.3392 && progress <=  0.3916) return; //Prevents clicking behind project picture
+      else if(!aboutNames[photoID]) return;
+      else if(photoID === "P5.0") photoID = "P6.0";
+      else if(photoID === "P6.0") photoID = "P5.0"
+      const mainPhoto = getPhotoGroup(photoID);
+      checkForOpenModal(aboutMeData[mainPhoto].name, <About aboutID={mainPhoto}/>, elementID, mainPhoto);
+    } else  {
+      checkForOpenModal(projectNames[photoID], <Project projectID={photoID}/>, elementID );
     }
-    const materialSet = useMemo(() => materialSets(materials, "Picture"), [materials]);
+    playSound();
+  }
+  const materialSet = useMemo(() => materialSets(materials, "Picture"), [materials]);
 
-    useEffect(() => {
-        document.body.style.cursor = hoveredMesh ? "pointer" : "auto";
-    }, [hoveredMesh])
+  useEffect(() => {
+    document.body.style.cursor = hoveredMesh ? "pointer" : "auto";
+  }, [hoveredMesh])
 
-    const getRotation = (config) => (config.rotation ? config.rotation : [-pi / 2, 0, config.rotationZ]);
+  const getRotation = (config) => (config.rotation ? config.rotation : [-pi / 2, 0, config.rotationZ]);
 
-    return (
+  return (
     <group {...props} dispose={null}>
-        {meshConfigs.map((config) => {
-            const geometryName = config.geometry;
-            const { id: elementID, progressRange } = config;
-            const color = config.color;
+      {meshConfigs.map((config) => {
+        const geometryName = config.geometry;
+        const { id: elementID, progressRange } = config;
+        const color = config.color;
 
-            const materialProps = {
-                materialSet,
-                pulseIntensity,
-                hoveredMesh,
-                progress,
-                elementID,
-                progressRange,
-                color,
-            };
+        const materialProps = {
+          materialSet,
+          pulseIntensity,
+          hoveredMesh,
+          progress,
+          elementID,
+          progressRange,
+          color,
+        };
 
-            return (
-                <mesh
-                    key={geometryName}
-                    geometry={nodes[geometryName].geometry}
-                    material={getMaterial(materialProps)}
-                    position={config.position}
-                    rotation={getRotation(config)}
-                    scale={config.scale}
-                    onPointerOver={() => setHoveredMesh(config.id)}
-                    onPointerOut={() => setHoveredMesh(null)}
-                    onClick={() => handleClick(config.section, config.id)}
-                />
-            );
-        })}
+        return (
+          <mesh
+            key={geometryName}
+            geometry={nodes[geometryName].geometry}
+            material={getMaterial(materialProps)}
+            position={config.position}
+            rotation={getRotation(config)}
+            scale={config.scale}
+            onPointerOver={() => setHoveredMesh(config.id)}
+            onPointerOut={() => setHoveredMesh(null)}
+            onClick={() => handleClick(config.section, config.id)}
+          />
+        );
+      })}
     </group>
-    );
+  );
 }
 
 const getPhotoGroup = (photoID) => {
-    return photoID.substring(0, 3) + "0";
+  return photoID.substring(0, 3) + "0";
 }

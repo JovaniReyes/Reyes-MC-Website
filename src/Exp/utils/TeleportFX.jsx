@@ -9,15 +9,15 @@ export default function TeleportFX({
   position,
   duration = 15000,        // full-brightness time
   rotation = [0, 0, 0],
-  shrinkDuration = 6000,   // ms for the 1 → 0.5 scale
+  shrinkDuration = 5000,   // ms for the 1 → 0.5 scale
   onDone,
 }) {
-  const root = React.useRef();
+  const root = useRef();
   /* -------------------------------------------------- *
      1. wait `duration` → start shrinking
      2. after shrink finishes → tell parent to dispose
   * -------------------------------------------------- */
-  const startShrink = React.useRef(false);
+  const startShrink = useRef(false);
 
   useEffect(() => {
     const t1 = setTimeout(() => (startShrink.current = true), duration);
@@ -40,10 +40,8 @@ export default function TeleportFX({
     }
   });
 /* convert `position` into a Vector3, subtract baked offset */
-  const fixed = Array.isArray(position)
-    ? new THREE.Vector3(...position).sub(ROOT_OFFSET).toArray()
-    : position.clone().sub(ROOT_OFFSET).toArray();
-
+  // position guaranteed to be [number, number, number]
+const fixed = new THREE.Vector3(...position).sub(ROOT_OFFSET).toArray();
   return (
     <group ref={root} position={fixed} rotation={rotation}>
       <Teleport />

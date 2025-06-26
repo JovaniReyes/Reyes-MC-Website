@@ -40,7 +40,7 @@ $bp-mobile : 767px;
   justify-content: center;
   position: absolute;
   overflow: hidden;          /* ← hides icon leaks */
-  z-index: 125;
+  z-index: 500;
   cursor: pointer;
 
   &:hover {

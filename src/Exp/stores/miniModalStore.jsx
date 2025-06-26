@@ -19,8 +19,8 @@ export const useMiniModalsStore = create((set) => ({
   })),
 
   closeMiniModal: (modalId) => set((state) => ({
-      miniModals: state.miniModals.filter((m) => m.id !== modalId),
-    })),
+    miniModals: state.miniModals.filter((m) => m.id !== modalId),
+  })),
 
   closeAllMiniModals: () => {
     set({animation: "exit"});

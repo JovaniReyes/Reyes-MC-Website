@@ -6,18 +6,20 @@ import { useMapControls } from '../stores/mapControlsStore'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-/* ---------- constants --------------------------- */
-const MAP_ROT = new THREE.Euler(Math.PI / 20, Math.PI / 1.0, 0)//y - 0.92
+//Rotation and Position offset from user POV
+const MAP_ROT = new THREE.Euler(Math.PI / 20, Math.PI / 1.0, 0)
 const MAP_POS = new THREE.Vector3(-0, -0.46, 0)
 
-const PROG_DOWN = [0.01, 0.1363, 0.215, 0.252, 0.3318, 0.416]
-const PROG_UP   = [0.465, 0.7923, 0.01]
+//Waypoint progress points for downstairs and upstairs Maps
+const PRG_PTS_D = [0.01, 0.1363, 0.215, 0.252, 0.3318, 0.416]
+const PRG_PTS_U = [0.465, 0.7923, 0.876]
 
-const SLIDE_DIST = -2   // metres (-1 ⇒ “below camera”)
-const OPEN_MS  = 100;   // pull-out 
-const CLOSE_MS = 800;   // slide-back 
+//Control variables for map open/close animation
+const HIDDEN_Y_POS = -2 //When closed, the map is 2 units below user POV
+const OPEN_TIME = 100;
+const CLOSE_TIME = 800;
 
-
+//XZY positions for the cursor on the maps
 const WAYPOINTS_DOWN = [
   new THREE.Vector3(-0.09, -0.189, -0.29),
   new THREE.Vector3(-0.013, -0.139, -0.335),
@@ -33,56 +35,45 @@ const WAYPOINTS_UP = [
 ]
 
 
-/* =============================================================== */
-export default function Maps ({
-  pos      = [0,0,0],
-  rot      = new THREE.Euler(),
-  visible  = false,
-  onTeleport = () => {},
-  ...props
-})
-{
-  /* ---------- load & prepare ----------------------------------- */
+export default function Maps ({ pos = [0,0,0], rot = new THREE.Euler(), visible = false, onTeleport = () => {}, ...props}){
+  //Load maps & ender pearl meshes/materials
   const { nodes, materials } = useGLTFWithKTX2('/GLBs/Maps/MapsT-v1.glb') || {};
   const ready = nodes && materials?.MapFF_Baked?.map
   useMemo(() => ready && convertMaterialsToMeshBasicMaterial(materials), [ready, materials])
   if (!ready) return null
   
-  /* ---------- floor data --------------------------------------- */
-  const floorData = useMemo(()=>({
+  /* ---------- Map property data --------------------------------------- */
+  const mapData = useMemo(()=>({
     down:{ 
       geo:nodes.MapFF_Baked.geometry,
       mat:materials.MapFF_Baked,
-      pts:WAYPOINTS_DOWN, 
-      prg:PROG_DOWN 
+      wpts:WAYPOINTS_DOWN, 
+      prg:PRG_PTS_D 
     },
     up:{ 
       geo:nodes.MapSF_Baked.geometry,
       mat:materials.MapSF_Baked,
-      pts:WAYPOINTS_UP,   
-      prg:PROG_UP  
+      wpts:WAYPOINTS_UP,   
+      prg:PRG_PTS_U  
     },
   }),[nodes,materials])
 
-  /* ---------- refs / state ------------------------------------- */
   const {openMapModal, closeMapModal, checkForOpenModal} = useModalStore();
-  const targetY  = useRef(visible ? 0 : SLIDE_DIST)
-  const [waypoint, setWaypoint ] = useState(0)
-  const [floor, setFloor] = useState('down')
-  const slideY   = useRef(SLIDE_DIST) // current offset
-  const durMs    = useRef(OPEN_MS)
-  const floorRef = useRef('down') 
-  const cardRef  = useRef()
-  const pearlRef = useRef()    
-  const idxRef = useRef(0) 
-
-  /* ---------- slide-in/out state ------------------------------- */
-
+  const mapYPos = useRef(visible ? 0 : HIDDEN_Y_POS);
+  const [waypoint, setWaypoint ] = useState(0);
+  const [floor, setFloor] = useState('down');//Toggles between downstairs and upstairs floor
+  const mapAnimDuration = useRef(OPEN_TIME);
+  const moveYPos = useRef(HIDDEN_Y_POS); // current offset
+  const floorRef = useRef('down');
+  const waypointRef = useRef(0);
+  const pearlRef = useRef();
+  const mapRef = useRef();
+  
   useEffect(() => {
-    if(!visible){
+    if(!visible) {
       closeMapModal();
       const {pendingModal, clearPending} = useModalStore.getState();
-      if(pendingModal){
+      if(pendingModal) {
         checkForOpenModal(pendingModal.title, pendingModal.body, pendingModal.id);
         clearPending();
       }
@@ -90,100 +81,93 @@ export default function Maps ({
     else openMapModal();
   }, [visible, openMapModal, closeMapModal]);
 
-  /* open / close trigger */
+  //Open & Close animation trigger
   useEffect(()=>{ 
-    targetY.current = visible ? 0 : SLIDE_DIST
-    durMs.current   = visible ? OPEN_MS : CLOSE_MS 
+    mapYPos.current = visible ? 0 : HIDDEN_Y_POS
+    mapAnimDuration.current = visible ? OPEN_TIME : CLOSE_TIME 
   },[visible])
 
-  /* ---------- advance cursor ----------------------------------- */
-  const advance = (dir)=>
-    setWaypoint(old=>{
-      const len = floorData[floorRef.current].pts.length
-      const nxt = (old + dir + len) % len
-      idxRef.current = nxt
-      return nxt
+  //Moves ender pearl cursor forward or backwards on the map
+  const moveCursor = (dir) => 
+    setWaypoint(prev => {
+      const len = mapData[floorRef.current].wpts.length
+      const next = (prev + dir + len) % len
+      waypointRef.current = next
+      return next
   });
 
+  //Takes the progress array prop from the map data obj and access an index from the array
   const handleTeleport = useCallback(() => {
-    const {prg} = floorData[floorRef.current];
-    onTeleport(prg[idxRef.current]);
-  }, [onTeleport, floorData]);
+    const {prg} = mapData[floorRef.current];
+    onTeleport(prg[waypointRef.current]);
+  }, [onTeleport, mapData]);
 
+  //Toggles between the downstairs and upstairs map
   const toggleFloor = () =>
-    setFloor(p=>{
+    setFloor(p => {
       const newFloor = p === 'down' ? 'up' : 'down'
       floorRef.current = newFloor
-      idxRef.current = 0
+      waypointRef.current = 0
       setWaypoint(0)
       return newFloor
   });
 
+  //Retrieves the states of the map control props when any change
   useEffect(() => {
     useMapControls.getState().registerHandlers({
-      advance,
+      moveCursor,
       teleport: handleTeleport,
       toggleFloor,
-    });}, [advance, handleTeleport, toggleFloor]);
+    });
+  }, [moveCursor, handleTeleport, toggleFloor]);
 
-  /* ---------- key-handling ------------------------------------- */
-  useEffect(()=>{
-    const h = e => {
-      if(e.key==='d') advance(+1)
-      else if(e.key==='a') advance(-1)
-      else if(e.key==='e'){
-        const {prg}=floorData[floorRef.current]
-        onTeleport(prg[idxRef.current])
-      }
-      else if(e.key==='w'){               // toggle floor
-        setFloor(p=>{
-          const nxt = p === 'down'?'up':'down'
-          floorRef.current = nxt
-          idxRef.current = 0
-          setWaypoint(0)
-          return nxt
-        })
-      }
+  //Desktop ~ Keyboard controls 
+  useEffect(() => {
+    const click = e => {
+      if(e.key === 'd') moveCursor(+1)//Moves Cursor Forward
+      else if(e.key === 'a') moveCursor(-1)//Moves Cursor Backward
+      else if(e.key === 'e') handleTeleport();//Teleports user to waypoint
+      else if(e.key==='w') toggleFloor();//Toggles map floor level
     }
-    window.addEventListener('keydown',h)
-    return ()=>window.removeEventListener('keydown',h)
-  },[onTeleport,floorData])
+    window.addEventListener('keydown', click)
+    return () => window.removeEventListener('keydown', click)
+  },[onTeleport,mapData])
 
-/* ---------- per-frame work ----------------------------------- */
-  useFrame((state, delta) => {                 // ← 1️⃣ accept delta!
-    if (!cardRef.current) return
+//Frame work for map open/close animation and moving ender pearl cursor
+  useFrame((state, delta) => {
+    if (!mapRef.current) return;
 
-    /* 1️⃣ slide Y toward target based on this frame’s delta */
-    const durSec = durMs.current * 0.001       // ms → s
-    const step   = Math.min(delta / durSec, 1) // 0‒1 just for this frame
-    slideY.current = THREE.MathUtils.lerp(slideY.current, targetY.current, step)
+    // Move upwards to user POV based on this frame’s delta 
+    const duration = mapAnimDuration.current * 0.001;
+    const step = Math.min(delta/duration, 1); // 0‒1 just for this frame
+    moveYPos.current = THREE.MathUtils.lerp(moveYPos.current, mapYPos.current, step);
 
-    /* 2️⃣ stick card to the camera and offset it */
-    const camPos = Array.isArray(pos) ? new THREE.Vector3().fromArray(pos) : pos.clone();// …or a Vector3
-    cardRef.current.position.set(camPos.x, camPos.y + slideY.current, camPos.z);
-    cardRef.current.rotation.copy(rot)
+    //Get the users POV and set the map to the same position + Y offset
+    const userPosition = Array.isArray(pos) ? new THREE.Vector3().fromArray(pos) : pos.clone();
+    mapRef.current.position.set(userPosition.x, userPosition.y + moveYPos.current, userPosition.z);
+    mapRef.current.rotation.copy(rot)
 
-    /* 3️⃣ move the pearl cursor */
+    // Moving the pearl cursor by frame
     if (pearlRef.current) {
-      const { pts } = floorData[floorRef.current]
-      pearlRef.current.position.lerp(pts[idxRef.current], 0.2)
+      const { wpts } = mapData[floorRef.current]
+      pearlRef.current.position.lerp(wpts[waypointRef.current], 0.2)
     }
   })
 
 
   /* ---------- render ------------------------------------------- */
-  const {geo,mat,pts} = floorData[floor]
+  const {geo, mat, wpts} = mapData[floor]
 
   return (
     <group {...props}>
-      <group ref={cardRef}>
+      <group ref={mapRef}>
         <mesh geometry={geo} material={mat} position={MAP_POS} rotation={MAP_ROT}/>
-        <mesh ref={pearlRef} geometry={nodes.ender_pearl_Baked.geometry} material={materials['ender_pearl_Baked.001']} position={pts[0].toArray()} rotation={[0.75,-0.2,0.05]}/>
+        <mesh ref={pearlRef} geometry={nodes.ender_pearl_Baked.geometry} material={materials['ender_pearl_Baked.001']} position={wpts[0].toArray()} rotation={[0.75,-0.2,0.05]}/>
       </group>
     </group>
   )
 }
 
-/* re-export downstairs table for other modules */
-export const WAYPOINT_PROGRESS  = PROG_DOWN
-export const WAYPOINT_PROGRESS2 = PROG_UP
+//Export downstairs & upstairs waypoint progress values to Exp.jsx for teleport(prg)
+export const WPT_PRG_DOWN  = PRG_PTS_D
+export const WPT_PRG_UP = PRG_PTS_U

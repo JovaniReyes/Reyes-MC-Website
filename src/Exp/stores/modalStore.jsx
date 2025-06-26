@@ -8,29 +8,29 @@ const EXIT_ANIM_MS = 500;
 export const useModalStore = create((set, get) => ({
 
   // States
-  isModalOpen : false,
-  modalTitle  : "",
-  modalContent: null,
-  modalType   : "",
-  animation   : "",
-  isModalMap  : false,
-  isTeleportModal: false,
-  isMapOpen : false,
-  pendingModal: null,
+  isTeleportModal : false,
+  isModalOpen     : false,
+  isModalMap      : false,
+  isMapOpen       : false,
+  animation       : "",
+  modalType       : "",
+  modalTitle      : "",
+  modalContent    : null,
+  pendingModal    : null,
 
-  openAfterMapCloses:(title, body, id) => set({pendingModal: {title, body, id}}),
-  clearPending: () => set({ pendingModal: null}),
+  openAfterMapCloses: (title, body, id) => set({pendingModal: {title, body, id}}),
+  clearPending: () => set({ pendingModal: null }),
 
   // Opens UI modal 
   openModal: (title, content, type, aboutID ) => {
     // Ignores request if a modal is already open
     if (get().isModalOpen) return;
     set({
-      isModalOpen : true,
-      modalTitle  : title,
-      modalContent: content,
-      modalType   : type,
-      animation   : "enter",
+      isModalOpen  : true,
+      animation    : "enter",
+      modalType    : type,
+      modalTitle   : title,
+      modalContent : content,
     });
 
     //For Mini modals
@@ -42,11 +42,7 @@ export const useModalStore = create((set, get) => ({
         const miniID = `${aboutID}-mini-${idx + 1}`;
         const miniUI = (
           <div style={{ width: "100%", height: "100%" }}>
-            <img
-              style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: "4%"}}
-              src={img}
-              alt={`Extra about me #${idx + 2} URL: ${img}`}
-            />
+            <img style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: "4%"}} src={img} alt={`Mini-${idx + 1} URL: ${img}`}/>
           </div>
         );
         setTimeout(() => {
@@ -60,7 +56,7 @@ export const useModalStore = create((set, get) => ({
   closeModal: () => {
     set({ animation: "exit" });
     playSound();
-    //MiniModal
+    //Close out the miniModals before the main modal
     const { closeAllMiniModals } = useMiniModalsStore.getState();
     closeAllMiniModals();
     setTimeout(() => set({ isModalOpen: false }), EXIT_ANIM_MS);
@@ -69,9 +65,9 @@ export const useModalStore = create((set, get) => ({
   //Opens a UI modal if its a new one, removes the old modal if present on the UI
   checkForOpenModal: (title, content, type, aboutID) => {
     const { isModalOpen, modalTitle, closeModal, openModal, closeMapModal, isMapOpen } = get();
-    if(isMapOpen) closeMapModal();
-    if(isModalOpen && modalTitle === title) return;
-    else if(isModalOpen){
+    if(isMapOpen) closeMapModal();//Close Map
+    if(isModalOpen && modalTitle === title) return;//Modal is already open, return
+    else if(isModalOpen){//Close the current and open the new modal
       closeModal();
       setTimeout(() => openModal(title, content, type, aboutID), EXIT_ANIM_MS);
       return;
@@ -80,58 +76,58 @@ export const useModalStore = create((set, get) => ({
     }
   },
   /* ───── open a *teleport* modal (purple flash) ───── */
-  openTeleportModal : () => {
-    // reject if another modal is already visible
-    const {isModalOpen, closeMapModal, openMapModal} = get();
-    
+  openTeleportModal: () => {
+    const { closeMapModal, openMapModal} = get();
     set({
-      isModalOpen : true,
-      isModalMap  : true,
-      isMapOpen : true,
-      animation   : "begin",
+      isModalOpen     : true,
+      isModalMap      : true,
+      isMapOpen       : true,
       isTeleportModal : true,
+      animation       : "begin",
     });
     closeMapModal()
-
-    /* auto-close after 1 s */
-    setTimeout(() => {
-      set({ animation:"end", isTeleportModal : false,});
-      set({ isModalOpen:false, isModalMap:false });
+    setTimeout(() => {//Teleport Modal closes after .5 seconds
+      set({ animation:"end", isTeleportModal: false,});
+      set({ isModalOpen:false, isModalMap: false });
       openMapModal();
     }, 500);
-},
+  },
 
-openMapModal : () => {
-    // reject if another modal is already visible
-    const {isMapOpen, isModalMap, isTeleportModal} = get();
-    if (isMapOpen){
-      return;
-    }
-      set({
-        isModalOpen: true,
+  openMapModal: () => {
+    const { isMapOpen, isModalOpen, closeModal} = get();
+    if (isMapOpen) return;
+    else if (isModalOpen){
+      const { closeAllMiniModals } = useMiniModalsStore.getState();
+      closeAllMiniModals();
+      closeModal();
+      setTimeout(() => set({
+        isModalOpen : true,
         isModalMap  : true,
-        isMapOpen : true,
+        isMapOpen   : true,
+        animation   : "begin",
+      }), EXIT_ANIM_MS+500);
+    }
+    else{
+      set({
+        isModalOpen : true,
+        isModalMap  : true,
+        isMapOpen   : true,
         animation   : "begin",
       });
-      //console.log("OPENED map modal..")
-    
-    
-},
-closeMapModal : () => {
-    // reject if another modal is already visible
-    const {isMapOpen, closeModal, isTeleportModal} = get();
-    if (!isMapOpen){
-      if(!isTeleportModal) return;
     }
+  },
+
+  //
+  closeMapModal: () => {
+    const { isMapOpen, isTeleportModal } = get();
+    if(!isMapOpen && !isTeleportModal) return;
     set({
-      isMapOpen : false,
-      isModalOpen: false,
+      isModalOpen : false,
       isModalMap  : false,
+      isMapOpen   : false,
       animation   : "end",
     });
-    //console.log("CLOSING map modal..")
-},
-
+  },
 
   //Sets animation state
   setAnimation: (anim) => set({ animation: anim }),
