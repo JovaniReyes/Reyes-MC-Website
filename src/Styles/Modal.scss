@@ -167,7 +167,7 @@ $bg-green-2:  #275f13;
 
 /* ───────────────── edge arrows ───────────────── */
 .mobile-move-btn {
-  position: fixed;
+  position: absolute;
   top: 35vh;                 /* thumb-height, centred vertically */
   transform: translateY(-50%);
   opacity: .75;
@@ -175,8 +175,8 @@ $bg-green-2:  #275f13;
   color: #ffffff;
   background: none;
   border: none;
-  width: 100px;               /* invisible hit-box for accessibility */
-  height: 100px;
+  width: auto;               /* invisible hit-box for accessibility */
+  height: auto;
   padding: 0;
   cursor: pointer;
   z-index: 1000;
@@ -198,8 +198,8 @@ $bg-green-2:  #275f13;
 .arrow-default,
 .arrow-clicked {
   /*    ↓  min-size        ↓ fluid size      ↓ max-size        */
-  width:  clamp(77px, 10vmin, 100px);
-  height: clamp(125px, 10vmin, 100px);
+  width:  clamp(61.6px, 10vmin, 100px);
+  height: clamp(100px, 10vmin, 125px);
 }
 .left-arrow img { transform: rotate(180deg); }
 
