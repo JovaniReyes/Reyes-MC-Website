@@ -1,7 +1,4 @@
-import downstairsSymbol from "../../images/Buttons/DownstairsSymbol.webp";
-import upstairsSymbol from "../../images/Buttons/UpstairsSymbol.webp";
-import teleportSymbol from "../../images/Buttons/EnderPearl.webp"
-import closeSymbol from '../../images/Buttons/CloseSymbol.svg';
+import { downstairsSymbol, upstairsSymbol, teleportSymbol, closeSymbol, moveDefaultSymbol, moveClickedSymbol } from "../../Utils/preLoadUIImages";
 import { useMapControls } from "../../Exp/stores/mapControlsStore";
 import { useModalStore } from "../../Exp/stores/modalStore";
 import { useState, useEffect, useRef } from "react";
@@ -54,8 +51,14 @@ const Modal = () => {
                 <div className="overlay" onClick={handleCloseModal}/>
 
                 {/* Mobile control movement arrows */}
-                <button onClick={() => moveCursor?.(-1)} className="mobile-move-btn left-arrow">&lt;</button>
-                <button onClick={() => moveCursor?.(1)} className="mobile-move-btn right-arrow">&gt;</button>
+                <button onClick={() => moveCursor?.(-1)} className="mobile-move-btn left-arrow">
+                    <img src={moveDefaultSymbol}  alt="Move left"  className="arrow-default" />
+                    <img src={moveClickedSymbol} alt="Move left"  className="arrow-clicked" />
+                    </button>
+                <button onClick={() => moveCursor?.(1)} className="mobile-move-btn right-arrow">
+                    <img src={moveDefaultSymbol}  alt="Move right" className="arrow-default" />
+                    <img src={moveClickedSymbol} alt="Move right" className="arrow-clicked" />
+                </button>
 
                 {/* floating “GO / teleport” + floor toggle stacked together */}
                 <div className="mobile-controls">

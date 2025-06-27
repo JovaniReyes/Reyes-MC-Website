@@ -11,7 +11,7 @@ import PixelHandSymbol from "../../images/Helpers/PixelHandSymbol.webp";
 import PhoneSymbol from "../../images/Helpers/PhoneSymbol.webp";
 import MouseSymbol from "../../images/Helpers/MouseSymbol.webp";
 import ArrowSymbol from "../../images/Helpers/ArrowSymbol.webp";
-
+import HouseSymbol from "../../images/Home/Home.webp";
 /* ─────────────────── Helpers ─────────────────── */
 
 function useMediaQuery(query) {
@@ -60,6 +60,9 @@ export default function LoadingScreen() {
 
   /* Local state */
   const [isRevealed, setIsRevealed] = useState(false);
+  const [bgMounted, setBgMounted]   = useState(false);          // when <Background/> should exist
+  const [bgReveal,  setBgReveal]    = useState(false);
+  const [plainBgVisible, setPlainBgVisible] = useState(true);
   const [isForwardPhase, setIsForwardPhase] = useState(true);
   const [animationFinished, setAnimationFinished] = useState(false);
   const [prog, setProg] = useState(0);
@@ -85,7 +88,18 @@ export default function LoadingScreen() {
     setIsAudioEnabled(true);
     setIsRevealed(true);
     playSound();
+    setTimeout(() => { setBgMounted(true);}, 4000);
   };
+
+  /* When Background mounts, slide it away and drop solid colour */
+  useEffect(() => {
+    if (!bgMounted) return;
+    // paint one frame in the “closed” position, then slide open
+    requestAnimationFrame(() => {
+      setBgReveal(true);        // adds .revealed → panels slide
+      setPlainBgVisible(false); // solid #131311 goes transparent
+    });
+  }, [bgMounted]);
 
   /* Background finished */
   const handleAnimationFinished = useCallback(
@@ -102,8 +116,10 @@ export default function LoadingScreen() {
   if (animationFinished) return null;
 
   return (
-    <div className="loading-screen">
-      <Background isRevealed={isRevealed} onDone={handleAnimationFinished} />
+    <div className="loading-screen" style={{ background: plainBgVisible ? "black" : "transparent" }} > 
+      {bgMounted && (<Background isRevealed={bgReveal} onDone={handleAnimationFinished}/>)}
+      
+      <img src={HouseSymbol} alt="House Symbol" className={`intro-house${isRevealed ? " fade-out" : ""}`}/>
 
       <div className="loading-screen-info-container">
         <HelperIcons

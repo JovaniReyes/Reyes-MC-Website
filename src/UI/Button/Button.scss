@@ -1,17 +1,33 @@
 @use "../../Styles/variables.scss" as styles;
+@mixin fluid-fs($min, $vw, $max) {
+  font-size: clamp(#{$min}, #{$vw}, #{$max});
+}
+@mixin fluid-brdr($min, $vw, $max){
+    border: clamp(#{$min}, #{$vw}, #{$max});
+}
+$shadow-offset: 40px;
+$light-shadow-color: #ffffffc0;
+$dark-shadow-color: #323232c0;
+
+@mixin inset-shadow($offset: $shadow-offset, $light: $light-shadow-color, $dark: $dark-shadow-color) {
+  box-shadow: 
+    inset $offset $offset $light,
+    inset -$offset -$offset $dark;
+}
 
 .button-default{
     color: styles.$color-base-dark-gray;
-    box-shadow: inset 2px 2px #ffffffc0, inset -2px -2px #323232c0;
+    @include inset-shadow(4px, #fff9, #2229); // custom values
     background-color: styles.$color-base-gray;
-    border: 2px solid styles.$color-base-darker-gray-four;
-
+    border: .1em solid styles.$color-base-darker-gray-four;
+    position: absolute;
+    bottom: 1.65%;
     display: flex;
     place-content: center;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    font-size: 1em;
+    padding: 1.25%;
+    @include fluid-fs(1rem, 6vw, 2rem);
     margin: 7px auto 16px auto;
     text-decoration: none;
     &:hover{

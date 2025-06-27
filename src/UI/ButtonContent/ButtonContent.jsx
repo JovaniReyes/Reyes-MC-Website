@@ -9,8 +9,7 @@ import { playSound } from "../../Utils/buttonSound";
 import ButtonContentData from "./ButtonContentData";
 
 /* ─── images ─── */
-import audioPlaySymbol from "../../images/Buttons/AudioPlaySymbol.png";
-import audioMuteSymbol from "../../images/Buttons/AudioMuteSymbol.png";
+import { audioMuteSymbol, audioPlaySymbol } from "../../Utils/preLoadUIImages";
 import bookImg from "../../images/Buttons/BookSymbol.png";
 import codeImg from "../../images/Buttons/CodeSymbol.png";
 import mapImg from "../../images/Buttons/MapSymbol.webp";

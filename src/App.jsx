@@ -8,14 +8,15 @@ import Project from './UI/Project/Project';
 import { useEffect } from 'react';
 import aboutMeData from './UI/About/AboutMeData';
 import projectData from './UI/Project/ProjectData';
-import { preloadImgs } from './Exp/utils/preloadImages';
+import { preloadImgs, preloadButtonImages } from './Exp/utils/preloadImages';
 import { CitationToggle, CodeToggle, AudioToggle, MapToggle} from './UI/ButtonContent/ButtonContent';
 
 function App() {
  //For preloading images
  useEffect(() =>{
-  preloadImgs(aboutMeData);
-  preloadImgs(projectData);
+    preloadImgs(aboutMeData);
+    preloadImgs(projectData);
+    preloadButtonImages();
  }, []);
 
 

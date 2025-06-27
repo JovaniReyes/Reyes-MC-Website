@@ -168,38 +168,50 @@ $bg-green-2:  #275f13;
 /* ───────────────── edge arrows ───────────────── */
 .mobile-move-btn {
   position: fixed;
-  top: 33vh;                 /* thumb-height, centred vertically */
+  top: 35vh;                 /* thumb-height, centred vertically */
   transform: translateY(-50%);
-  opacity: .65;
-  font-size: 5.5rem;         /* big glyph */
+  opacity: .75;
   line-height: 1;
   color: #ffffff;
   background: none;
   border: none;
   width: 100px;               /* invisible hit-box for accessibility */
-  height: 110px;
+  height: 100px;
+  padding: 0;
   cursor: pointer;
   z-index: 1000;
   -webkit-tap-highlight-color: transparent;
 
-  &.left-arrow  { left: -10px; }
-  &.right-arrow { right: -25px; }
+  &.left-arrow  { left: 0; }
+  &.right-arrow { right: 0; }
+
+  /* pressed sprite hidden until :active */
+  .arrow-clicked { display: none; }
+  
 
   &:active {
-    color: rgb(120, 250, 137);
-    opacity: 1;
+    opacity: 1;          /* optional – keeps old brightness cue */
+    .arrow-default { display: none; }
+    .arrow-clicked { display:  inline; }
   }
 }
+.arrow-default,
+.arrow-clicked {
+  /*    ↓  min-size        ↓ fluid size      ↓ max-size        */
+  width:  clamp(77px, 10vmin, 100px);
+  height: clamp(125px, 10vmin, 100px);
+}
+.left-arrow img { transform: rotate(180deg); }
 
 /* ───────────────── floating cluster ───────────────── */
 .mobile-controls {
   position: fixed;
   right: 2%;
-  bottom: calc(14px + env(safe-area-inset-bottom)); /* stay above iOS bar */
+  bottom: calc(6px + env(safe-area-inset-bottom)); /* stay above iOS bar */
   display: flex;
   flex-direction: row-reverse;  /* floor toggle sits *above* the FAB */
   align-items: center;
-  gap: 40px;
+  gap: 50px;
   z-index: 1000;
 }
 
