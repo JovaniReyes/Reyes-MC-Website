@@ -116,7 +116,7 @@ export default function LoadingScreen() {
   if (animationFinished) return null;
 
   return (
-    <div className="loading-screen" style={{ background: plainBgVisible ? "black" : "transparent" }} > 
+    <div className="loading-screen" style={{ background: plainBgVisible ? "black" : "transparent", height: plainBgVisible ? "100%" : "0%" }} > 
       {bgMounted && (<Background isRevealed={bgReveal} onDone={handleAnimationFinished}/>)}
       
       <img src={HouseSymbol} alt="House Symbol" className={`intro-house${isRevealed ? " fade-out" : ""}`}/>

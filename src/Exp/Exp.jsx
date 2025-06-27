@@ -273,7 +273,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
   return (
     <>
     {/* <DebugCurve curve={positions}/> */}
-      <Environment background={true} backgroundRotation={[0,Math.PI / 1.5, 0]} files={["/CubeMap/px2.webp", "/CubeMap/nx2.webp", "/CubeMap/py2.webp", "/CubeMap/ny2.webp", "/CubeMap/pz.webp", "/CubeMap/nz2.webp"]}/>
+      <Environment background={true} backgroundRotation={[0,Math.PI / 1.5, 0]} files={["/CubeMap/px.webp", "/CubeMap/nx.webp", "/CubeMap/py.webp", "/CubeMap/ny.webp", "/CubeMap/pz.webp", "/CubeMap/nz.webp"]}/>
       <Suspense fallback={null}>
         {camera.current && <Maps pos={camera.current.position} rot={camera.current.rotation} visible={isMapOpen} onTeleport={onTeleport}/>}
         {isMapOpen && teleportEffects.map((fx) => (<TeleportFX key={fx.id} position={fx.pos} onDone={fx.dispose} />))}
