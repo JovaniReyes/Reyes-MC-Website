@@ -17,16 +17,16 @@ $dark-shadow-color: #323232c0;
 
 .button-default{
     color: styles.$color-base-dark-gray;
-    @include inset-shadow(4px, #fff9, #2229); // custom values
+    @include inset-shadow(.15em, #fff9, #2229); // custom values
     background-color: styles.$color-base-gray;
     border: .1em solid styles.$color-base-darker-gray-four;
     position: absolute;
-    bottom: 1vh;
+    bottom: -1vh;
     display: flex;
     place-content: center;
     justify-content: center;
     align-items: center;
-    padding: 1vw;
+    padding: clamp(15px, 2vw, 150px);
     @include fluid-fs(1rem, 6vw, 2rem);
     margin: 7px auto 16px auto;
     text-decoration: none;
@@ -36,6 +36,9 @@ $dark-shadow-color: #323232c0;
         background-color: styles.$color-base-green;
         cursor: pointer;
         box-shadow: inset 2px 2px #53d95ac0, inset -2px -2px #118316c0;
+    }
+    @media screen {
+      
     }
    
 }
