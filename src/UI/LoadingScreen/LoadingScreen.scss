@@ -143,7 +143,7 @@ $black-t: #323232c0;
   /* Mobile placement */
   @media (max-width: ($bp-desktop - 1)) {
     width: clamp(21%, 19vw, 23%);
-    bottom: 20%;
+    bottom: 15%;
     margin-right: 55%;
   }
 }
@@ -193,8 +193,8 @@ $black-t: #323232c0;
   @media (max-width: ($bp-desktop - 1)) {
     font-size: clamp(25px, 8vw, 40px);
     top: 100%;                 /* start just under phone   */
-    margin-top: 2.2vh;           /* ~6-7 % viewport height   */
-    margin-left: 10px;
+    margin-top: -5vh;           /* ~6-7 % viewport height   */
+    transform: translateX(30%);   /* horizontal centring */
   }
 
   @media (min-width: $bp-desktop) {
