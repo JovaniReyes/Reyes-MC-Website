@@ -13,7 +13,7 @@ import MouseSymbol from "../../images/Helpers/MouseSymbol.webp";
 import ArrowSymbol from "../../images/Helpers/ArrowSymbol.webp";
 import HouseSymbol from "../../images/Home/Home.webp";
 import filledBar from "../../images/LoadingBar/FilledProgress.webp";
-import unFilledBar from "../../images/LoadingBar/unFilledProgress.webp";
+import unFilledBar from "../../images/LoadingBar/UnFilledProgress.webp";
 /* ─────────────────── Helpers ─────────────────── */
 
 function useMediaQuery(query) {
