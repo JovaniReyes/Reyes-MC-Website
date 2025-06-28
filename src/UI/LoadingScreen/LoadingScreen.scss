@@ -141,7 +141,8 @@ $black-t: #323232c0;
   /* Mobile placement */
   @media (max-width: ($bp-desktop - 1)) {
     width: clamp(21%, 19vw, 23%);
-    bottom: 18%;
+    bottom: 20%;
+    margin-right: 55%;
   }
 }
 
