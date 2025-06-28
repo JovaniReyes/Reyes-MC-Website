@@ -23,7 +23,9 @@ $black-t: #323232c0;
 .intro-house {
   @extend .loading-screen;          /* reuse position/size rules          */
   position: fixed;
+  width: 100vw;
   height: 100vh;
+  left:0;
   object-fit: fill;
   object-position: center;
   transition: opacity 4s ease-in-out;
@@ -33,8 +35,8 @@ $black-t: #323232c0;
   &.fade-out { opacity: 0; }
 
   @media (max-width: ($bp-desktop - 1)) {
-    width: 250vw;
-    left: -68%;
+    object-fit: cover;
+    object-position: 46.4% center;  /* keep focal point centred */
   }
 }
 
@@ -197,8 +199,8 @@ $black-t: #323232c0;
 
   @media (min-width: $bp-desktop) {
     font-size: clamp(28px, 2.1vw, 70px);
-    top: 100%;                 /* start just under phone   */
-    margin-top: 5rem;          /* ≈ 144 px safety gap      */
+    top: 100%; /* start just under phone   */
+    margin-top: 3.75rem; /* ≈ 144 px safety gap      */
     margin-left: 1rem;
   }
 }
