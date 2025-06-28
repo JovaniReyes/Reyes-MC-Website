@@ -134,7 +134,7 @@ export const ProjectToggle = ({ modalTitle, contentID }) => {
     checkForOpenModal(modalTitle, <ButtonContent ContentID={contentID}/>, contentID);
   };
   return (
-    <button className="button-default" title="ProjectBtn" onClick={handleClick}>
+    <button className="button-project" title="ProjectBtn" onClick={handleClick} isProject={true}>
       {modalTitle}
     </button>
   );

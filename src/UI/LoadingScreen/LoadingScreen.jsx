@@ -32,9 +32,11 @@ const HelperIcons = memo(function HelperIcons({revealed, controlImg, deviceImg, 
   const containerClass = `helper-icons-container` + (revealed ? ` revealed` : ``) + (isForwardPhase ? ` forward` : ` backward`);
   return (
     <div className={containerClass}>
-      <img className="pixel-hand" src={controlImg} alt="Hand icon" onAnimationIteration={flipPhase} />
-      <img className="pixel-phone" src={deviceImg} alt="Device icon" />
-      <p className="gesture-label">{label}</p>
+      <div className="gesture-bundle">
+        <img className="pixel-hand" src={controlImg} alt="Hand icon" onAnimationIteration={flipPhase} />
+        <img className="pixel-phone" src={deviceImg} alt="Device icon" />
+        <p className="gesture-label">{label}</p>
+      </div>
     </div>
   );
 });

@@ -1,18 +1,21 @@
 import {playSound} from "../../Utils/buttonSound";
 import "./Button.scss"
 
-const Button = ({children, type, href, onClick}) => {
+const Button = ({children, type, href, onClick, isProject = false}) => {
+  const containerClass = `button-` + (isProject ? ` project` : `default`);
+  
   const handleClick = () => {
     playSound();
     if(onClick){
       onClick();
     }
   }
+  
   return (
     <>
     {type === "link" ? (
         <a 
-        className="button-default"
+        className={containerClass}
         href={href}
         target='_blank'
         rel='noopener noreferrer'

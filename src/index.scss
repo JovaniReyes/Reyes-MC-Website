@@ -5,6 +5,15 @@
 @forward "./Styles/reset.scss";
 @forward "./Styles/variables.scss";
 
+// index.scss
+@mixin flex-center($direction: row) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+}
+
+
 * {
     box-sizing: border-box;
 }
