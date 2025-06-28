@@ -72,29 +72,68 @@ $black-t: #323232c0;
   @include styles.flex-center;
 
   &.revealed { display: none; }
+}/* ─── Loading bar – final alignment ──────────────────────────────────── */
+
+/* Outer frame --------------------------------------------------------- */
+.loading-bar-wrapper {              /* new lightweight wrapper */
+  position: absolute;
+  left: 50%;                        /* centre horizontally   */
+  transform: translateX(-50%);
+  bottom: 6%;
+  width: clamp(320px, 60vw, 900px); /* fluid but bounded     */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .loading-bar-container {
-  position: absolute;
-  bottom: 6%;
-  width: 80%;
-  height: 4%;
-  margin-top: 40px;
-  border: .2em solid #fff;
+  /* same palette, now inside the wrapper */
+  width: 100%;
+  height: 2.5vh;                     /* fixed pixel height keeps it crisp */
+  border: 2px solid #182f1d;           /* thick white frame like screenshot */
+  background: #000;                 /* inner bezel (black)               */
+  @media (max-width: ($bp-desktop - 1)) {
+    height: 2.5vh;  
+  }
 }
 
+/* Grid of blocks ------------------------------------------------------ */
 .loading-bar {
-  width: 0;
+  --gap: 2px;                       /* tweak once for all sides          */
+  --segments: 11;
+
   height: 100%;
-  background: styles.$color-base-green;
-  @include inset-shadow(4px, styles.$color-base-darker-gray-four, styles.$color-base-darker-gray-four);
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--gap);              /* bezel on left + right             */
+  display: grid;
+  grid-template-columns: repeat(var(--segments), 1fr);
+  gap: var(--gap);                  /* 1-pixel slice between blocks      */
 }
 
+.loading-segment {
+  background-image: var(--tex-empty); /* grey by default  */
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border: 1px solid #2b4809;
+  image-rendering: pixelated;
+}
+
+/* turn green when “filled” class is added */
+.loading-segment.filled {
+  background-image: var(--tex-filled);
+}
+
+/* Percentage line ----------------------------------------------------- */
 .percentage {
-  margin-top: 18px;
+  margin-top: 8px;
   color: #fff;
-  font-size: clamp(25px, 1.6vw, 40px);
-  @include styles.flex-center(column);
+  font-size: clamp(24px, 1.6vw, 40px);
+  line-height: 1;
+  position: absolute;
+  left: 50%;                        /* centre horizontally   */
+  transform: translateX(-50%);
+ 
 }
 
 /* ─── Helper-icons (gesture bundle) ───────────────────────────────────── */
@@ -193,7 +232,7 @@ $black-t: #323232c0;
   @media (max-width: ($bp-desktop - 1)) {
     font-size: clamp(25px, 8vw, 40px);
     top: 100%;                 /* start just under phone   */
-    margin-top: -4.1vh;           /* ~6-7 % viewport height   */
+    margin-top: -4vh;           /* ~6-7 % viewport height   */
     transform: translateX(30%);   /* horizontal centring */
   }
 
@@ -231,8 +270,8 @@ $black-t: #323232c0;
   50%      { transform: translate(-50%,  120%) rotate(180deg) scale(1.2); }
 }
 @keyframes handFloat {
-  0%,2%   { transform: translateY(0)   scale(1); }
-  11%     { transform: translateY(0)   scale(0.9); }
-  89%     { transform: translateY(85px) scale(0.9); }
-  98%,100%{ transform: translateY(85px) scale(1); }
+  0%,2%   { transform: translateY(0)   scale(.9); }
+  11%     { transform: translateY(0)   scale(0.8); }
+  89%     { transform: translateY(10vh) translateX(10px) rotate(-45deg) scale(0.8); }
+  98%,100%{ transform: translateY(10vh) translateX(10px) rotate(-35deg) scale(.9); }
 }

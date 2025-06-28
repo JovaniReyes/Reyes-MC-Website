@@ -1,5 +1,5 @@
 // LoadingScreen.jsx
-import { useState, useEffect, useCallback, useMemo, memo } from "react";
+import { useState, useEffect, useCallback, useMemo, memo, } from "react";
 import "./LoadingScreen.scss";
 import { useProgress } from "@react-three/drei";
 import { useAudioStore } from "../../Exp/stores/audioStore";
@@ -12,6 +12,8 @@ import PhoneSymbol from "../../images/Helpers/PhoneSymbol.webp";
 import MouseSymbol from "../../images/Helpers/MouseSymbol.webp";
 import ArrowSymbol from "../../images/Helpers/ArrowSymbol.webp";
 import HouseSymbol from "../../images/Home/Home.webp";
+import filledBar from "../../images/LoadingBar/FilledProgress.webp";
+import unFilledBar from "../../images/LoadingBar/unFilledProgress.webp";
 /* ─────────────────── Helpers ─────────────────── */
 
 function useMediaQuery(query) {
@@ -43,10 +45,19 @@ const HelperIcons = memo(function HelperIcons({revealed, controlImg, deviceImg, 
 
 /** Progress bar */
 function LoadingBar({ progress }) {
+  const SEGMENTS = 11;                               // 👈 keep in sync with SCSS
+  const filled   = Math.min(SEGMENTS, Math.floor((progress / 100) * SEGMENTS));
   return (
-    <div className="loading-bar-container">
-      <div className="loading-bar" style={{ width: `${progress}%` }} />
-      <div className="percentage">{Math.round(progress)}%</div>
+    <div className="loading-bar-wrapper"
+    style={{"--tex-filled": `url(${filledBar})`,"--tex-empty" : `url(${unFilledBar})`,
+      }}>
+      <div className="loading-bar-container">
+        <div className="loading-bar">
+          {Array.from({ length: SEGMENTS }).map((_, i) => (
+            <div key={i} className={`loading-segment${i < filled ? " filled" : ""}`}/>
+          ))}
+        </div>
+        <div className="percentage">{Math.round(progress)}%</div></div>
     </div>
   );
 }
@@ -111,11 +122,22 @@ export default function LoadingScreen() {
 
   /* Smooth % counter */
   useEffect(() => {
-    setProg((prev) => (progress > prev ? progress : prev));
-  }, [progress]);
+  // cancel any earlier chase whenever progress jumps
+  let rafId;
+  const tick = () => {
+    setProg(prev => {
+      if (prev >= progress) return prev;       // already caught up
+      return Math.min(prev + .5, progress);     // +1 % per frame
+    });
+    rafId = requestAnimationFrame(tick);
+  };
+  rafId = requestAnimationFrame(tick);
+  return () => cancelAnimationFrame(rafId);
+}, [progress]);
 
   /* ────── RENDER ────── */
   if (animationFinished) return null;
+  
 
   return (
     <div className="loading-screen" style={{ background: plainBgVisible ? "black" : "transparent", height: plainBgVisible ? "100%" : "0%" }} > 
