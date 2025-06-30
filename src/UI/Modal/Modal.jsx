@@ -11,7 +11,8 @@ const Modal = () => {
     const { moveCursor, teleport, toggleFloor } = useMapControls();
     const [isFirstFloorImg, setisFirstFloorImg] = useState(true)
     const [isDTCmdsOpen, setIsDTCmdsOpen] = useState(false);
-    const [pressed, setPressed] = useState(false);
+    const [pressedRight, setPressedRight] = useState(false);
+    const [pressedLeft, setPressedLeft] = useState(false);
     const dtCmdsRef = useRef(null);
 
     useEffect(() => {
@@ -51,20 +52,20 @@ const Modal = () => {
                 {/* user-dismiss overlay for map controls */}
                 <div className="overlay" onClick={handleCloseModal}/>
                 <button
-                    onPointerDown={() => setPressed(true)}
-                    onPointerUp={() => { setPressed(false); moveCursor?.(-1);}}
-                    onPointerLeave={() => setPressed(false)}
+                    onPointerDown={() => setPressedLeft(true)}
+                    onPointerUp={() => { setPressedLeft(false); moveCursor?.(-1);}}
+                    onPointerLeave={() => setPressedLeft(false)}
                     className="mobile-move-btn left-arrow"
                 >
-                    <img src={pressed ? moveClickedSymbol : moveDefaultSymbol} alt="Move Left" draggable={false}/>
+                    <img src={pressedLeft ? moveClickedSymbol : moveDefaultSymbol} alt="Move Left" draggable={false}/>
                 </button>
                 <button
-                    onPointerDown={() => setPressed(true)}
-                    onPointerUp={() => { setPressed(false); moveCursor?.(1);}}
-                    onPointerLeave={() => setPressed(false)}
+                    onPointerDown={() => setPressedRight(true)}
+                    onPointerUp={() => { setPressedRight(false); moveCursor?.(1);}}
+                    onPointerLeave={() => setPressedRight(false)}
                     className="mobile-move-btn right-arrow"
                 >
-                    <img src={pressed ? moveClickedSymbol : moveDefaultSymbol} alt="Move Right" draggable={false}/>
+                    <img src={pressedRight ? moveClickedSymbol : moveDefaultSymbol} alt="Move Right" draggable={false}/>
                 </button>
 
                 {/* floating “GO / teleport” + floor toggle stacked together */}
