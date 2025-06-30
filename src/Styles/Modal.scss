@@ -1,224 +1,211 @@
 @use "../index.scss" as styles;
 
+/* ─────── modal animations ─────── */
 @keyframes entering {
-    0% {opacity: 1; transform: translate(-50%, -200%) scale(1);}
-    100%{opacity: 1; transform: translate(-50%, -50%) scale(1);}
+  0%   { opacity: 1; transform: translate(-50%, -200%) scale(1); }
+  100% { opacity: 1; transform: translate(-50%,  -50%) scale(1); }
 }
-
-//Keyframes for exiting out from the bottom
 @keyframes exiting {
-    0% {opacity: 1; transform: translate(-50%, -50%) scale(1);
-    }
-    100%{opacity: 1; transform: translate(-50%, 200%) scale(1);}
+  0%   { opacity: 1; transform: translate(-50%,  -50%) scale(1); }
+  100% { opacity: 1; transform: translate(-50%,  200%) scale(1); }
 }
 
-.overlay{
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    //background-color: styles.$color-base-overlay-gray;
+/* ─────── overlay ─────── */
+.overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  // background-color: styles.$color-base-overlay-gray;
 }
 
-.modal{
-    z-index: 1000;
-    position: absolute;        // keep your centring styles
-    top: 50%; left: 50%;
-    transform: translate(-50%, -150%);
+/* ─────── modal frame ─────── */
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -150%);
 
-    width: 98%;
-    max-width: 700px;
-    height: clamp(360px, 55vh, 500px);
+  z-index: 1000;
+  width: 98%;
+  max-width: 700px;
+  height: clamp(360px, 55vh, 500px);
 
-    display: flex;            
-    flex-direction: column;    
-    //transform: translate(-50%, -150%) scale(1);
-    border: .2em solid black;
-    border-radius: 15px;
-    //Entering view
-    &.enter{animation: entering 1s ease both;}
+  display: flex;
+  flex-direction: column;
+  border: .2em solid black;
+  border-radius: 15px;
 
-    //Exiting view
-    &.exit{
-        animation: exiting 1s ease both;
-    }
+  &.enter { animation: entering 1s ease both; }
+  &.exit  { animation: exiting  1s ease both; }
 }
 
-.modal-header{
-    flex: 0 0 auto;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    align-items: center;
+.modal-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+
+  width: 100%;
+  padding: 16px 30px;
+  border-radius: 10px 10px 0 0;
+  background-color: styles.$color-base-gray;
+}
+.modal-header-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-title       { font-size: 1.32em; }
+.modal-close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  place-content: center;
+  padding: 5px;
+
+  background: transparent;
+  border: none;
+  color: styles.$color-base-dark-gray;
+
+  &:hover {
+    cursor: pointer;
+    background-color: styles.$color-base-darker-gray-two;
+    color: white;
+  }
+}
+
+.modal-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  border: .3em solid styles.$color-base-darker-gray-two;
+  background-color: styles.$color-base-darker-gray-three;
+  border-radius: 0 0 10px 10px;
+  box-sizing: border-box;
+
+  /* scrollbar */
+  &::-webkit-scrollbar        { width: 15px; }
+  &::-webkit-scrollbar-track  { background-color: styles.$color-base-gray; }
+  &::-webkit-scrollbar-thumb  {
     background-color: styles.$color-base-gray;
-    padding: 16px 30px;
-
-    border-radius: 10px 10px 0px 0px;
-    width: 100%;
+    border: 3px solid styles.$color-base-darker-gray-four;
+    box-shadow: inset 0 2px #ffffffc0, inset 0 2px #323232;
+  }
 }
 
-.modal-header-wrapper{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
-}
-
-.modal-title{
-    font-size: 1.32em;
-}
-
-.modal-close-button{
-    background-color: transparent;
-    outline: none;
-    border: none;
-    display: flex;
-    place-content: center;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    color: styles.$color-base-dark-gray;
-    &:hover{
-        cursor:pointer;
-        background-color: styles.$color-base-darker-gray-two;
-        color: white;
-    }
-}
-
-.modal-body{
-    flex: 1 1 auto;            // takes the remaining space
-    overflow-y: auto;          // scrolls when needed
-    border: .3em solid styles.$color-base-darker-gray-two;
-    background-color: styles.$color-base-darker-gray-three;
-    border-radius: 0 0 10px 10px;
-    box-sizing: border-box;    // so borders are included in the flex math
-    /* width */
-    &::-webkit-scrollbar {
-        width: 15px;
-    }
-  
-    /* Track */
-    &::-webkit-scrollbar-track {
-        background-color: styles.$color-base-gray;
-    }
-    
-    /* Handle */
-    &::-webkit-scrollbar-thumb {
-        border: 3px solid styles.$color-base-darker-gray-four;
-        background-color: styles.$color-base-gray;
-        box-shadow: inset 0px 2px #ffffffc0, inset 0px 2px #323232;
-    }
-}
+/* ─────── teleport flash ─────── */
 .teleport {
   position: fixed;
   inset: 0;
-  background: rgba(153, 113, 255, 0.642); /* purple & see-through */
-  z-index: 150;
+  background: rgba(153, 113, 255, 0.642);
   pointer-events: none;
+  z-index: 150;
 
-  &.begin { animation: fadeFlash 0.5s ease both; }
-  &.end  { animation: fadeFlash 0.5s ease both; }
+  &.begin,
+  &.end { animation: fadeFlash 0.5s ease both; }
 }
-@keyframes fadeFlash {
-  from { opacity: 1; }
-  to   { opacity: 0; }
+@keyframes fadeFlash { from { opacity: 1; } to { opacity: 0; } }
+
+/* ─────── modal aspect tweaks ─────── */
+@media (min-width: 1415px) {
+  .modal { height: 80%; }
 }
-
-
-@media (min-width: 1415px) {          /* ≥ 1415 px ⇒ square modal   */
-  .modal {
-    height: 80%;
-  }
-}
-
 @media (max-width: 1415px) {
-    .modal {
-        top: 40%;
-        height: 62.5%;
-        &.button{
-            top: 52.5%;
-            height: 80%;
-        }
+  .modal {
+    top: 40%;
+    height: 62.5%;
+
+    &.button {
+      top: 52.5%;
+      height: 80%;
     }
-  .modal-body{height: auto;}
-  .modal-title{font-size: .9em;}
-  .modal-close-button{
-    position: absolute;
-    left: 90%;
   }
+  .modal-body   { height: auto; }
+  .modal-title  { font-size: .9em; }
+  .modal-close-button { position: absolute; left: 90%; }
 }
-@media (max-width: 500px){
-    .modal-close-button{
-        position: absolute;
-        left: 86%;
-    }
+@media (max-width: 500px) {
+  .modal-close-button { left: 86%; }
 }
 
+/* ─────── shared local vars ─────── */
+$stroke-dark : styles.$color-base-darker-gray-four;
+$bg-stone-1  : rgba(styles.$color-base-gray, 0.55);
+$bg-stone-2  : rgba(styles.$color-base-gray, 0.75);
+$bg-green-1  : #62f544;
+$bg-green-2  : #275f13;
 
-/* ───────────────── shared vars ───────────────── */
-$stroke-dark: styles.$color-base-darker-gray-four;
-$bg-stone-1:  rgba(styles.$color-base-gray, 0.55);
-$bg-stone-2:  rgba(styles.$color-base-gray, 0.75);
-$bg-green-1:  #62f544;
-$bg-green-2:  #275f13;
+/* ────────────────────────────────────────────────────────────────
+   FLUID, TOUCH‑SAFE MOBILE CONTROLS
+   ─────────────────────────────────────────────────────────────── */
 
-/* ───────────────── edge arrows ───────────────── */
+/* edge‑arrow buttons */
 .mobile-move-btn {
   position: absolute;
-  top: 35vh;                 /* thumb-height, centred vertically */
+  top: 35vh;
   transform: translateY(-50%);
-  opacity: .75;
   line-height: 1;
-  color: #ffffff;
+  color: #fff;
   background: none;
   border: none;
-  width: auto;               /* invisible hit-box for accessibility */
-  height: auto;
-  padding: 0;
   cursor: pointer;
   z-index: 1000;
   -webkit-tap-highlight-color: transparent;
 
-  &.left-arrow  { left: 0; }
+  /* fluid hit‑box */
+  width : clamp(48px, 12vw, 84px);
+  height: clamp(72px, 18vw, 120px);
+  opacity: .75;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.left-arrow  { left: 0;  }
   &.right-arrow { right: 0; }
 
-  /* pressed sprite hidden until :active */
+  /* sprite swap on press */
   .arrow-clicked { display: none; }
-  
-
   &:active {
-    opacity: 1;          /* optional – keeps old brightness cue */
-    .arrow-default { display: none; }
-    .arrow-clicked { display:  inline; }
+    opacity: 1;
+    .arrow-default  { display: none; }
+    .arrow-clicked  { display: block; }
+    transform: translateY(-50%) scale(.92); /* press feedback */
   }
 }
+/* sprite sizing – always fill parent & ignore pointer events */
+.mobile-move-btn img,
 .arrow-default,
 .arrow-clicked {
-  /*    ↓  min-size        ↓ fluid size      ↓ max-size        */
-  width:  clamp(61.6px, 10vmin, 100px);
-  height: clamp(100px, 10vmin, 125px);
+  width : 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
 }
 .left-arrow img { transform: rotate(180deg); }
 
-/* ───────────────── floating cluster ───────────────── */
+/* ─────── floating FAB + floor toggle cluster ─────── */
 .mobile-controls {
   position: fixed;
   right: 2%;
-  bottom: calc(6px + env(safe-area-inset-bottom)); /* stay above iOS bar */
+  bottom: calc(6px + env(safe-area-inset-bottom));
   display: flex;
-  flex-direction: row-reverse;  /* floor toggle sits *above* the FAB */
+  flex-direction: row-reverse; /* floor toggle sits above FAB */
   align-items: center;
   gap: 50px;
   z-index: 1000;
+
+  @media (max-width: 420px) { gap: 32px; }
 }
 
-/* base pill style reused by both buttons */
+/* pill base */
 .control-btn {
-  width: 68px;
-  height: 68px;
+  width : clamp(60px, 16vw, 96px);
+  height: clamp(60px, 16vw, 96px);
   border-radius: 12px;
   font-size: 2.2rem;
   color: #171717;
@@ -228,155 +215,97 @@ $bg-green-2:  #275f13;
   cursor: pointer;
   transition: background 120ms ease, transform 80ms ease;
 
-  &:active {
-    transform: translateY(4px);
-  }
+  &:active { transform: translateY(4px); }
 
+  > img { width: 100%; height: 100%; object-fit: contain; pointer-events:none; }
 }
 
-/* larger “GO” FAB */
-.fab {
-  width: 84px;
-  height: 84px;
-  .teleport-btn-img {
-    display: block;            /* remove inline-img whitespace */
-    width: 100%;                /* desktop default */
-    height: 100%;
-    object-fit: contain;       /* shrink-to-fit, keep aspect */
-    pointer-events: none;      /* avoid accidental drags */
-  }
+/* larger FAB & floor toggle reuse same fluid sizing */
+.fab,
+.floor-toggle {
+  width : clamp(72px, 20vw, 110px);
+  height: clamp(72px, 20vw, 110px);
 }
 .floor-toggle {
-  width: 84px;
-  height: 84px;
-  position: relative;      /* just in case */
-  overflow: hidden;        /* hide any bleed */
-
-  .floor-btn-img {
-    display: block;        /* kill inline-img whitespace */
-    width: 98%;            /* desktop / default */
-    height: 98%;
-    object-fit: contain;   /* scale without distortion */
-    pointer-events: none;  /* so tap/click hits the button */
-  }
+  position: relative;
+  overflow: hidden;
 }
 
+/* ─────── desktop dropdown (unchanged) ─────── */
+$gray-base   : #e6e6e6;
+$gray-border : #4f4f4f;
+$green-hover : #00bb6e;
 
-
-
-/* Desktop dropdown ------------------------------------------------------*/
-$gray-base:          #e6e6e6;
-$gray-border:        #4f4f4f;
-$green-hover:        #00bb6e;        // parent - hover /
-// -------------  layout container -------------
 .desktop-controls {
   position: fixed;
-  top: 24px;                // same offset you already had
-  left: 50%;                // centre horizontally
+  top: 24px;
+  left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-  display: flex;            // keeps future siblings easy to align
+  display: flex;
   justify-content: center;
 }
-
-// -------------  clickable parent -------------
 .desktop-dropdown {
   position: relative;
   display: inline-flex;
   align-items: center;
   padding: 6px 12px;
-  border-radius: 6px;
   border: 2px solid styles.$color-base-darker-gray-four;
-  box-shadow: inset 2px 2px #ffffffc0, inset -2px -2px #323232c0;
+  border-radius: 6px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color .2s ease, color .2s ease;
+  box-shadow: inset 2px 2px #ffffffc0, inset -2px -2px #323232c0;
 
-  // colour cue on hover *or* when open
-  &:not(:hover) {
-    background: linear-gradient(135deg, #E8E8E8 0%, #686868 100%);
-  }
+  &:not(:hover) { background: linear-gradient(135deg,#E8E8E8 0%,#686868 100%); }
   &:hover {
     border: 2px solid white;
     background-color: styles.$color-base-green;
     box-shadow: inset 2px 2px #53d95ac0, inset -2px -2px #118316c0;
-   >span{
-    color: white;
-   }
-
+    > span { color: white; }
   }
-   &.open{
-    border-radius: 6px 6px 0px 0px;
-   }
-    &.open:not(:hover){
-      background: linear-gradient(135deg, #fffdfd61 0%, #fffcfc86 50%);
-    }
+  &.open {
+    border-radius: 6px 6px 0 0;
+    &:not(:hover) { background: linear-gradient(135deg,#fffdfd61 0%,#fffcfc86 50%); }
+  }
 }
-
-// -------------  dropdown menu -------------
 .desktop-dropdown-content {
-  /* position directly under the parent, centred */
   position: absolute;
-  top: calc(100%);
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
-
-  /* sizing: double the clickable width (200%) and a safety min-width */
   width: 450%;
   min-width: 200px;
-
-  /* visuals */
   padding: 8px 0;
   border-radius: 16px;
-  background: linear-gradient(135deg, #e8e8e8a2 0%, #959494b1 100%);
+  background: linear-gradient(135deg,#e8e8e8a2 0%,#959494b1 100%);
   border: 2px solid styles.$color-base-darker-gray-four;
   box-shadow: inset 2px 2px #ffffff83, inset -2px -2px #323232c0;
-
   text-align: center;
-
-  /* hidden by default */
   display: none;
 
-  /* React toggles `.show` when open */
-  &.show {
-    display: block;
-  }
+  &.show { display: block; }
 
-  /* ------------- list styling ------------- */
-  ul,
-  .command-list {               /* allow either selector */
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
+  ul, .command-list {
+    margin: 0; padding: 0; list-style: none;
     li {
-      /* two centred columns (command | key) */
       display: grid;
       grid-template-columns: 1fr 1fr;
       place-items: center;
       padding: 6px 0;
       width: 100%;
       cursor: pointer;
-      transition: background-color 0.15s ease, color 0.15s ease;
-
-      /* optional: tighter vertical spacing for multi-line commands */
-      .cmd, .key {
-        line-height: 1.2;
-      }
+      transition: background-color .15s ease, color .15s ease;
+      .cmd, .key { line-height: 1.2; }
     }
   }
 }
-/* -----------------------------------------------------------------------*/
-/*                  Responsive visibility toggles                         */
-/* -----------------------------------------------------------------------*/
-@media (min-width: 1414px) {
-  .mobile-controls, .mobile-move-btn {
-    display: none;
-  }
-}
 
+/* ─────── responsive visibility toggles ─────── */
+@media (min-width: 1414px) {
+  .mobile-controls,
+  .mobile-move-btn { display: none; }
+}
 @media (max-width: 1413.98px) {
-  .desktop-controls {
-    display: none;
-  }
+  .desktop-controls { display: none; }
 }
