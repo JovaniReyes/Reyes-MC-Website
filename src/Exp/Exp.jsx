@@ -282,6 +282,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
         <Home progress={scrollRef.current}/> 
         <Nature/>
         <Mobs />
+        <Mail />
       </Suspense>
     </>
   );
