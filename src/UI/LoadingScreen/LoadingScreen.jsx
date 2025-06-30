@@ -1,5 +1,5 @@
 // LoadingScreen.jsx
-import { useState, useEffect, useCallback, useMemo, memo, } from "react";
+import { useState, useEffect, useCallback, useMemo, memo, Fragment } from "react";
 import "./LoadingScreen.scss";
 import { useProgress } from "@react-three/drei";
 import { useAudioStore } from "../../Exp/stores/audioStore";
@@ -14,6 +14,11 @@ import ArrowSymbol from "../../images/Helpers/ArrowSymbol.webp";
 import HouseSymbol from "../../images/Home/Home.webp";
 import filledBar from "../../images/LoadingBar/FilledProgress.webp";
 import unFilledBar from "../../images/LoadingBar/UnFilledProgress.webp";
+
+import { audioMuteSymbol, audioPlaySymbol } from "../../Utils/preLoadUIImages";
+import bookImg from "../../images/Buttons/BookSymbol.png";
+import codeImg from "../../images/Buttons/CodeSymbol.png";
+import mapImg from "../../images/Buttons/MapSymbol.webp";
 /* ─────────────────── Helpers ─────────────────── */
 
 function useMediaQuery(query) {
@@ -134,16 +139,45 @@ export default function LoadingScreen() {
   rafId = requestAnimationFrame(tick);
   return () => cancelAnimationFrame(rafId);
 }, [progress]);
+/* ─── new: quick descriptor list for the top-right buttons ─── */
+const uiBrief = useMemo(
+  () => [
+    { icon: mapImg,    text: "Fast-Travel Map" },
+    { icon: bookImg,   text: "Citations"       },
+    { icon: codeImg,text: "Site Road-Map"   },
+    { icon: audioPlaySymbol,  text: "Toggle Audio"    },
+  ],
+  []
+);
+
+  /** two-row grid: first row = icons | second row = labels */
+  const UIBrief = ({ items }) => (
+    <div className="ui-brief">
+      {items.map(({ icon, text }) => (
+        <img key={`icon-${text}`} className="ui-brief-icon" src="icon" alt="" aria-hidden/>
+      ))}
+        {items.map(({ text }) => (
+        <span key={`label-${text}`} className="ui-brief-label">
+          {text}
+        </span>
+      ))}
+    </div>
+  );
 
   /* ────── RENDER ────── */
   if (animationFinished) return null;
+
   
 
   return (
     <div className="loading-screen" style={{ background: plainBgVisible ? "black" : "transparent", height: plainBgVisible ? "100%" : "0%" }} > 
       {bgMounted && (<Background isRevealed={bgReveal} onDone={handleAnimationFinished}/>)}
-      
       <img src={HouseSymbol} alt="House Symbol" className={`intro-house${isRevealed ? " fade-out" : ""}`}/>
+      {/* optional instructions block, left blank in original */}
+        <div className={`instructions-container ${isRevealed ? "revealed" : ""}`}>
+          {/* ⮑ our new feature */}
+          <UIBrief items={uiBrief} />
+        </div>
 
       <div className="loading-screen-info-container">
         <HelperIcons
@@ -155,10 +189,7 @@ export default function LoadingScreen() {
           isForwardPhase={isForwardPhase}
         />
 
-        {/* optional instructions block, left blank in original */}
-        <div
-          className={`instructions-container ${isRevealed ? "revealed" : ""}`}
-        />
+        
 
         {prog < 100 ? (<LoadingBar progress={prog}/>) : (!isRevealed && canEnterWorld ? (<Button onClick={handleReveal}>Enter World</Button>) : null)}
       </div>
