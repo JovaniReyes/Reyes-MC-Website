@@ -40,9 +40,9 @@ export default function Model(props) {
   return (
     <group {...props} dispose={null}>
       {/* ====================== Nature1T ====================== */}
-      <mesh geometry={n1.GrassBlock1_Baked.geometry} material={m1.GrassBlock1_Baked} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh geometry={n1.GrassBlock2_Baked.geometry} material={m1.GrassBlock2_Baked} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh geometry={n1.OakLeavesCloseSet1_Baked.geometry} material={m1.NS1_2_Baked} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh geometry={n1.GrassBlock1_Baked.geometry} material={m1['GrassBlock1_Baked.001']} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh geometry={n1.GrassBlock2_Baked.geometry} material={m1['GrassBlock2_Baked.001']} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh geometry={n1.OakLeavesCloseSet1_Baked.geometry} material={m1.TreeLeavesCloseS_Baked} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
       {/* ====================== Nature3T ====================== */}
       <mesh geometry={n2?.DirtClose_Baked?.geometry} material={m2?.DirtClose_Baked} position={[2.487, 16.684, 2.77]} rotation={[Math.PI / 2, 0, 0]} />
       <mesh geometry={n2?.DirtFar2_Baked?.geometry} material={m2?.DirtFar2_Baked} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />

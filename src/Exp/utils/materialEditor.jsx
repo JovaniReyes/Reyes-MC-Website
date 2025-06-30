@@ -34,7 +34,7 @@ const uniqueMaterials = {
     'PS14_Baked.001' : ['P4.2'],
 
     // ── P5 (set 5) ────────────────────────────────
-    'PM6_Baked.001'  : ['P5.0'],
+    'PM6_Baked.001'  : ['P6.0'],
     'PS15_Baked.002' : ['P5.1'],
     'PS16_Baked.001' : ['P5.2'],
     'PS17_Baked.001' : ['P5.3'],
@@ -47,7 +47,7 @@ const uniqueMaterials = {
     PS26_Baked : ['P5.10'],
 
     // ── P6 (set 6) ────────────────────────────────
-    'PM5_Baked.001'  : ['P6.0'],
+    'PM5___Baked'  : ['P5.0'],
     'PS20_Baked.001' : ['P6.1'],
     'PS21_Baked.001' : ['P6.2'],
 

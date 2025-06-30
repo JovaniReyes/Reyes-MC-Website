@@ -10,6 +10,7 @@ import TeleportFX, {TeleportFXPreload} from './utils/TeleportFX';
 import Nature from "./models/Nature";
 import Photos from "./models/Photo";
 import Mobs from "./models/Mobs";
+import Mail from "./models/Mail";
 import Home from "./models/Home";
 import Maps, {MapsPreload} from "./models/Maps";
 import * as THREE from "three";
@@ -160,9 +161,9 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
 
     {prog: 0.500, rot: new THREE.Euler(-3.135,  0.635,  3.139)},
     {prog: 0.534, rot: new THREE.Euler(-3.335, -0.200,  3.139)},
-    {prog: 0.552, rot: new THREE.Euler( 3.00, -0.400, -3.180)},
+    {prog: 0.552, rot: new THREE.Euler( 3.00, -0.200, -3.180)},
     {prog: 0.564, rot: new THREE.Euler( 0.500,  1.500, -.5000)},
-    {prog: 0.575, rot: new THREE.Euler(-0.500, 0.000,  -0.050)},
+    {prog: 0.575, rot: new THREE.Euler(-0.800, 0.000,  -0.00)},
     {prog: 0.594, rot: new THREE.Euler(-0.535,  0.168,  0.099)},
 
     {prog: 0.605, rot: new THREE.Euler(-0.500,  1.000,  0.000)},
@@ -281,6 +282,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
         <Home progress={scrollRef.current}/> 
         <Nature/>
         <Mobs />
+        <Mail />
       </Suspense>
     </>
   );

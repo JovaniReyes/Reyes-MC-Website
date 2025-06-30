@@ -90,27 +90,27 @@ const meshConfigs = [
     { id: 'P3.5',  geometry: 'PS12_Baked', progressRange: pRange["S3"], material: 'PS12_Baked.001',      position: [10.527, 19.45, 2.4],    rotation: [0, 1.459, 0],             scale: [-0.089, -0.089, -0.012], section: 'about', color: "None", },
 
   // ── P4 (set 4) ─────────────────────────────────────────────
-  { id: 'P4.0',  geometry: 'PM4_Baked',  progressRange: pRange["S4"], material: 'PM4_Baked.001',       position: [10.012, 24.048, 13.734],rotation: [ pi / 2, 0,  pi],         scale: 0.04,                    section: 'about', color: "Green", },
-    { id: 'P4.1',  geometry: 'PS13_Baked', progressRange: pRange["S4"], material: 'PS13_Baked.001',      position: [9.311, 24.485, 13.734], rotation: [-pi / 2, 0, 0],           scale: 0.04,                    section: 'about', color: "Green", },
-    { id: 'P4.2',  geometry: 'PS14_Baked', progressRange: pRange["S4"], material: 'PS14_Baked.001',      position: [9.311, 23.611, 13.734], rotation: [-pi / 2, 0, 0],           scale: 0.04,                    section: 'about', color: "Green", },
+  { id: 'P4.0',  geometry: 'PM4_Baked',  progressRange: pRange["S4"], material: 'PM4_Baked.001',       position: [10.255, 24.048, 13.734],rotation: [ pi / 2, 0,  pi],         scale: 0.04,                    section: 'about', color: "Green", },
+    { id: 'P4.1',  geometry: 'PS13_Baked', progressRange: pRange["S4"], material: 'PS13_Baked.001',      position: [9.554, 24.485, 13.734], rotation: [-pi / 2, 0, 0],           scale: 0.04,                    section: 'about', color: "Green", },
+    { id: 'P4.2',  geometry: 'PS14_Baked', progressRange: pRange["S4"], material: 'PS14_Baked.001',      position: [9.554, 23.611, 13.734], rotation: [-pi / 2, 0, 0],           scale: 0.04,                    section: 'about', color: "Green", },
 
-  // ── P6 (set 6) ─────────────────────────────────────────────
-  { id: 'P6.0',  geometry: 'PM5_Baked',  progressRange: pRange["S6"], material: 'PM5_Baked.001',       position: [8.378, 24.048, 13.744], rotation: [ pi / 2, 0,  pi],        scale: [0.066, 0.053, 0.066],   section: 'about', color: "None", },
-    { id: 'P5.1',  geometry: 'PS15_Baked', progressRange: pRange["S6"], material: 'PS15_Baked.002',      position: [7.638, 23.136, 13.682], rotation: [0, -0.351, 0],           scale: [-0.096, -0.096, -0.013], section: 'about', color: "None", },
-    { id: 'P5.2',  geometry: 'PS16_Baked', progressRange: pRange["S6"], material: 'PS16_Baked.001',      position: [7.434, 23.136, 13.685], rotation: [0, -0.333, 0],           scale: [-0.096, -0.096, -0.013], section: 'about', color: "None", },
-    { id: 'P5.3',  geometry: 'PS17_Baked', progressRange: pRange["S6"], material: 'PS17_Baked.001',      position: [7.226, 23.136, 13.683], rotation: [0, -0.33, 0],            scale: [-0.096, -0.096, -0.013], section: 'about', color: "None", },
-    { id: 'P5.4',  geometry: 'PS18_Baked', progressRange: pRange["S6"], material: 'PS18_Baked.001',      position: [7.021, 23.136, 13.684], rotation: [0, -0.34, 0],           scale: [-0.096, -0.096, -0.013], section: 'about', color: "None", },
-    { id: 'P5.5',  geometry: 'PS19_Baked', progressRange: pRange["S6"], material: 'PS19_Baked.001',      position: [6.817, 23.136, 13.68],  rotation: [0, -0.358, 0],          scale: [-0.096, -0.096, -0.013], section: 'about', color: "None", },
-    { id: 'P5.6',  geometry: 'PS22_Baked', progressRange: pRange["S6"], material: 'PS22_Baked',          position: [9.956, 23.14, 13.679], rotation: [0,  0.317, 0],           scale: [-0.096, -0.096, -0.013], section: 'about', color: "None", },
-    { id: 'P5.7',  geometry: 'PS23_Baked', progressRange: pRange["S6"], material: 'PS23_Baked',          position: [9.752, 23.14, 13.682], rotation: [0,  0.334, 0],           scale: [-0.096, -0.096, -0.013], section: 'about', color: "None", },
-    { id: 'P5.8',  geometry: 'PS24_Baked', progressRange: pRange["S6"], material: 'PS24_Baked',          position: [9.544, 23.141, 13.68], rotation: [0,  0.337, 0],           scale: [-0.096, -0.096, -0.013], section: 'about',color: "None", },
-    { id: 'P5.9',  geometry: 'PS25_Baked', progressRange: pRange["S6"], material: 'PS25_Baked.001',      position: [9.339, 23.14, 13.681], rotation: [0,  0.327, 0],           scale: [-0.096, -0.096, -0.013], section: 'about',color: "None", },
-    { id: 'P5.10', geometry: 'PS26_Baked', progressRange: pRange["S6"], material: 'PS26_Baked',          position: [9.135, 23.14, 13.677], rotation: [0,  0.309, 0],           scale: [-0.096, -0.096, -0.013], section: 'about',color: "None", },
+  // ── P6 (set 6) ─────────────────────────────────────────────<mesh geometry={nodes.PM5___Baked.geometry} material={materials.PM5___Baked} position={[8.378, 24.048, 13.685]} rotation={[-Math.PI / 2, 0, 0]} scale={[0.135, 0.094, 0.135]} />
+  { id: 'P5.0',  geometry: 'PM5___Baked',  progressRange: pRange["S6"], material: 'PM5___Baked',       position: [8.378, 24.048, 13.685], rotation: [-Math.PI / 2, 0, 0],        scale: [0.135, 0.094, 0.135],   section: 'about', color: "None", },
+    { id: 'P5.1',  geometry: 'PS15_Baked', progressRange: pRange["S6"], material: 'PS15_Baked.002',      position: [7.378, 23.136, 13.682], rotation: [0, -0.351, 0],           scale: [-0.096, -0.096, -0.013], section: 'about', color: "None", },
+    { id: 'P5.2',  geometry: 'PS16_Baked', progressRange: pRange["S6"], material: 'PS16_Baked.001',      position: [7.174, 23.136, 13.685], rotation: [0, -0.333, 0],           scale: [-0.096, -0.096, -0.013], section: 'about', color: "None", },
+    { id: 'P5.3',  geometry: 'PS17_Baked', progressRange: pRange["S6"], material: 'PS17_Baked.001',      position: [6.966, 23.136, 13.683], rotation: [0, -0.33, 0],            scale: [-0.096, -0.096, -0.013], section: 'about', color: "None", },
+    { id: 'P5.4',  geometry: 'PS18_Baked', progressRange: pRange["S6"], material: 'PS18_Baked.001',      position: [6.761, 23.136, 13.684], rotation: [0, -0.34, 0],           scale: [-0.096, -0.096, -0.013], section: 'about', color: "None", },
+    { id: 'P5.5',  geometry: 'PS19_Baked', progressRange: pRange["S6"], material: 'PS19_Baked.001',      position: [6.557, 23.136, 13.68],  rotation: [0, -0.358, 0],          scale: [-0.096, -0.096, -0.013], section: 'about', color: "None", },
+    { id: 'P5.6',  geometry: 'PS22_Baked', progressRange: pRange["S6"], material: 'PS22_Baked',          position: [10.2, 23.14, 13.679], rotation: [0,  0.317, 0],           scale: [-0.096, -0.096, -0.013], section: 'about', color: "None", },
+    { id: 'P5.7',  geometry: 'PS23_Baked', progressRange: pRange["S6"], material: 'PS23_Baked',          position: [9.996, 23.14, 13.682], rotation: [0,  0.334, 0],           scale: [-0.096, -0.096, -0.013], section: 'about', color: "None", },
+    { id: 'P5.8',  geometry: 'PS24_Baked', progressRange: pRange["S6"], material: 'PS24_Baked',          position: [9.788, 23.141, 13.68], rotation: [0,  0.337, 0],           scale: [-0.096, -0.096, -0.013], section: 'about',color: "None", },
+    { id: 'P5.9',  geometry: 'PS25_Baked', progressRange: pRange["S6"], material: 'PS25_Baked.001',      position: [9.583, 23.14, 13.681], rotation: [0,  0.327, 0],           scale: [-0.096, -0.096, -0.013], section: 'about',color: "None", },
+    { id: 'P5.10', geometry: 'PS26_Baked', progressRange: pRange["S6"], material: 'PS26_Baked',          position: [9.379, 23.14, 13.677], rotation: [0,  0.309, 0],           scale: [-0.096, -0.096, -0.013], section: 'about',color: "None", },
 
   // ── P5 (set 5) ─────────────────────────────────────────────
-  { id: 'P5.0',  geometry: 'PM6_Baked',  progressRange: pRange["S5"], material: 'PM6_Baked.001',       position: [6.746, 24.05, 13.739],  rotation: [-pi / 2, 0, 0],           scale: 0.04,                    section: 'about', color: "Blue", },
-    { id: 'P6.1',  geometry: 'PS20_Baked', progressRange: pRange["S5"], material: 'PS20_Baked.001',      position: [7.445, 24.538, 13.739], rotation: [-pi / 2, 0, 0],          scale: 0.039,                   section: 'about', color: "Blue", },
-    { id: 'P6.2',  geometry: 'PS21_Baked', progressRange: pRange["S5"], material: 'PS21_Baked.001',      position: [8.378, 24.048, 13.744], rotation: [-pi / 2, 0, 0],          scale: 0.04,                    section: 'about', color: "Blue", },
+  { id: 'P6.0',  geometry: 'PM6_Baked',  progressRange: pRange["S5"], material: 'PM6_Baked.001',       position: [6.486, 24.05, 13.739],  rotation: [-pi / 2, 0, 0],           scale: 0.04,                    section: 'about', color: "Blue", },
+    { id: 'P6.1',  geometry: 'PS20_Baked', progressRange: pRange["S5"], material: 'PS20_Baked.001',      position: [7.184, 24.538, 13.739], rotation: [-pi / 2, 0, 0],          scale: 0.039,                   section: 'about', color: "Blue", },
+    { id: 'P6.2',  geometry: 'PS21_Baked', progressRange: pRange["S5"], material: 'PS21_Baked.001',      position: [8.117, 24.048, 13.744], rotation: [-pi / 2, 0, 0],          scale: 0.04,                    section: 'about', color: "Blue", },
 
   // ── PP (project photos) ───────────────────────────────────
   { id: 'PP1', geometry: 'PP1_Baked', progressRange: pRange["SP"], material: 'PP1_Baked', position: [2.086, 18.29, 6.702], rotation: [-pi / 2, 0, 0], scale: 0.051, section: 'projects', color: "None", },
@@ -127,12 +127,12 @@ const meshConfigs = [
     { id: 'PU7',  geometry: 'PU7_Baked',  progressRange: pRange["SU"], material: 'PU7_Baked',      position: [10.558, 22.347, 5.506], rotation: [-pi / 2, 0,  pi / 2],  scale: 0.039,                   section: 'about', color: "None", },
     { id: 'PU8',  geometry: 'PU8_Baked',  progressRange: pRange["SU"], material: 'PU8_Baked',      position: [10.557, 21.43,  4.421], rotation: [-pi / 2, 0,  pi / 2],  scale: 0.039,                   section: 'about', color: "None", },
     { id: 'PU9',  geometry: 'PU9_Baked',  progressRange: pRange["SU"], material: 'PU9_Baked',      position: [10.558, 20.466, 3.422], rotation: [-pi / 2, 0,  pi / 2],  scale: 0.039,                   section: 'about', color: "None", },
-    { id: 'PU10', geometry: 'PU10_Baked', progressRange: pRange["SU"], material: 'PU10_Baked.001', position: [5.579, 18.787, 0.867],  rotation: [-pi / 2, 0,  pi],       scale: [0.135, 0.094, 0.135],   section: 'about', color: "None", },
+    
     { id: 'PU11', geometry: 'PU11_Baked', progressRange: pRange["SU"], material: 'PU11_Baked.001', position: [1.926, 18.001, 5.258], rotation: [0, -1.028, 0],        scale: [-0.218, -0.218, -0.03], section: 'about', color: "None", }
 ];
 
 export default function Model({progress = 0, pulseIntensity = 0, ...props}) {
-  const result = useGLTFWithKTX2('/GLBs/Photos/HPT-v1.glb');
+  const result = useGLTFWithKTX2('/GLBs/Photos/PhotosT-v1.glb');
   if(!result) return null;
   const { nodes, materials } = result;
   const [hoveredMesh, setHoveredMesh] = useState(null);
@@ -148,8 +148,7 @@ export default function Model({progress = 0, pulseIntensity = 0, ...props}) {
     if(elementID === "about") {
       if(progress >= 0.3392 && progress <=  0.3916) return; //Prevents clicking behind project picture
       else if(!aboutNames[photoID]) return;
-      else if(photoID === "P5.0") photoID = "P6.0";
-      else if(photoID === "P6.0") photoID = "P5.0"
+      
       const mainPhoto = getPhotoGroup(photoID);
       checkForOpenModal(aboutMeData[mainPhoto].name, <About aboutID={mainPhoto}/>, elementID, mainPhoto);
     } else  {
