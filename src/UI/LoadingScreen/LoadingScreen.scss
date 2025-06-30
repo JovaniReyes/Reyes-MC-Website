@@ -288,14 +288,14 @@ $black-t: #323232c0;
 }
 
 .ui-brief-icon  {
-  width: clamp(24px, 7vw, 40px);
+  width: clamp(20px, 7vw, 40px);
   height: auto;
   justify-self: center;
-  image-rendering: pixelated;
 }
 
 .ui-brief-label {
-  font-size: clamp(18px, 4vw, 28px);
+  font-size: clamp(10px, 4vw, 28px);
   text-shadow: 1px 1px 1px #000;
   justify-self: center;
+  white-space: nowrap;
 }

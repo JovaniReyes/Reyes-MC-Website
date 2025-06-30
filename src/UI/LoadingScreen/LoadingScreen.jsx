@@ -142,10 +142,10 @@ export default function LoadingScreen() {
 /* ─── new: quick descriptor list for the top-right buttons ─── */
 const uiBrief = useMemo(
   () => [
-    { icon: mapImg,    text: "Fast-Travel Map" },
+    { icon: mapImg,    text: "Fast Travel Map" },
     { icon: bookImg,   text: "Citations"       },
-    { icon: codeImg,text: "Site Road-Map"   },
-    { icon: audioPlaySymbol,  text: "Toggle Audio"    },
+    { icon: codeImg,text: "Road Map"   },
+    { icon: audioPlaySymbol,  text: "Audio Toggle"    },
   ],
   []
 );
@@ -154,7 +154,7 @@ const uiBrief = useMemo(
   const UIBrief = ({ items }) => (
     <div className="ui-brief">
       {items.map(({ icon, text }) => (
-        <img key={`icon-${text}`} className="ui-brief-icon" src="icon" alt="" aria-hidden/>
+        <img key={`icon-${text}`} className="ui-brief-icon" src={icon} alt="" aria-hidden/>
       ))}
         {items.map(({ text }) => (
         <span key={`label-${text}`} className="ui-brief-label">
