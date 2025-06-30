@@ -282,7 +282,6 @@ $black-t: #323232c0;
   justify-content: center;
   align-items: center;
   column-gap: clamp(12px, 3vw, 32px);
-  row-gap: .65rem;
   pointer-events: none;
   
 }
@@ -295,7 +294,6 @@ $black-t: #323232c0;
 
 .ui-brief-label {
   font-size: clamp(10px, 4vw, 28px);
-  text-shadow: 1px 1px 1px #000;
+  text-shadow: 2.5px 2.5px 1px #000;
   justify-self: center;
-  white-space: nowrap;
 }

@@ -153,9 +153,6 @@ const uiBrief = useMemo(
   /** two-row grid: first row = icons | second row = labels */
   const UIBrief = ({ items }) => (
     <div className="ui-brief">
-      {items.map(({ icon, text }) => (
-        <img key={`icon-${text}`} className="ui-brief-icon" src={icon} alt="" aria-hidden/>
-      ))}
         {items.map(({ text }) => (
         <span key={`label-${text}`} className="ui-brief-label">
           {text}
