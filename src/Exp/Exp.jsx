@@ -90,13 +90,13 @@ const getLerpedFov = (prog, newFOV) => {
 //XZY points for where the user is placed across the scene
 const POSITIONS = [
   //                  X      Z       Y
-  new THREE.Vector3(-38.0, 17.30, -17.0),  //1st step
-  new THREE.Vector3(-32.5, 17.30, -13.0),   //2nd step
-  new THREE.Vector3(-17.5, 17.30, -3.00),    //3rd step
-  new THREE.Vector3(-12.0, 17.30,  1.00),     //4th step
-  new THREE.Vector3(-6.00, 18.35,  4.00),      //5th step
+  new THREE.Vector3(-24, 17.30, -3),  //1st step
+  new THREE.Vector3(-13, 17.30, 5),   //2nd step
+  new THREE.Vector3(-12.0, 17.30,  9),    //3rd step
+  new THREE.Vector3(-10.0, 17.30,  8),     //4th step
+  new THREE.Vector3(-6.00, 18.35,  2.30),      //5th step
 
-  new THREE.Vector3(-3.75, 18.35,  7.00),      //Door Opens
+  new THREE.Vector3(-3, 18.35,  7.00),      //Door Opens
   new THREE.Vector3(-3.50, 18.35,  11.0),       //Infront Of door
   new THREE.Vector3( 2.00, 18.35,  10.75),        //First Step inside (Door Closes)
   new THREE.Vector3( 8.50, 18.35,  11.25),         //Infront of Kitchen
@@ -119,11 +119,11 @@ const POSITIONS = [
   new THREE.Vector3(-3.00, 18.35,  11.1),          //Infront of door 
   new THREE.Vector3(-3.00, 18.35,  5.00),         //Outside of door (Door Closes)
 
-  new THREE.Vector3(-5.50, 18.00,  4.00),       //5th step
-  new THREE.Vector3(-12.0, 17.30,  1.00),      //4th step
-  new THREE.Vector3(-17.5, 17.30, -3.00),     //3rd step
-  new THREE.Vector3(-32.5, 17.30, -13.0),    //2nd step
-  new THREE.Vector3(-38.0, 17.30, -17.0),   //1st step
+  new THREE.Vector3(-6.00, 18.35,  5.00),       //5th step
+  new THREE.Vector3(-8.0, 17.30,  5),      //4th step
+  new THREE.Vector3(-10.0, 17.30,  5),     //3rd step
+  new THREE.Vector3(-14, 17.30, 4),    //2nd step
+  new THREE.Vector3(-24, 17.30, -3),   //1st step
 ];
 
 export const CAT_CURVE = new THREE.CatmullRomCurve3(POSITIONS, true);
@@ -134,15 +134,16 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
   const prevProgress = useRef(0);
   const matPulseRef = useRef(0);
   
+  
 
   const rotations = useMemo(() =>  [
-    {prog: 0.000, rot: new THREE.Euler(-2.762, -1.277, -2.777)},
-    {prog: 0.031, rot: new THREE.Euler(-2.935, -1.237, -2.947)},
-    {prog: 0.063, rot: new THREE.Euler(-3.097, -1.017, -3.104)},
-    {prog: 0.094, rot: new THREE.Euler( 2.913, -1.065,  2.940)},
+    {prog: 0.000, rot: new THREE.Euler(-2.8, -1, -2.8)},
+    {prog: 0.031, rot: new THREE.Euler(-3.05, -.25, -3.05)},
+    {prog: 0.063, rot: new THREE.Euler(-3.15, 0, -3.15)},
+    {prog: 0.11, rot: new THREE.Euler( 2.8, -1.5,  2.85)},
 
-    {prog: 0.125, rot: new THREE.Euler( 2.520, -0.702,  2.70)},
-    {prog: 0.156, rot: new THREE.Euler(-2.960, -1.005, -3.010)},
+    {prog: 0.125, rot: new THREE.Euler( 2.520, -0.902,  2.70)},
+    {prog: 0.166, rot: new THREE.Euler(-3, 0, -3.10)},
     {prog: 0.188, rot: new THREE.Euler(-2.063, -1.394, -2.100)},
 
     {prog: 0.219, rot: new THREE.Euler(-1.355, -1.529, -1.353)},
@@ -181,9 +182,9 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     {prog: 0.813, rot: new THREE.Euler(-0.834,  1.471,  0.831)},
     {prog: 0.820, rot: new THREE.Euler(-0.091,  1.531,  0.100)},
 
-    {prog: 0.906, rot: new THREE.Euler(-0.491,  0.503,  0.252)},
-    {prog: 0.938, rot: new THREE.Euler(-0.674,  0.508,  0.371)},
-    {prog: 0.969, rot: new THREE.Euler(-0.573,  0.375,  0.232)},
+    {prog: 0.906, rot: new THREE.Euler(0,  3,  0)},
+    {prog: 0.938, rot: new THREE.Euler(0,  0.9,  0)},
+    {prog: 0.969, rot: new THREE.Euler(0,  0.375,  0)},
     {prog: 0.980, rot: new THREE.Euler(-2.935, -1.234, -2.947)},
     {prog: 0.999, rot: new THREE.Euler(-2.762, -1.277, -2.777)}
   ], []);
@@ -219,8 +220,8 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     //Progress Interpolation
     let newProgress = THREE.MathUtils.lerp(scrollRef.current, targetScrollProgress.current, lerpFactor);
     if(newProgress >= .9999 || newProgress < 0){
-      targetScrollProgress.current = 0;
-      newProgress = 0;
+      targetScrollProgress.current = 0.000001;
+      newProgress = 0.000001;
     }
     
     scrollRef.current = newProgress;
@@ -281,7 +282,6 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
         <Photos progress={scrollRef.current} pulseIntensity={matPulseRef.current}/>
         <Home progress={scrollRef.current}/> 
         <Nature/>
-        <Mobs />
         <Mail />
       </Suspense>
     </>

@@ -23,5 +23,6 @@ export function useGLTFWithKTX2(path) {
 
   const gltf = useGLTF(path, true, true, (l) => l.setKTX2Loader(loader));
   useEffect(done, [gltf]);
+  
   return gltf;
 }

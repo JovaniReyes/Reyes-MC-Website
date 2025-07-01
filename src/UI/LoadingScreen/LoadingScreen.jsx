@@ -142,9 +142,9 @@ export default function LoadingScreen() {
 /* ─── new: quick descriptor list for the top-right buttons ─── */
 const uiBrief = useMemo(
   () => [
-    { icon: mapImg,    text: "Fast Travel Map" },
-    { icon: bookImg,   text: "Citations"       },
-    { icon: codeImg,text: "Road Map"   },
+    { icon: mapImg,   text: "Fast Travel Map" },
+    { icon: bookImg,  text: "Citations"       },
+    { icon: codeImg,  text: "Road Map"   },
     { icon: audioPlaySymbol,  text: "Audio Toggle"    },
   ],
   []

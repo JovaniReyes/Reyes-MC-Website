@@ -277,19 +277,12 @@ $black-t: #323232c0;
 
  .ui-brief {
   display: grid;
-  grid-template-rows: auto auto;          /* two rows */
+  grid-template-rows: auto;          /* two rows */
   grid-template-columns: repeat(4, 1fr);  /* four equal columns */
   justify-content: center;
   align-items: center;
   column-gap: clamp(12px, 3vw, 32px);
   pointer-events: none;
-  
-}
-
-.ui-brief-icon  {
-  width: clamp(20px, 7vw, 40px);
-  height: auto;
-  justify-self: center;
 }
 
 .ui-brief-label {

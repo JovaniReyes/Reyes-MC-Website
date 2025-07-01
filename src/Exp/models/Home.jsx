@@ -31,6 +31,7 @@ export default memo(function Model({ progress = 0, ...props }) {
     '/GLBs/Home/H7_1T-transformed.glb',
     '/GLBs/Home/H8T-transformed.glb',
     '/GLBs/Home/HDT-transformed.glb',
+    '/GLBs/Home/HT-transformed.glb',
   ];
   
   const gltfResults = gltfPaths.map(useGLTFWithKTX2);
@@ -51,6 +52,7 @@ export default memo(function Model({ progress = 0, ...props }) {
     { nodes: n8, materials: mat8 },
     { nodes: n11, materials: mat11 },
     { nodes: n12, materials: mat12},
+    { nodes: n13, materials: mat13},
   ] = gltfResults;
 
   useMemo(() => {
@@ -66,7 +68,8 @@ export default memo(function Model({ progress = 0, ...props }) {
     convertMaterialsToMeshBasicMaterial(mat10)
     convertMaterialsToMeshBasicMaterial(mat11)
     convertMaterialsToMeshBasicMaterial(mat12)
-  }, [mat1, mat2, mat3, mat4, mat5, mat6, mat7, mat8, mat9, mat10, mat11, mat12]);
+    convertMaterialsToMeshBasicMaterial(mat13)
+  }, [mat1, mat2, mat3, mat4, mat5, mat6, mat7, mat8, mat9, mat10, mat11, mat12, mat13]);
 
   const doorRef = useRef()
   const doorState = useRef('closed')
@@ -127,14 +130,17 @@ export default memo(function Model({ progress = 0, ...props }) {
 
       <mesh geometry={n8.HangShelf_Wood2_Baked.geometry} material={mat8.Set7_1_Baked} position={[10.515, 19.316, 1.964]} scale={[0.069, 0.009, 0.558]} />
       
-      {/* MC Paintings */}
-      <mesh geometry={n11['minecraft_painting-meditative_Baked'].geometry} material={mat11.H8_Baked} position={[10.582, 21.911, 3.023]} rotation={[Math.PI / 2, 0, 0]} />
       {/* HFrameT */}
-      <mesh geometry={n10.WhiteConcrete_Baked.geometry} material={mat10.WhiteConcrete_Baked} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
       <mesh geometry={n10.OakPlanks_Baked.geometry} material={mat10['OakPlanks_Baked.001']} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
       <mesh geometry={n10.SprucePlanksHome_Baked.geometry} material={mat10.SprucePlanksHome_Baked} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
+       {/* MC Paintings */}
+      <mesh geometry={n11['minecraft_painting-meditative_Baked'].geometry} material={mat11.H8_Baked} position={[10.582, 21.911, 3.023]} rotation={[Math.PI / 2, 0, 0]} />
       {/* Door Top and Bottom Refs */}
       <mesh ref={doorRef} geometry={n12.FrontDoor_Baked.geometry} material={mat12.FrontDoor_Baked} position={[-1.36, 17.788, 11.781]} rotation={[Math.PI / 2, 0, 0]} />
+      {/* HT */}
+      <mesh geometry={n13.HomeWalls_Baked.geometry} material={mat13['HomeWalls_Baked.003']} position={[4.584, 13.787, 2.776]} rotation={[Math.PI / 2, 0, 0]} />
+
+
     </group>
   )
 });
