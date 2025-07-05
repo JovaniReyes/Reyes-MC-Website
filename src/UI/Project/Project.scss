@@ -23,13 +23,114 @@
     background-color: styles.$color-base-darker-gray-two;
 }
 
-.section-paragraph{
-    font-size: .8em;
-    margin: 8px 0;
-    color: white;
-    white-space: pre-wrap; 
-    tab-size: 2;
-    &.accent-first-line::first-line {
-        color: #ffcf33;        // highlight hue – change or override per paragraph
-    } 
+/* ------------------------------------------------------------------
+   CONFIG – change this once (or override it upstream) to pick a
+   new default highlight colour.  
+   ------------------------------------------------------------------*/
+$highlight-color: #0875e3;   // <-- set the hex you want here
+@keyframes glowPulse {
+  0%, 100% { filter: brightness(75%); }
+  50%      { filter: brightness(175%); }   // adjust % for stronger glow
+}
+
+/* ------------------------------------------------------------------
+   PARAGRAPH STYLES
+   ------------------------------------------------------------------*/
+.section-paragraph {
+  /* fall-back highlight colour as a CSS custom property so you can
+     override it inline if you need per-paragraph colours later:      */
+  --highlight-color: #{$highlight-color};
+
+  font-size: 30px;
+  margin: 8px 0;
+  color: white;
+  white-space: pre-wrap;
+  tab-size: 2;
+
+  /* 1. Turn off link underlines and inherit the paragraph colour  
+        by default (links inside non-highlighted paragraphs stay white) */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* 2. Highlighted paragraph ------------------------------------------------*/
+  &.accent-first-line {
+    /* colour just the first line */
+    &::first-line {
+      color: var(--highlight-color);
+    }
+
+    /* make every link inside the paragraph use the highlight colour too */
+    a {
+      color: var(--highlight-color);
+    }
+  }
+}
+
+.highlight-link.glow {
+  display: block;          /* puts it on its own line */
+  width: fit-content;      /* shrink-wrap to its text */
+  margin: 0.25rem auto 0;          /* centres the block horizontally */
+  text-align: center;
+    animation: glowPulse 2.5s ease-in-out infinite;
+}
+.indent-rest {
+  /* Each tab is ~2ch wide because .section-paragraph has tab-size:2.
+     Two tabs ≈ 4ch.  Tweak if you prefer a different width.          */
+  padding-left: 2ch;
+  padding-right: 2ch;      // ≈ two “tabs” (thanks to tab-size:2)
+  display: inline-block;  // keeps padding on wrapped lines
+  margin: 0.25rem auto 0;          /* centres the block horizontally */
+  text-align: center;
+
+}
+
+@media (max-width: 480px) {
+  .indent-rest { padding-left: 2ch; padding-right: 2ch; }
+  .section-paragraph{font-size: 20px;}
+}
+/* ---------------------------------------------------------------
+   Paragraph images
+   ---------------------------------------------------------------*/
+/* ────────────────────────────────────────────────────────────────
+   PARAGRAPH IMAGES
+   ----------------------------------------------------------------*/
+$pad-outer : 1rem;          /* bigger padding on the outside edges   */
+$pad-inner : .5rem;         /* half-size padding between two images  */
+
+.paragraph-images {
+  display: flex;
+  justify-content: center;
+  width: 75%;              /* never exceed modal width */
+  margin: .75rem auto 0;    /* gap above, <br> handles below */
+  gap: .5rem;                   /* we handle spacing via padding */
+
+  img {
+    flex: 1 1 0;
+    width: 90%;
+    
+    object-fit: cover;
+    height: auto;
+    box-shadow: 0 .125rem 1px rgba(0, 0, 0, 0.889);
+    border-radius: 6px;
+  }
+
+  /* ── one image → equal padding left & right ───────────────────*/
+  &.one img { padding: 0 $pad-outer; }
+
+  /* ── two images on desktop: row layout with asymmetric padding */
+  &.two{width: 50%;}
+  &.two img:first-child { padding: 0 $pad-inner 0 $pad-outer; }
+  &.two img:last-child  { padding: 0 $pad-outer 0 $pad-inner; }
+}
+
+/* ── mobile: stack the two images, reset to equal padding ───────*/
+@media (max-width: 600px) {
+  .paragraph-images {
+    &.two{
+      
+    }
+    
+  }
 }

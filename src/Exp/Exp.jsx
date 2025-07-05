@@ -29,9 +29,9 @@ const ZOOM_POINTS = [
   [0.2370, 0.2385],//About Me Set 1
   [0.2540, 0.2560],//About Me Set 2
   [0.4180, 0.4200],//About Me Set 3
-  [0.5135, 0.5165],//About Me Set 4
-  [0.5260, 0.5290],//About Me Set 5
-  [0.5450, 0.5480],//About Me Set 6
+  [0.5200, 0.5215],//About Me Set 4
+  [0.5300, 0.5320],//About Me Set 5
+  [0.5500, 0.5515],//About Me Set 6
 ];
 
 //Set the sound arrays
@@ -101,12 +101,12 @@ const POSITIONS = [
   new THREE.Vector3( 2.00, 18.35,  10.75),        //First Step inside (Door Closes)
   new THREE.Vector3( 8.50, 18.35,  11.25),         //Infront of Kitchen
   new THREE.Vector3( 7.25, 18.35,  8.00),          //Looking into living room
-  new THREE.Vector3( 7.00, 18.35,  4.00),           //By Couch
-  new THREE.Vector3( 2.25, 18.35,  2.35),            //On Couch
+  new THREE.Vector3( 7.00, 19,  4.00),           //By Couch
+  new THREE.Vector3( 2.25, 19,  2.35),            //On Couch
   new THREE.Vector3( 5.25, 18.35,  2.00),             //Looking at staircase
-  new THREE.Vector3( 8.50, 19.50,  1.75),              //Bottom of Staircase
-  new THREE.Vector3( 9.00, 23.5,  7.25),               //Top Of staircase
-  new THREE.Vector3( 6.5, 23.5,  8.50),                //Looking into bedroom
+  new THREE.Vector3( 8.50, 20,  1.75),              //Bottom of Staircase
+  new THREE.Vector3( 9.00, 23.5,  7.75),               //Top Of staircase
+  new THREE.Vector3( 7, 23.5,  9),                //Looking into bedroom
   new THREE.Vector3( 7.75, 23.5,  10.5),                 //Looking at desk paintings
 
   new THREE.Vector3( 9.00, 23.50,  11.25),                 //Heading Back to staircase
@@ -137,13 +137,13 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
   
 
   const rotations = useMemo(() =>  [
-    {prog: 0.000, rot: new THREE.Euler(-2.8, -1, -2.8)},
-    {prog: 0.031, rot: new THREE.Euler(-3.05, -.25, -3.05)},
+    {prog: 0.000, rot: new THREE.Euler(-3, -1, -3)},
+    {prog: 0.031, rot: new THREE.Euler(-3.15, -.25, -3.15)},
     {prog: 0.063, rot: new THREE.Euler(-3.15, 0, -3.15)},
-    {prog: 0.11, rot: new THREE.Euler( 2.8, -1.5,  2.85)},
+    {prog: 0.075, rot: new THREE.Euler( 3.15, -1.5,  3.15)},
 
     {prog: 0.125, rot: new THREE.Euler( 2.520, -0.902,  2.70)},
-    {prog: 0.166, rot: new THREE.Euler(-3, 0, -3.10)},
+    {prog: 0.166, rot: new THREE.Euler(-3.1, 0, -3.15)},
     {prog: 0.188, rot: new THREE.Euler(-2.063, -1.394, -2.100)},
 
     {prog: 0.219, rot: new THREE.Euler(-1.355, -1.529, -1.353)},
@@ -160,9 +160,9 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     {prog: 0.469, rot: new THREE.Euler(-3.083,  0.322,  3.123)},
     {prog: 0.475, rot: new THREE.Euler(-3.083,  0.522,  3.123)},
 
-    {prog: 0.500, rot: new THREE.Euler(-3.135,  0.635,  3.139)},
+    {prog: 0.500, rot: new THREE.Euler(-3.135,  1.2,  3.135)},
     {prog: 0.534, rot: new THREE.Euler(-3.335, -0.200,  3.139)},
-    {prog: 0.552, rot: new THREE.Euler( 3.00, -0.200, -3.180)},
+    {prog: 0.552, rot: new THREE.Euler( 3.00, -0.40, -3.180)},
     {prog: 0.564, rot: new THREE.Euler( 0.500,  1.500, -.5000)},
     {prog: 0.575, rot: new THREE.Euler(-0.800, 0.000,  -0.00)},
     {prog: 0.594, rot: new THREE.Euler(-0.535,  0.168,  0.099)},
@@ -257,7 +257,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
       camera.current.updateProjectionMatrix();
       setFieldOfView(newFOV);
     }
-  
+   
     //Refresh React UI at most 5 times a second
     if(state.clock.elapsedTime - prevProgress.current > .05){//Change .2 to lower value for higher fps
       prevProgress.current = state.clock.elapsedTime;
@@ -275,7 +275,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
   return (
     <>
     {/* <DebugCurve curve={positions}/> */}
-      <Environment background={true} backgroundRotation={[0,Math.PI / 1.5, 0]} files={["/CubeMap/px.webp", "/CubeMap/nx.webp", "/CubeMap/py.webp", "/CubeMap/ny.webp", "/CubeMap/pz.webp", "/CubeMap/nz.webp"]}/>
+      <Environment background={true} backgroundRotation={[0,Math.PI / 2.3, 0]} files={["/CubeMap/px.webp", "/CubeMap/nx.webp", "/CubeMap/py.webp", "/CubeMap/ny.webp", "/CubeMap/pz.webp", "/CubeMap/nz.webp"]}/>
       <Suspense fallback={null}>
         {camera.current && <Maps pos={camera.current.position} rot={camera.current.rotation} visible={isMapOpen} onTeleport={onTeleport}/>}
         {isMapOpen && teleportEffects.map((fx) => (<TeleportFX key={fx.id} position={fx.pos} onDone={fx.dispose} />))}
@@ -311,7 +311,7 @@ const Exp = () => {
   const sensitivityY = 0.25;
   const scrollSpeed = 0.002;
   const lerpFactor = 0.08;
-
+  
   const teleport = useCallback((prog) => {
     if (!isMapOpen) return;
     const currentTime = Date.now();
@@ -326,6 +326,7 @@ const Exp = () => {
     scrollRef.current = newProgress;
     useModalStore.getState().openTeleportModal();
     const id = Date.now();
+    
     /* kick-off the FOV shake */
     const goingForward = newProgress > oldProgress;
     const fovSequence = goingForward ? TELEPORT_FOVS.slice().reverse() : TELEPORT_FOVS; // 70 → 55 → 85 → 70

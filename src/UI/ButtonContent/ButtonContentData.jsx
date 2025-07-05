@@ -8,7 +8,7 @@ const ButtonContentData = {
       {
         header: "In The Beginning...",
         paragraphs: [
-          {text: "In December 2024, I set out to build a portfolio website that would help me stand out in the crowded entry-level CS job market.\n\nMy search led me to Andrew Woan, a Youtuber whose detailed 3D website tutorial made this site possible. Andrew, if you're reading this, thank you from the bottom of my heart.", highlight: false},
+          {text: "In December 2024, I set out to build a portfolio website that would help me stand out in the crowded entry-level CS job market.\n\nMy search led me to Andrew Woan, a Youtuber whose detailed 3D website tutorial made this site possible. Andrew if you're reading this thank you.", highlight: false},
         ]
       },
       {
@@ -97,37 +97,44 @@ const ButtonContentData = {
     mainImg: "./images/AboutMePhotos/P1_0.webp",
     content: [
       {
-        header: "Credit Where Credit Is Due",
+        header: "Creators",
         paragraphs: [
           {text: "Paragraph.", highlight: false},
         ],
       },
       {
+        header: "Software & Websites",
+        paragraphs: [
+          {text: "Minecraft\nThe sandbox game used for this sites 3D asset materials.", highlight: true, link: "https://www.minecraft.net/en-us", img1:"./images/Citations/MinecraftHome.webp", glow: true},
+          {text: "Blender\nFree 3D software used for modeling, animating, texturing, and rendering a project's assets.", highlight: true, link: "https://www.blender.org", img1:"./images/Citations/Blender1.webp", img2:"./images/Citations/Blender2.webp", glow: true},
+
+          {text: "Poly Haven\nProvides the HDRI that lights the scene and appears in the skybox background.", highlight: true, link: "https://polyhaven.com/", img1: "./images/Citations/PolyHaven.webp", glow: true},
+          {text: "Audacity\nRecords, trims, and exports the site's sound effects and music.", highlight: true, link: "https://www.audacityteam.org/", img1: "./images/Citations/Audacity.webp", glow: true},
+          {text: "Figma\nOnline UI/UX design tool used for designing the UI buttons and loading screen lightweight webP images in the browser.", highlight: true, link: "https://www.figma.com/", img1: "./images/Citations/Figma.webp", glow: true},
+          {text: "Zustand\nState management library for React that keeps the site's UI and map state in a single React store", highlight: true, link: "https://zustand.docs.pmnd.rs/getting-started/introduction", glow: true},
+          {text: "Vercel\nCloud platform for building and deploying projects, builds each commit and hosts the site so it loads quickly everywhere.", highlight: true, link: "https://vercel.com/", img1: "./images/Citations/Vercel.webp", glow: true},
+        ],
+      },
+      {
         header: "Software & Plugin Citations",
         paragraphs: [
-          {text: "Minecraft", highlight: true},
-          {text: "Blender.", highlight: true},
-          {text: "MCPrep Blender addon.", highlight: true},
-          {text: "SimpleBake Blender addon.", highlight: true},
-          {text: "Poly Haven.", highlight: true},
-          {text: "Audacity.", highlight: true},
-          {text: "Figma.", highlight: true},
-          {text: "Zustand.", highlight: true},
-          {text: "Vercel.", highlight: true},
-          {text: "SquareSpace.", highlight: true},
-          {text: "gltf-transform & gltfjsx.", highlight: true},
-          {text: "KTX Textures.", highlight: true},
-          {text: "Transfonter.", highlight: true},
-          {text: "SCSS.", highlight: true},
-          {text: "Vincent Yanez Sketchfab Creator.", highlight: true},
-          {text: "Beizer Curve CSS Visualizer.", highlight: true},
-          {text: "Three.js Community", highlight: true},
-          {text: "Favicon Generator.", highlight: true},
-          {text: "Squoosh.", highlight: true},
-          {text: "JDGraphics.", highlight: true},
-          {text: "ChatGPT.", highlight: true},
-          {text: "GLTF-report.com", highlight: true},
-          {text: "Vites React Template.", highlight: true},
+          {text: "SimpleBake ~ Blender Addon\nBakes material textures into single image maps for web use. Highly recommended for beginners and people wanting to save time.", highlight: true, link: "https://superhivemarket.com/products/simplebake---simple-pbr-and-other-baking-in-blender-2", glow: true},
+          {text: "MCPrep ~ Blender Addon\nImports a saved Minecraft world into Blender and with render ready materials.", highlight: true, link: "https://theduckcow.com/dev/blender/mcprep/", glow: true},
+          {text: "Mineways ~ MCPrep Addon\nImports a saved Minecraft world into Blender and with render ready materials.", highlight: true, link: "https://www.realtimerendering.com/erich/minecraft/public/mineways/", glow: true},    
+          {text: "gltf-transform\nCLI tool that compresses and optimizes glTF models before they go into the repository (~90 % smaller).", highlight: true, link: "https://gltf-transform.dev/", glow: true},
+          {text: "gltfjsx\n Converts a glTF file into a JSX component for React Three Fiber, keeping each mesh's geometry, materials, and transform (position, rotation, scale) intact.", highlight: true, link: "https://github.com/pmndrs/gltfjsx", glow: true},
+          {text: "KTX Textures\nSaves the project's texture images as KTX2 files with BasisU compression so the GPU can read them directly, slashing file size and RAM use.", highlight: true, link: "https://www.khronos.org/ktx/", glow: true},
+          {text: "Transfonter\nConverts TTF/OTF fonts into lighter WOFF/WOFF2 files and generates the @font-face block for SCSS files.", highlight: true, link: "https://transfonter.org/", glow: true},
+          {text: "SCSS\nA Sass syntax that adds variables, nesting, and mixins to keep the stylesheet organized.", highlight: true, link: "https://sass-lang.com/documentation/syntax/", glow: true},
+          {text: "Vincent Yanez ~ Sketchfab Creator\nCreated the 3D mob assets used for the website.", highlight: true, link: "https://sketchfab.com/vinceyanez", glow: true},
+          {text: "ThreeJS Forums\nCommunity forums page, very useful for troubleshooting React Three Fiber issues.", highlight: true, link: "https://discourse.threejs.org/", glow: true},
+          
+          {text: "Squoosh\nOnline image optimizer for compressing and converting the images into WebP file types.", highlight: true, link: "https://squoosh.app/", glow: true},
+          {text: "JDGraphics\nDesigner of the Minecraft font style that is used on this website.", highlight: true, link: "https://www.fontspace.com/jdgraphics", glow: true},
+          {text: "ChatGPT\nHelped troubleshoot launch day site crashes for mobile users (Size of site caused IOS users to be stuck in auto-reload loop.", highlight: true, link: "https://openai.com/", glow: true},
+          {text: "Sora AI\nGenerated the loading screen background, used Figma to clean mistakes.", highlight: true, link: "https://openai.com/sora/", glow: true},
+          {text: "GLTF Report\nOnline GLTF viewer that lists every mesh, material, and texture in the given glTF, useful for viewing assets before adding it to the repository.", highlight: true, link: "https://gltf.report/", glow: true},
+          {text: "Vites React Template\nThe create-vite starter that set up React, Vite's dev server, and hot-reload for this website.", highlight: true, link: "https://vite.dev", glow: true},
         ]
       }
     ]
@@ -136,9 +143,9 @@ const ButtonContentData = {
     name: "Project 1",
     content: [
       {
-        header:"Current Header",
+        header:"Project Completion Dependencies",
         paragraphs:[
-          {text:"paragraph", highlight: false}
+          {text:"Building Executable", highlight: true}
         ]
       }
     ]
@@ -147,9 +154,10 @@ const ButtonContentData = {
     name: "Project 2",
     content: [
       {
-        header:"Current Header",
+        header:"Project Completion Dependencies",
         paragraphs:[
-          {text:"paragraph", highlight: false}
+          {text:"Implementing Middleware between JS and Java.", highlight: true},
+          {text:"Implementing AI opponent for game sessions.", highlight: true},
         ]
       }
     ]
@@ -158,9 +166,9 @@ const ButtonContentData = {
     name: "Project 3",
     content: [
       {
-        header:"Current Header",
+        header:"Project Completion Dependencies",
         paragraphs:[
-          {text:"paragraph", highlight: false}
+          {text:"Building Executable", highlight: true}
         ]
       }
     ]

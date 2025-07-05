@@ -22,7 +22,7 @@ export const useModalStore = create((set, get) => ({
   clearPending: () => set({ pendingModal: null }),
 
   // Opens UI modal 
-  openModal: (title, content, type, aboutID ) => {
+  openModal: (title, content, type, contentID ) => {
     // Ignores request if a modal is already open
     if (get().isModalOpen) return;
     set({
@@ -34,12 +34,12 @@ export const useModalStore = create((set, get) => ({
     });
 
     //For Mini modals
-    if (aboutID) {
+    if (contentID) {
       const { openMiniModal, closeAllMiniModals } = useMiniModalsStore.getState();
       closeAllMiniModals();
 
-      aboutMeData[aboutID].miniImgs.forEach((img, idx) => {
-        const miniID = `${aboutID}-mini-${idx + 1}`;
+      aboutMeData[contentID].miniImgs.forEach((img, idx) => {
+        const miniID = `${contentID}-mini-${idx + 1}`;
         const miniUI = (
           <div style={{ width: "100%", height: "100%" }}>
             <img style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: "4%"}} src={img} alt={`Mini-${idx + 1} URL: ${img}`}/>
@@ -63,16 +63,16 @@ export const useModalStore = create((set, get) => ({
   },
 
   //Opens a UI modal if its a new one, removes the old modal if present on the UI
-  checkForOpenModal: (title, content, type, aboutID) => {
+  checkForOpenModal: (title, content, type, contentID) => {
     const { isModalOpen, modalTitle, closeModal, openModal, closeMapModal, isMapOpen } = get();
     if(isMapOpen) closeMapModal();//Close Map
     if(isModalOpen && modalTitle === title) return;//Modal is already open, return
     else if(isModalOpen){//Close the current and open the new modal
       closeModal();
-      setTimeout(() => openModal(title, content, type, aboutID), EXIT_ANIM_MS);
+      setTimeout(() => openModal(title, content, type, contentID), EXIT_ANIM_MS);
       return;
     } else{
-      openModal(title, content, type, aboutID);
+      openModal(title, content, type, contentID);
     }
   },
   /* ───── open a *teleport* modal (purple flash) ───── */

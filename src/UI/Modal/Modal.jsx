@@ -7,7 +7,7 @@ import "../../Styles/Modal.scss";
 
 const Modal = () => {
     const {isModalOpen, modalTitle, modalContent, closeModal, animation, modalType, isModalMap, isTeleportModal} = useModalStore();
-    const type = (modalType === "Code" || modalType === "Citation") ? "button " : "";
+    const type = (modalType === "Code" || modalType === "Cites") ? "button " : "";
     const { moveCursor, teleport, toggleFloor } = useMapControls();
     const [isFirstFloorImg, setisFirstFloorImg] = useState(true)
     const [isDTCmdsOpen, setIsDTCmdsOpen] = useState(false);
