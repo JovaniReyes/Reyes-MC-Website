@@ -83,6 +83,7 @@
 .modal-body {
   flex: 1 1 auto;
   overflow-y: auto;
+  overflow-x: hidden;
   border: .3em solid styles.$color-base-darker-gray-two;
   background-color: styles.$color-base-darker-gray-three;
   border-radius: 0 0 10px 10px;
