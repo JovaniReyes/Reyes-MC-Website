@@ -37,24 +37,23 @@ export default function Model(props) {
   return (
     <group {...props} dispose={null}>
       {/* ====================== Nature1T ====================== */}
-       <mesh geometry={n1.dirt_path_top_Baked.geometry} material={m1['dirt_path_top_Baked.002']} position={[4.587, 13.87, 2.778]} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh geometry={n1.GrassSides_Baked.geometry} material={m1.GrassSides_Baked} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
+       <mesh geometry={n1.dirt_path_top_Baked.geometry} material={m1.Nature1_Baked} position={[4.587, 13.87, 2.778]} rotation={[Math.PI / 2, 0, 0]} />
+
 
       {/* ====================== Nature2T ====================== */}
-      <mesh geometry={n2.Leaves1_Baked.geometry} material={m2.Leaves1_Baked} position={[4.587, 13.788, 2.778]} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh geometry={n2.oak_log_Baked.geometry} material={m2.oak_log_Baked} position={[4.587, 13.788, 2.778]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh geometry={n2.Leaves1_Baked.geometry} material={m2.NatureS2_Baked} position={[4.587, 13.788, 2.778]} rotation={[Math.PI / 2, 0, 0]} />
       
       {/* ====================== Nature3T ====================== */}
-      <mesh geometry={n3.Leaves001_Baked.geometry} material={m3['Leaves.001_Baked']} position={[4.587, 13.788, 2.778]} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh geometry={n3.Leaves002_Baked.geometry} material={m3['Leaves.002_Baked']} position={[4.587, 13.788, 2.778]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh geometry={n3.Leaves001_Baked.geometry} material={m3.NatureS3_Baked} position={[4.587, 13.788, 2.778]} rotation={[Math.PI / 2, 0, 0]} />
 
       {/* ====================== Nature4T ====================== */}
-      <mesh geometry={n4.AzureBluet_Baked.geometry} material={m4['NatureSet6_Baked.002']} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
+       <mesh geometry={n4.AzureBluet_Baked.geometry} material={m4.NatureS4_Baked} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
 
       {/* ====================== Nature5T ====================== */}
-      <mesh geometry={n5.Swing_Baked.geometry} material={m5.SwingAndLamp_Baked} position={[-11.905, 18.288, 13.278]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh geometry={n5.LampPost_Baked.geometry} material={m5['LampPost_Baked.001']} position={[-22.913, 15.795, 1.278]} />
+      <mesh geometry={n5.Wood_Baked.geometry} material={m5.Nature5_Baked} position={[4.587, 13.788, 2.778]} rotation={[Math.PI / 2, 0, 0]} />
       {/* ====================== Nature6T ====================== */}
-      <mesh geometry={n6.ShortGrass_Baked.geometry} material={m6.ShortGrass_Baked} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
+       <mesh geometry={n6.ShortGrass_Baked.geometry} material={m6['ShortGrass_Baked.001']} position={[1.643, 14.744, 1.654]} rotation={[Math.PI / 2, 0, 0]} />
     </group>
   )
 }

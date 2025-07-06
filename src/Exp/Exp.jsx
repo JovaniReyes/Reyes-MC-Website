@@ -282,7 +282,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
         <Photos progress={scrollRef.current} pulseIntensity={matPulseRef.current}/>
         <Home progress={scrollRef.current}/> 
         <Nature/>
-        <Mail />
+        {/* <Mail /> */}
       </Suspense>
     </>
   );
