@@ -122,7 +122,7 @@ const POSITIONS = [
   new THREE.Vector3(-6.00, 18.35,  5.00),       //5th step
   new THREE.Vector3(-8.0, 17.30,  5),      //4th step
   new THREE.Vector3(-10.0, 17.30,  5),     //3rd step
-  new THREE.Vector3(-14, 17.30, 4),    //2nd step
+  new THREE.Vector3(-17, 17.3, 0.85),    //2nd step
   new THREE.Vector3(-24, 17.30, -3),   //1st step
 ];
 
@@ -274,7 +274,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
   });
   return (
     <>
-    <DebugCurve curve={positions}/>
+    {/* <DebugCurve curve={positions}/> */}
       <Environment background={true} backgroundRotation={[0,Math.PI / 2.3, 0]} files={["/CubeMap/px.webp", "/CubeMap/nx.webp", "/CubeMap/py.webp", "/CubeMap/ny.webp", "/CubeMap/pz.webp", "/CubeMap/nz.webp"]}/>
       <Suspense fallback={null}>
         {camera.current && <Maps pos={camera.current.position} rot={camera.current.rotation} visible={isMapOpen} onTeleport={onTeleport}/>}
