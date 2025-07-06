@@ -269,7 +269,6 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     camera.current.position.lerp(newPosition, 0.5);
     // Camera Rotation - zero allocations
     camera.current.rotation.copy(getLerpedRotation(newProgress));
-    console.log(newProgress.toFixed(4));
     
   });
   return (
