@@ -89,22 +89,22 @@ const getLerpedFov = (prog, newFOV) => {
 
 //XZY points for where the user is placed across the scene
 const POSITIONS = [
-  //                  X      Z       Y
-  new THREE.Vector3(-24, 17.30, -3),  //1st step
-  new THREE.Vector3(-13, 17.30, 5),   //2nd step
-  new THREE.Vector3(-12.0, 17.30,  9),    //3rd step
-  new THREE.Vector3(-10.0, 17.30,  8),     //4th step
-  new THREE.Vector3(-6.00, 18.35,  2.30),      //5th step
+  //               X      Z       Y
+  new THREE.Vector3(-17, 17.3, 0.85),  //1st step
+  new THREE.Vector3(-15, 17.3, 5),   //2nd step
+  new THREE.Vector3(-12, 17.30, 8),    //3rd step
+  new THREE.Vector3(-9.0, 17.30,  5),     //4th step
+  new THREE.Vector3(-4.00, 19,  4.0),      //5th step
 
-  new THREE.Vector3(-3, 18.35,  7.00),      //Door Opens
+  new THREE.Vector3(-3.5, 18.5,  7.00),      //Door Opens
   new THREE.Vector3(-3.50, 18.35,  11.0),       //Infront Of door
   new THREE.Vector3( 2.00, 18.35,  10.75),        //First Step inside (Door Closes)
   new THREE.Vector3( 8.50, 18.35,  11.25),         //Infront of Kitchen
   new THREE.Vector3( 7.25, 18.35,  8.00),          //Looking into living room
-  new THREE.Vector3( 7.00, 19,  4.00),           //By Couch
-  new THREE.Vector3( 2.25, 19,  2.35),            //On Couch
+  new THREE.Vector3( 7.00, 18.35,  4.00),           //By Couch
+  new THREE.Vector3( 2.25, 18.35,  2.35),            //On Couch
   new THREE.Vector3( 5.25, 18.35,  2.00),             //Looking at staircase
-  new THREE.Vector3( 8.50, 20,  1.75),              //Bottom of Staircase
+  new THREE.Vector3( 8.50, 19,  1.75),              //Bottom of Staircase
   new THREE.Vector3( 9.00, 23.5,  7.75),               //Top Of staircase
   new THREE.Vector3( 7, 23.5,  9),                //Looking into bedroom
   new THREE.Vector3( 7.75, 23.5,  10.5),                 //Looking at desk paintings
@@ -135,33 +135,33 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
   const matPulseRef = useRef(0);
   
   
-
+//{prog: 0.000, rot: new THREE.Euler(-3.15, 2, -3.15)},
   const rotations = useMemo(() =>  [
-    {prog: 0.000, rot: new THREE.Euler(-3, -1, -3)},
-    {prog: 0.031, rot: new THREE.Euler(-3.15, -.25, -3.15)},
-    {prog: 0.063, rot: new THREE.Euler(-3.15, 0, -3.15)},
-    {prog: 0.075, rot: new THREE.Euler( 3.15, -1.5,  3.15)},
+    {prog: 0.000, rot: new THREE.Euler(-3.3, -1.05, -3.3)},
+    {prog: 0.030, rot: new THREE.Euler(-3.15, -.2, -3.15)},
+    {prog: 0.040, rot: new THREE.Euler(-3.15, -.2, -3.15)},
+    {prog: 0.080, rot: new THREE.Euler( 3, -2.4,  3)},
 
-    {prog: 0.125, rot: new THREE.Euler( 2.520, -0.902,  2.70)},
-    {prog: 0.166, rot: new THREE.Euler(-3.1, 0, -3.15)},
-    {prog: 0.188, rot: new THREE.Euler(-2.063, -1.394, -2.100)},
+    {prog: 0.140, rot: new THREE.Euler( 3.1, -1.1, 3.1)},
+    {prog: 0.166, rot: new THREE.Euler(-3.15, -.3, -3.15)},
+    {prog: 0.188, rot: new THREE.Euler(-2.1, -1.394, -2.100)},
 
-    {prog: 0.219, rot: new THREE.Euler(-1.355, -1.529, -1.353)},
-    {prog: 0.235, rot: new THREE.Euler(-3.10, -0.1, -3.125)},//
+    {prog: 0.219, rot: new THREE.Euler(-1.355, -1.529, -1.355)},
+    {prog: 0.235, rot: new THREE.Euler(-3.125, -0.1, -3.125)},//
     {prog: 0.255, rot: new THREE.Euler( 0.000, -1.000,  0.000)},
     {prog: 0.270, rot: new THREE.Euler( 0.000,  0.50,  0.000)},
 
-    {prog: 0.300, rot: new THREE.Euler( 0.034,  0.146, -0.005)},
-    {prog: 0.345, rot: new THREE.Euler(-3.067, -0.143, -3.131)},
-    {prog: 0.395, rot: new THREE.Euler(-2.997,  0.108,  3.126)},
+    {prog: 0.300, rot: new THREE.Euler( 0.005,  0.146, -0.005)},
+    {prog: 0.345, rot: new THREE.Euler(-3.131, -0.143, -3.131)},
+    {prog: 0.395, rot: new THREE.Euler(3.126,  0.108,  3.126)},
 
-    {prog: 0.415, rot: new THREE.Euler( 2.164, -1.318,  2.179)},
-    {prog: 0.430, rot: new THREE.Euler(-3.950, -1.322,  2.400)},
-    {prog: 0.469, rot: new THREE.Euler(-3.083,  0.322,  3.123)},
-    {prog: 0.475, rot: new THREE.Euler(-3.083,  0.522,  3.123)},
+    {prog: 0.415, rot: new THREE.Euler( 2.179, -1.318,  2.179)},
+    {prog: 0.430, rot: new THREE.Euler(-4, -1.8,  -4)},//Left off
+    {prog: 0.469, rot: new THREE.Euler(-3.123,  0.322,  3.123)},
+    {prog: 0.475, rot: new THREE.Euler(-3.123,  0.522,  3.123)},
 
     {prog: 0.500, rot: new THREE.Euler(-3.135,  1.2,  3.135)},
-    {prog: 0.534, rot: new THREE.Euler(-3.335, -0.200,  3.139)},
+    {prog: 0.534, rot: new THREE.Euler(-3.335, 0,  -3.1)},
     {prog: 0.552, rot: new THREE.Euler( 3.00, -0.40, -3.180)},
     {prog: 0.564, rot: new THREE.Euler( 0.500,  1.500, -.5000)},
     {prog: 0.575, rot: new THREE.Euler(-0.800, 0.000,  -0.00)},
@@ -274,7 +274,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
   });
   return (
     <>
-    {/* <DebugCurve curve={positions}/> */}
+    <DebugCurve curve={positions}/>
       <Environment background={true} backgroundRotation={[0,Math.PI / 2.3, 0]} files={["/CubeMap/px.webp", "/CubeMap/nx.webp", "/CubeMap/py.webp", "/CubeMap/ny.webp", "/CubeMap/pz.webp", "/CubeMap/nz.webp"]}/>
       <Suspense fallback={null}>
         {camera.current && <Maps pos={camera.current.position} rot={camera.current.rotation} visible={isMapOpen} onTeleport={onTeleport}/>}
