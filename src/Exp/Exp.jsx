@@ -122,8 +122,8 @@ const POSITIONS = [
   new THREE.Vector3(-6.00, 18.35,  5.00),       //5th step
   new THREE.Vector3(-8.0, 17.30,  5),      //4th step
   new THREE.Vector3(-10.0, 17.30,  5),     //3rd step
-  new THREE.Vector3(-17, 17.3, 0.85),    //2nd step
-  new THREE.Vector3(-24, 17.30, -3),   //1st step
+  new THREE.Vector3(-20, 17.3, 0.4),    //2nd step
+  new THREE.Vector3(-17, 17.3, 0.85),   //1st step
 ];
 
 export const CAT_CURVE = new THREE.CatmullRomCurve3(POSITIONS, true);
@@ -183,10 +183,9 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     {prog: 0.820, rot: new THREE.Euler(-0.091,  1.531,  0.100)},
 
     {prog: 0.906, rot: new THREE.Euler(0,  3,  0)},
-    {prog: 0.938, rot: new THREE.Euler(0,  0.9,  0)},
-    {prog: 0.969, rot: new THREE.Euler(0,  0.375,  0)},
-    {prog: 0.980, rot: new THREE.Euler(-2.935, -1.234, -2.947)},
-    {prog: 0.999, rot: new THREE.Euler(-2.762, -1.277, -2.777)}
+    {prog: 0.93, rot: new THREE.Euler(0,  0.375,  0)},
+    {prog: 0.945, rot: new THREE.Euler(-2, -1.234, -2)},
+    {prog: 0.999, rot: new THREE.Euler(-3.3, -1.05, -3.3)}
   ], []);
 
   //Scratch objects
@@ -270,6 +269,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     camera.current.position.lerp(newPosition, 0.5);
     // Camera Rotation - zero allocations
     camera.current.rotation.copy(getLerpedRotation(newProgress));
+    console.log(newProgress.toFixed(4));
     
   });
   return (
