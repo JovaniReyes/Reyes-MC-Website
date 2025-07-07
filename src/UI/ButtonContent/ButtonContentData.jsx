@@ -105,12 +105,12 @@ const ButtonContentData = {
       {
         header: "Software & Websites",
         paragraphs: [
-          {text: "Minecraft\nThe sandbox game used for this sites 3D asset materials.", highlight: true, link: "https://www.minecraft.net/en-us", img1:"./images/Citations/MinecraftHome.webp", glow: true},
-          {text: "Blender\nFree 3D software used for modeling, animating, texturing, and rendering a project's assets.", highlight: true, link: "https://www.blender.org", img1:"./images/Citations/Blender1.webp", img2:"./images/Citations/Blender2.webp", glow: true},
+          {text: "Minecraft\nThe sandbox game used for this sites 3D assets.", highlight: true, link: "https://www.minecraft.net/en-us", img1:"./images/Citations/MinecraftHome.webp", glow: true},
+          {text: "Blender\nSoftware used for 3D modeling, animating, texturing, and rendering a project's assets.", highlight: true, link: "https://www.blender.org", img1:"./images/Citations/Blender1.webp", img2:"./images/Citations/Blender2.webp", glow: true},
 
           {text: "Poly Haven\nProvides the HDRI that lights the scene and appears in the skybox background.", highlight: true, link: "https://polyhaven.com/", img1: "./images/Citations/PolyHaven.webp", glow: true},
           {text: "Audacity\nRecords, trims, and exports the site's sound effects and music.", highlight: true, link: "https://www.audacityteam.org/", img1: "./images/Citations/Audacity.webp", glow: true},
-          {text: "Figma\nOnline UI/UX design tool used for designing the UI buttons and loading screen lightweight webP images in the browser.", highlight: true, link: "https://www.figma.com/", img1: "./images/Citations/Figma.webp", glow: true},
+          {text: "Figma\nOnline design tool used for creating the UI icons, paired with sqoosh for lightweight webP images.", highlight: true, link: "https://www.figma.com/", img1: "./images/Citations/Figma.webp", glow: true},
           {text: "Zustand\nState management library for React that keeps the site's UI and map state in a single React store", highlight: true, link: "https://zustand.docs.pmnd.rs/getting-started/introduction", img1: "./images/Citations/Zustand.webp", glow: true},
           {text: "Vercel\nCloud platform for building and deploying projects, builds each commit and hosts the site so it loads quickly everywhere.", highlight: true, link: "https://vercel.com/", img1: "./images/Citations/Vercel.webp", glow: true},
         ],
@@ -118,9 +118,9 @@ const ButtonContentData = {
       {
         header: "Software & Plugin Citations",
         paragraphs: [
-          {text: "SimpleBake ~ Blender Addon\nBakes material textures into single image maps for web use. Highly recommended for beginners and people wanting to save time.", highlight: true, link: "https://superhivemarket.com/products/simplebake---simple-pbr-and-other-baking-in-blender-2", glow: true},
-          {text: "MCPrep ~ Blender Addon\nOptimizes materials, allows swappable blocks as well as spawning new blocks, items, mobs.", highlight: true, link: "https://theduckcow.com/dev/blender/mcprep/", img1:"./images/Citations/MCPrep1.webp", img2:"./images/Citations/MCPrep2.webp", glow: true},
-          {text: "Mineways ~ MCPrep Addon\nImports a saved Minecraft world into Blender and renderable materials.", highlight: true, link: "https://www.realtimerendering.com/erich/minecraft/public/mineways/", img1:"./images/Citations/Mineways1.webp", img2:"./images/Citations/Mineways2.webp", glow: true},    
+          {text: "SimpleBake ~ Blender Addon\nBakes material textures into single image maps for web use. Highly recommended for beginners and people wanting to save time.", highlight: true, link: "https://superhivemarket.com/products/simplebake---simple-pbr-and-other-baking-in-blender-2", img1:"./images/Citations/SimpleBake1.webp", img2:"./images/Citations/SimpleBake2.webp", glow: true},
+          {text: "MCPrep ~ Blender Addon\nOptimizes materials, allows swappable blocks as well as spawning new blocks, items, mobs.", highlight: true, link: "https://theduckcow.com/dev/blender/mcprep/", img1:"./images/Citations/McPrep1.webp", img2:"./images/Citations/McPrep2.webp", glow: true},
+          {text: "Mineways ~ MCPrep Addon\nImports a saved Minecraft world into Blender with renderable material.", highlight: true, link: "https://www.realtimerendering.com/erich/minecraft/public/mineways/", img1:"./images/Citations/Mineways1.webp", img2:"./images/Citations/Mineways2.webp", glow: true},    
           {text: "gltf-transform\nCLI tool that compresses and optimizes glTF models before they go into the repository (~90 % smaller).", highlight: true, link: "https://gltf-transform.dev/", glow: true},
           {text: "gltfjsx\n Converts a glTF file into a JSX component for React Three Fiber, keeping each mesh's geometry, materials, and transform (position, rotation, scale) intact.", highlight: true, link: "https://github.com/pmndrs/gltfjsx", glow: true},
           {text: "KTX Textures\nSaves the project's texture images as KTX2 files with BasisU compression so the GPU can read them directly, slashing file size and RAM use.", highlight: true, link: "https://www.khronos.org/ktx/", glow: true},
