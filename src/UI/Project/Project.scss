@@ -18,7 +18,8 @@
     object-fit:contain;
 }
 .section-header{
-    padding: 8px;
+    padding: 12px;
+    font-size: 1.25em;
     color: white;
     background-color: styles.$color-base-darker-gray-two;
 }
@@ -41,11 +42,12 @@ $highlight-color: #0875e3;   // <-- set the hex you want here
      override it inline if you need per-paragraph colours later:      */
   --highlight-color: #{$highlight-color};
 
-  font-size: 30px;
+  font-size: 1.2em;
   margin: 8px 0;
   color: white;
   white-space: pre-wrap;
   tab-size: 2;
+  
 
   /* 1. Turn off link underlines and inherit the paragraph colour  
         by default (links inside non-highlighted paragraphs stay white) */
@@ -102,6 +104,7 @@ $pad-inner : .5rem;         /* half-size padding between two images  */
 .paragraph-images {
   display: flex;
   justify-content: center;
+  
   width: 75%;              /* never exceed modal width */
   margin: .75rem auto 0;    /* gap above, <br> handles below */
   gap: .5rem;                   /* we handle spacing via padding */
@@ -115,22 +118,77 @@ $pad-inner : .5rem;         /* half-size padding between two images  */
     box-shadow: 0 .125rem 1px rgba(0, 0, 0, 0.889);
     border-radius: 6px;
   }
+  .image-caption {
+    margin-top: .4rem;
+    font-size: .75em;
+    line-height: 1.3;
+    text-align: center;
+    color: #e0e0e0;          /* tweak to taste / use a variable */
+    max-width: 95%;
+    word-wrap: break-word;
+    font-style:italic;
+  }
 
   /* ── one image → equal padding left & right ───────────────────*/
-  &.one img { padding: 0 $pad-outer; }
+  &.one img { padding: 0 $pad-outer; width: 50%; }
+  &.creator {
+    width: 100%;
+    img{
+      width: 20%;
+      border-radius: 50%;
+    }
+    .image-caption {
+      font-size: 1em;
+      font-style: normal;
+    }
+  }
 
   /* ── two images on desktop: row layout with asymmetric padding */
-  &.two{width: 50%;}
+  &.two{width: 75%;}
   &.two img:first-child { padding: 0 $pad-inner 0 $pad-outer; }
   &.two img:last-child  { padding: 0 $pad-outer 0 $pad-inner; }
+  .image-wrap {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* carry over the per-image padding that was on <img> */
+    padding: inherit;
+  }
 }
 
 /* ── mobile: stack the two images, reset to equal padding ───────*/
 @media (max-width: 600px) {
   .paragraph-images {
+    .image-caption {
+        font-size: .65em;
+      }
+      &.one {
+        img{
+          width: 90%;
+        }
+      }
     &.two{
-      
+      flex-direction: column;
     }
-    
+    &.creator {
+      img{
+        width: 50%;
+      }
+      .image-caption {
+        font-size: .8em;
+      }
+    }
   }
+  .section-paragraph {
+    font-size: .8em;
+  }
+  .section-header{
+    font-size: .9em;
+  }
+}
+
+
+  .paragraph-block {
+  margin-bottom: 1rem;     /* breathing room – adjust to taste */
 }

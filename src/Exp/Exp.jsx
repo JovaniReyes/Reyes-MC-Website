@@ -19,7 +19,7 @@ import * as THREE from "three";
 let mapSoundIndex = 0;//Toggles between opening and closing map sound
 const TELEPORT_DURATION = 0.35;//How long the Teleport FOV effect takes place
 const TELEPORT_COOLDOWN = 1000;//Teleportation Cooldown timer, 1,000 MS = 1 second
-const TELEPORT_FOVS = [73.5, 105, 35, 73.5];//The sequence of FOV switches during teleportation
+const TELEPORT_FOVS = [73.5, 40, 130, 73.5];//The sequence of FOV switches during teleportation
 const PICTURE_FOV = 63;//FOV when progress is within a ZOOM_POINTS window
 const BASE_FOV = 70;//Base FOV for scene
 const MAP_FOV = 73.5;//FOV when map is opened.

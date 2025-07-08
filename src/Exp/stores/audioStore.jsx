@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-const music = new Audio("/Sounds/MoogCity2.ogg");
+const music = new Audio("/Sounds/Danny.ogg");
 
 export const useAudioStore = create((set) =>({
     isAudioEnabled: false,

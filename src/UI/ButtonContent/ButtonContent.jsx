@@ -7,14 +7,20 @@ import { useModalStore } from "../../Exp/stores/modalStore";
 import { useAudioStore } from "../../Exp/stores/audioStore";
 import { playSound } from "../../Utils/buttonSound";
 import ButtonContentData from "./ButtonContentData";
-const Images = ({ img1, img2 }) => {
+const Images = ({ img1, img2, imgText1, imgText2, isCreatorSection}) => {
   /* add a class so CSS knows how many we’re dealing with */
-  const howMany = img1 && img2 ? "two" : "one";
+  const howMany = isCreatorSection ? "creator" : (img1 && img2 ? "two" : "one");
 
   return (
     <div className={`paragraph-images ${howMany}`}>
-      {img1 && <img src={img1} alt="" draggable="false" />}
-      {img2 && <img src={img2} alt="" draggable="false" />}
+      {img1 && (<div className="image-wrap">
+        <img src={img1} alt="" draggable="false" />
+        {imgText1 && <div className="image-caption">{imgText1}</div>}
+      </div>)}
+      {img2 && (<div className="image-wrap">
+        <img src={img2} alt="" draggable="false" />
+        {imgText2 && <div className="image-caption">{imgText2}</div>}
+      </div>)}
     </div>
   );
 };
@@ -33,59 +39,58 @@ const ButtonContent = ({ ContentID }) => {
       {content.content.map((section, sIdx) => (
         <div key={sIdx} className="content-section">
           <h2 className="section-header">{section.header}</h2>
-
-          {section.paragraphs.map(({ text, highlight, link, glow, img1, img2 }, pIdx) => {
-            const classNames =
-              `section-paragraph${highlight ? " accent-first-line" : ""}`;
+          {section.paragraphs.map(({ text, highlight, link, glow, img1, img2, imgText1, imgText2 }, pIdx) => {
+            const classNames = `section-paragraph${highlight ? " accent-first-line" : ""}`;
 
             /* 1 ▸ non-linked paragraph --------------------------------- */
             if (!highlight || !link) {
               return (
-                <p key={pIdx} className={classNames}>
-                  {text}
-                  {/* optional images even in non-linked blocks */}
+                <div key={pIdx} className="paragraph-block">
+                  <p className={classNames}>
+                    {text}
+                  </p>
                   {(img1 || img2) && (
-                    <>
-                      <Images img1={img1} img2={img2} />
-                      <br />
-                    </>
-                  )}
-                </p>
+                      <>
+                        <Images img1={img1} img2={img2} />
+                        <br />
+                      </>
+                    )}
+                </div>
               );
             }
 
             /* 2 ▸ split once at the first newline ---------------------- */
             const nlIdx = text.search(/\r?\n/);
             const firstLine = nlIdx !== -1 ? text.slice(0, nlIdx) : text;
-            const nlLen     = nlIdx !== -1 && text[nlIdx] === "\r" ? 2 : 1;
-            const restText  =
-              nlIdx !== -1 ? text.slice(nlIdx + nlLen) : "";
+            const nlLen = nlIdx !== -1 && text[nlIdx] === "\r" ? 2 : 1;
+            const restText  = nlIdx !== -1 ? text.slice(nlIdx + nlLen) : "";
 
             /* 3 ▸ render block ----------------------------------------- */
             return (
-              <p key={pIdx} className={classNames}>
-                {/* centred, glowing link */}
-                <a
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`highlight-link first-line${glow ? " glow" : ""}`}
-                >
-                  {firstLine}
-                </a>
+              <div key={pIdx} className="paragraph-block">
+                <p className={classNames}>
+                  {/* centred, glowing link */}
+                  <a
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`highlight-link first-line${glow ? " glow" : ""}`}
+                  >
+                    {firstLine}
+                  </a>
 
-                {/* indented remainder */}
-                {restText && <span className="indent-rest">{restText}</span>}
-
+                  {/* indented remainder */}
+                  {restText && <span className="indent-rest">{restText}</span>}
+                </p>
                 {/* optional images */}
                 {(img1 || img2) && (
-                  <Images img1={img1} img2={img2} />
+                  <Images img1={img1} img2={img2} imgText1={imgText1} imgText2={imgText2} isCreatorSection={section.header == "Creators"} />
                 )}
 
                 {/* single guaranteed break now lives *after* images */}
                 <br />
                 <br />
-              </p>
+              </div>
             );
           })}
         </div>
