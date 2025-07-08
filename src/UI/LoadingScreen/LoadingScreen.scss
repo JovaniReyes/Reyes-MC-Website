@@ -173,7 +173,7 @@ $black-t: #323232c0;
   /* Desktop placement */
   @media (min-width: $bp-desktop) {
     width: clamp(90px, 8vw, 120px);
-    bottom: 30%;
+    bottom: 35%;
     right: 19%;
   }
 
@@ -237,7 +237,7 @@ $black-t: #323232c0;
   @media (min-width: $bp-desktop) {
     font-size: clamp(28px, 2.1vw, 70px);
     top: 100%; /* start just under phone   */
-    margin-top: 3.75rem; /* ≈ 144 px safety gap      */
+    margin-top: 6rem; /* ≈ 144 px safety gap      */
     margin-left: 1rem;
   }
 }
@@ -270,23 +270,22 @@ $black-t: #323232c0;
 @keyframes handFloat {
   0%,2%   { transform: translateY(0)   scale(.9); }
   11%     { transform: translateY(0)   scale(0.8); }
-  89%     { transform: translateY(10vh) translateX(10px) rotate(-45deg) scale(0.8); }
-  98%,100%{ transform: translateY(10vh) translateX(10px) rotate(-35deg) scale(.9); }
+  89%     { transform: translateY(9.5vh) translateX(10px) rotate(-45deg) scale(0.8); }
+  98%,100%{ transform: translateY(9.5vh) translateX(10px) rotate(-35deg) scale(.9); }
 }
 /* ─── UI-brief (icon row + label row) -------------------------------------- */
 
  .ui-brief {
   display: grid;
-  grid-template-rows: auto;          /* two rows */
   grid-template-columns: repeat(4, 1fr);  /* four equal columns */
-  justify-content: center;
-  align-items: center;
   column-gap: clamp(12px, 3vw, 32px);
   pointer-events: none;
+  justify-content: center;
+  align-items: center;
 }
 
 .ui-brief-label {
   font-size: clamp(10px, 4vw, 28px);
   text-shadow: 2.5px 2.5px 1px #000;
-  justify-self: center;
+  text-align: center;
 }
