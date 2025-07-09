@@ -14,6 +14,8 @@ const Modal = () => {
     const [pressedRight, setPressedRight] = useState(false);
     const [pressedLeft, setPressedLeft] = useState(false);
     const dtCmdsRef = useRef(null);
+    const isCitations = modalType === "Cites";
+    
 
     useEffect(() => {
         function handleDTCmdClick(click){
@@ -98,6 +100,7 @@ const Modal = () => {
             </>
         );
     }
+    const headerType = !isCitations ? "modal-body" : "modal-body cites";
     return (
         <>
             {isModalOpen && <div className="overlay" onClick={handleCloseModal}> </div>}
@@ -108,7 +111,7 @@ const Modal = () => {
                     <button onClick={handleCloseBtn} className="modal-close-button"> <img src={closeSymbol} alt="Close Modal" className="button-img"/></button>
                     </div>
                 </div>
-                <div className="modal-body"> {modalContent} </div>
+                <div className={headerType}> {modalContent} </div>
             </div>
         </>
     )

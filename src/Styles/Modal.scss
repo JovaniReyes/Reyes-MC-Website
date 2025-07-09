@@ -88,6 +88,9 @@
   background-color: styles.$color-base-darker-gray-three;
   border-radius: 0 0 10px 10px;
   box-sizing: border-box;
+  &.cites{
+    border-top: none;
+  }
 
   /* scrollbar */
   &::-webkit-scrollbar        { width: 15px; }

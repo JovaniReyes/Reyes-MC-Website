@@ -11,8 +11,8 @@ const MAP_ROT = new THREE.Euler(Math.PI / 20, Math.PI / 1.0, 0)
 const MAP_POS = new THREE.Vector3(-0, -0.46, 0)
 
 //Waypoint progress points for downstairs and upstairs Maps
-const PRG_PTS_D = [0.01, 0.1363, 0.215, 0.252, 0.3318, 0.416]
-const PRG_PTS_U = [0.465, 0.7923, 0.876]
+const PRG_PTS_D = [0.01, 0.1280, 0.2363, 0.2510, 0.3238, 0.416]
+const PRG_PTS_U = [0.4667, 0.7863, 0.876]
 
 //Control variables for map open/close animation
 const HIDDEN_Y_POS = -2 //When closed, the map is 2 units below user POV

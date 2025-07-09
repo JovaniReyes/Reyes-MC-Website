@@ -1,0 +1,65 @@
+@use "../../index.scss" as styles;
+.tabs {
+  /* NEW → let tabs wrap and scroll if there are many */
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;      
+  gap: 1rem;
+  padding: .75rem 0;
+  background:#202225;
+  border-bottom:2px solid #4b4b4b;
+  &::before,
+  &::after {
+    content: "";
+    flex: 1 0 0;          /* grow if there’s room, shrink to 0 if not */
+    pointer-events: none; /* keep them unclickable */
+  }
+  &::-webkit-scrollbar        { width: 15px;  height: .6em;}
+  &::-webkit-scrollbar-track  { background-color: styles.$color-base-gray; }
+  &::-webkit-scrollbar-thumb  {
+    background-color: styles.$color-base-gray;
+    border: 3px solid styles.$color-base-darker-gray-four;
+    box-shadow: inset 0 2px #ffffffc0, inset 0 2px #323232;
+  }
+  
+}
+
+.tab-btn {
+  font: inherit;
+  padding: .6rem 1rem;   /* ← tighter */
+  font-size: clamp(.2rem, 4vw, 1.2rem);
+  line-height: 1;
+  white-space: nowrap;     /* keep each label on one line */
+  color: styles.$color-base-dark-gray;
+  background: linear-gradient(135deg, #d1d0d0 80%, #28282800 160%);
+  border: 1.5px solid styles.$color-base-darker-gray-four;
+  box-shadow: inset .075em .075em #ffffff, inset -.115em -.115em #3c3c3c;
+  cursor:pointer;
+  transition: color .15s, background .15s;
+
+  &:hover { color:#fff; }
+  &:hover{
+    background: linear-gradient(135deg, #3ebd24 0%, #0f5804 100%);
+    border-color: #fff;
+    box-shadow: inset .025em .025em #53d95af1, inset -.075em -.075em #0a550e;
+  }
+
+  &.active {
+    color: #ffffff96;
+    background: linear-gradient(135deg, #4df02d76 0%, #0f5804 100%);
+    border-color: styles.$color-base-darker-gray-four;
+    box-shadow: inset .025em .025em #53d95af1, inset -.075em -.075em #0a550e;
+    
+  }
+}
+
+.tab-panel { padding:1rem 1.25rem; }
+@media (max-width: 767px) {
+    .tabs{
+        padding: .6rem 0;
+        gap: .5rem;
+    }
+    .tab-btn {
+        padding: .3rem .3rem;
+    }
+}

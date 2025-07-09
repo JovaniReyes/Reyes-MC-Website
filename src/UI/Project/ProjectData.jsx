@@ -60,14 +60,13 @@ const projectData = {
         header: "Overview",
         paragraphs: [
           {text: "This is the second paragraph.", highlight: false},
-          {text: "This is the second paragraph.", highlight: false},
         ]
       },
       {
-        header: "Reference Guide",
+        header: "Components",
         paragraphs: [
-          {text: "This is the third paragraph.", highlight: false},
-          {text: "This is the third paragraph.", highlight: false},
+          {text: "", highlight: false, img1: "/images/Projects/QuadBot/DiagramQB.webp"},
+   
         ]
       }
     ]
