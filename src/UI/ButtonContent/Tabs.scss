@@ -49,17 +49,16 @@
     background: linear-gradient(135deg, #4df02d76 0%, #0f5804 100%);
     border-color: styles.$color-base-darker-gray-four;
     box-shadow: inset .025em .025em #53d95af1, inset -.075em -.075em #0a550e;
-    
   }
 }
 
 .tab-panel { padding:1rem 1.25rem; }
 @media (max-width: 767px) {
     .tabs{
-        padding: .6rem 0;
+        padding: .7rem 0;
         gap: .5rem;
     }
     .tab-btn {
-        padding: .3rem .3rem;
+        padding: .4rem .4rem;
     }
 }

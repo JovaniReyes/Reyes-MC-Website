@@ -21,7 +21,7 @@ $icon-cite-d  : 40px;  $icon-cite-m  : 30px;
 $icon-map-d   : 40px;  $icon-map-m   : 45px;
 
 /* 3️⃣ Cluster offsets from top edge */
-$cluster-top-desktop : 24px;
+$cluster-top-desktop : 16px;
 $cluster-top-mobile  :  4px;
 
 /* 4️⃣ Break-points */
@@ -33,9 +33,9 @@ $bp-mobile : 767px;
 -------------------------------------------------------------------*/
 .toggle-button {
   color: styles.$color-base-dark-gray;
-  background: linear-gradient(135deg, #d1d0d0 0%, #585757 100%);
+  background: linear-gradient(135deg, #d1d0d0 50%, #000000 135%);
   border: 1.5px solid styles.$color-base-darker-gray-four;
-  box-shadow: inset 1.5px 1.5px #ffffff, inset -2.5px -2.5px #3c3c3c;
+  box-shadow: inset .075em .075em #ffffff, inset -.115em -.115em #3c3c3c;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,10 +45,9 @@ $bp-mobile : 767px;
   cursor: pointer;
 
   &:hover {
-    background: linear-gradient(135deg, #3ebd24 0%, #0f5804 100%);
+    background: linear-gradient(13deg, #4df02d76 90%, #0f5804 100%);
     border-color: #fff;
-    color: #fff;
-    box-shadow: inset 1px 1px #53d95af1, inset -2px -2px #0a550e;
+    box-shadow: inset .025em .025em #53d95a, inset -.075em -.075em #0a550e;
   }
 }
 
