@@ -34,59 +34,6 @@ const ZOOM_POINTS = [
   [0.5500, 0.5515],//About Me Set 6
 ];
 
-//Set the sound arrays
-const mapSounds = [
-  new Audio("../../Sounds/Map/MapUpS1.ogg"),
-  new Audio("../../Sounds/Map/MapDownS1.ogg"),
-];
-const teleportSound = [
-  new Audio("../../Sounds/Teleport2.ogg"),
-  new Audio("../../Sounds/Teleport1.ogg"),
-];
-
-//Adjust map and teleportation audio as well as disable looping
-mapSounds.forEach(aud => {
-  aud.volume = .25;
-  aud.loop = false;
-})
-teleportSound.forEach(aud => {
-  aud.volume = .5;
-  aud.loop = false;
-})
-
-//Toggles and plays Map opening/closing sound
-function playMapSound(){
-  const {isAudioEnabled} = useAudioStore.getState();
-  if(!isAudioEnabled) return;
-
-  if(mapSoundIndex === 2) mapSoundIndex = 0;
-  mapSounds[mapSoundIndex].play();
-  mapSoundIndex++;
-}
-//Selects and plays 1 of 2 teleporting sounds
-function playTeleportSound(){
-  const {isAudioEnabled, setIsTeleporting} = useAudioStore.getState();
-  if(!isAudioEnabled) return;
-
-  setIsTeleporting(true);
-  const sfx = Math.floor(Math.random() * 2);
-  teleportSound[sfx].play();
-  setIsTeleporting(false);
-}
-
-//Lerps FOV between BASE_FOV & PICTURE_FOV
-const getLerpedFov = (prog, newFOV) => {
-  for (let i = 0; i < ZOOM_POINTS.length; i++) {
-    const [start, end] = ZOOM_POINTS[i];
-    if (prog >= start && prog <= end) {
-      const temp = (prog-start) / (end-start);
-      const ease = Math.abs(2 * temp - 1);// 1→0→1 tri-ease
-      return THREE.MathUtils.lerp(newFOV, BASE_FOV, ease);
-    }
-  }
-  return BASE_FOV; // Not within any ZOOM_POINTS windows
-};
-
 //XZY points for where the user is placed across the scene
 const POSITIONS = [
   //               X      Z       Y
@@ -125,18 +72,8 @@ const POSITIONS = [
   new THREE.Vector3(-20, 17.3, 0.4),    //2nd step
   new THREE.Vector3(-17, 17.3, 0.85),   //1st step
 ];
-
 export const CAT_CURVE = new THREE.CatmullRomCurve3(POSITIONS, true);
-
-const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerpFactor, mouseOffset, setFieldOfView, isMapOpen, onTeleport, teleportEffects = [], fovShake, }) => {
-  const tp_FOVS = fovShake?.current?.keys ?? TELEPORT_FOVS;
-  const positions = useMemo(() => CAT_CURVE, []); 
-  const prevProgress = useRef(0);
-  const matPulseRef = useRef(0);
-  
-  
-//{prog: 0.000, rot: new THREE.Euler(-3.15, 2, -3.15)},
-  const rotations = useMemo(() =>  [
+export const ROTATIONS = [
     {prog: 0.000, rot: new THREE.Euler(-3.3, -1.05, -3.3)},
     {prog: 0.030, rot: new THREE.Euler(-3.15, -.2, -3.15)},
     {prog: 0.040, rot: new THREE.Euler(-3.15, -.2, -3.15)},
@@ -186,31 +123,101 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     {prog: 0.93, rot: new THREE.Euler(0,  0.375,  0)},
     {prog: 0.945, rot: new THREE.Euler(-2, -1.234, -2)},
     {prog: 0.999, rot: new THREE.Euler(-3.3, -1.05, -3.3)}
-  ], []);
+];
+const ROT_PROGS = ROTATIONS.map(k => k.prog);
+const ROT_EULERS = ROTATIONS.map(k => k.rot);
 
-  //Scratch objects
-  const newPosition = useRef(new THREE.Vector3()).current;
-  const startQuat = useRef(new THREE.Quaternion()).current;
-  const endQuat = useRef(new THREE.Quaternion()).current;
-  const lerpedRotation = useRef(new THREE.Euler()).current;
+const RESOLUTION = 1000;
+const pictureZoneLUT = new Uint8Array(RESOLUTION);
+for(const [s, e] of ZOOM_POINTS){
+  const a = Math.floor(s * RESOLUTION);
+  const b = Math.ceil(e * RESOLUTION);
+  for(let i = a; i <= b; i++) pictureZoneLUT[i] = 1;
+}
 
+//Lerps FOV between BASE_FOV & PICTURE_FOV
+const getLerpedFov = (prog, newFOV = PICTURE_FOV) => {
+  const idx = Math.round(prog * RESOLUTION);
+  if(!pictureZoneLUT[idx]) return BASE_FOV;
+  const range = ZOOM_POINTS.find(([s, e]) => prog >= s && prog <= e);
+  if (!range) return BASE_FOV; // fallback
+  const [start, end] = range;
+  const temp = (prog-start) / (end-start);
+  const ease = Math.abs(2 * temp - 1);// 1→0→1 tri-ease
+  return THREE.MathUtils.lerp(newFOV, BASE_FOV, ease);
+};
 
-  const getLerpedRotation = useCallback((prog) => {
-    for(let i = 0; i < rotations.length -1; i++){
-      const start = rotations[i];
-      const end = rotations[i+1];
-      if(prog >= start.prog && prog <= end.prog){
-        //Get the lerp factor
-        const lerp = (prog - start.prog)/(end.prog - start.prog);
-        startQuat.setFromEuler(start.rot);
-        endQuat.setFromEuler(end.rot);
-        startQuat.slerp(endQuat, lerp);
-        lerpedRotation.setFromQuaternion(startQuat);
-        return lerpedRotation;
-      }
-    }
-    return lerpedRotation.copy(rotations.at(-1).rot);
-  },[rotations, startQuat, endQuat, lerpedRotation]);
+//Set the sound arrays
+const mapSounds = [
+  new Audio("../../Sounds/Map/MapUpS1.ogg"),
+  new Audio("../../Sounds/Map/MapDownS1.ogg"),
+];
+const teleportSound = [
+  new Audio("../../Sounds/Teleport2.ogg"),
+  new Audio("../../Sounds/Teleport1.ogg"),
+];
+
+//Adjust map and teleportation audio as well as disable looping
+mapSounds.forEach(aud => {
+  aud.volume = .25;
+  aud.loop = false;
+})
+teleportSound.forEach(aud => {
+  aud.volume = .5;
+  aud.loop = false;
+})
+
+//Toggles and plays Map opening/closing sound
+function playMapSound(){
+  const {isAudioEnabled} = useAudioStore.getState();
+  if(!isAudioEnabled) return;
+
+  if(mapSoundIndex === 2) mapSoundIndex = 0;
+  mapSounds[mapSoundIndex].play();
+  mapSoundIndex++;
+}
+//Selects and plays 1 of 2 teleporting sounds
+function playTeleportSound(){
+  const {isAudioEnabled, setIsTeleporting} = useAudioStore.getState();
+  if(!isAudioEnabled) return;
+
+  setIsTeleporting(true);
+  const sfx = Math.floor(Math.random() * 2);
+  teleportSound[sfx].play();
+  setIsTeleporting(false);
+}
+
+function getLerpedRotation(){
+  const startQuat = useMemo(() => new THREE.Quaternion(), []);
+  const endQuat = useMemo(() => new THREE.Quaternion(), []);
+  const lerpedRot = useMemo(() => new THREE.Euler(), []);
+  const idxRef = useRef(0);
+  return useCallback((prog) => {
+      let i = idxRef.current;
+      // move pointer forward / backward at most a few steps
+      if (prog < ROT_PROGS[i]) while (i > 0 && prog < ROT_PROGS[i]) i--;
+      else while (i < ROT_PROGS.length - 2 && prog >= ROT_PROGS[i + 1]) i++;
+      
+      idxRef.current = i;
+
+      const p1 = ROT_PROGS[i];
+      const p2 = ROT_PROGS[i + 1];
+      const t  = (prog - p1) / (p2 - p1);
+
+      startQuat.setFromEuler(ROT_EULERS[i]);
+      endQuat.setFromEuler(ROT_EULERS[i + 1]);
+      startQuat.slerp(endQuat, t);
+      lerpedRot.setFromQuaternion(startQuat);
+      return lerpedRot;
+  }, []);
+}
+
+const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerpFactor, mouseOffset, setFieldOfView, isMapOpen, onTeleport, teleportEffects = [], fovShake, }) => {
+  const tp_FOVS = fovShake?.current?.keys ?? TELEPORT_FOVS;
+  const prevProgress = useRef(0);
+  const matPulseRef = useRef(0);
+  const sampleRotation = getLerpedRotation();
+
 
   useFrame((state) => {
     if(!camera.current) return;
@@ -238,6 +245,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
       if (elapsed >= duration) {
         fovShake.current.active = false;            // finished
         newFOV = tp_FOVS.at(-1);             // last key (70)
+        
       } else {
         const segDur = duration / (tp_FOVS.length - 1);// 1000 / 3 = .333 seconds per FOV segment
         const segIdx = Math.floor(elapsed / segDur);//Sets segment index to 0, 1, 2, then 3
@@ -263,12 +271,12 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
       setScrollProgress?.(scrollRef.current);//Triggers Light Render
     }
     // Camera Position - zero allocations
-    positions.getPoint(newProgress, newPosition)// Write into newPosition
+    const newPosition = CAT_CURVE.getPoint(newProgress);
     newPosition.x += mouseOffset.current.x;
     newPosition.y += mouseOffset.current.y;
-    camera.current.position.lerp(newPosition, 0.5);
+    camera.current.position.lerp(newPosition, .5);
     // Camera Rotation - zero allocations
-    camera.current.rotation.copy(getLerpedRotation(newProgress));
+    camera.current.rotation.copy(sampleRotation(newProgress));
     
   });
   return (

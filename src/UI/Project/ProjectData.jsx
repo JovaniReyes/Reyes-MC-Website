@@ -50,13 +50,6 @@ const projectData = {
     externalLink: "https://example.com/roll-safe",
     content: [
       {
-        header: "Development Tools",
-        paragraphs: [
-          {text: "Adruino IDE\n\tProgramming motor rotations", highlight: true},
-          {text: "This is the first paragraph.", highlight: false},
-        ]
-      },
-      {
         header: "Overview",
         paragraphs: [
           {text: "This is the second paragraph.", highlight: false},

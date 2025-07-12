@@ -2,19 +2,20 @@ import { ProjectToggle } from '../ButtonContent/ButtonContent'
 import projectData from './ProjectData'
 import "./Project.scss"
 import { Images } from '../ButtonContent/ButtonContent'
-
+import { Fragment } from 'react'
 const Project = ({ projectID }) => {
   const { name, mainImg, content } = projectData[projectID];
+  
   const title = `${name} Project Status`;
 
   const Section = ({ header, paragraphs }) => (
     <section className="project-section">
       <h2 className="section-header">{header}</h2>
       {paragraphs.map(({ text, highlight, img1 }, i) => (
-        <>
-          <p key={i} className={`section-paragraph${highlight ? ' accent-first-line' : ''}`}>
+        <Fragment key={i}>
+          <p className={`section-paragraph${highlight ? ' accent-first-line' : ''}`}>
             {text}</p>{(img1) && (<Images img1={img1}/>)}
-        </>
+        </Fragment>
       ))}
     </section>
   );

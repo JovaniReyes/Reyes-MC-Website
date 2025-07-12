@@ -27,7 +27,15 @@ $cluster-top-mobile  :  4px;
 /* 4️⃣ Break-points */
 $bp-tablet : 1023px;
 $bp-mobile : 767px;
+.paragraph-images img {
+  width: var(--des-width, 100%);                 /* desktop default     */
+}
 
+@media (max-width: 768px) {                      /* keep in sync with BP */
+  .paragraph-images img {
+    width: var(--mob-width, var(--des-width, 100%));
+  }
+}
 /* ------------------------------------------------------------------
    BASE button visuals (unchanged colours, + overflow safety)
 -------------------------------------------------------------------*/

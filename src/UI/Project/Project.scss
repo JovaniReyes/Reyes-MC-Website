@@ -44,7 +44,13 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
   50%      { filter: brightness(200%); }   // adjust % for stronger glow
 }
 /* Tabs / Citations colour overrides ------------------------------*/
-.section-creators {
+.about-section{
+  --highlight-color: #0fa046;
+}
+.project-section{
+  --highlight-color: #0fa046;
+}
+.section-creators-users {
   /* green */
   --highlight-color: #f97316;
 }
@@ -52,15 +58,18 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
   /* orange */
   --highlight-color: #3b82f6;
 }
-.section-addons-libraries-tools {
+.section-addons {
   /* blue */
   --highlight-color: #22c55e;
 }
 .section-llms { --highlight-color: #8b5cf6; } 
+.section-users { --highlight-color: #eab308;  /* Amber/Gold */}
+.section-libraries-tools{ --highlight-color: #b81456;  /* Teal / Cyan Green */}
+
 
 /* (You can use Sass variables here too if you prefer:
    --highlight-color: styles.$accent-green; etc.) */
-.paragraph-block {margin-bottom: 6rem; }
+.paragraph-block {margin-bottom: 3rem; }
 /* ------------------------------------------------------------------
    PARAGRAPH STYLES
    ------------------------------------------------------------------*/
@@ -80,7 +89,6 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
         by default (links inside non-highlighted paragraphs stay white) */
   a {
     text-decoration: none;
-    color: inherit;
   }
 
   /* 2. Highlighted paragraph ------------------------------------------------*/
@@ -97,13 +105,14 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
   }
 }
 
-.highlight-link.glow {
+.highlight-link {
+  color: var(--highlight-color); // ✅ use dynamic color
   font-size: 1.15em;
   display: block;          /* puts it on its own line */
   width: fit-content;      /* shrink-wrap to its text */
   margin: 0.25rem auto 0;          /* centres the block horizontally */
   text-align: center;
-    animation: glowPulse 3s ease-in-out infinite;
+  animation: glowPulse 3s ease-in-out infinite;
 }
 .indent-rest {
   /* Each tab is ~2ch wide because .section-paragraph has tab-size:2.
@@ -113,6 +122,7 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
   display: inline-block;  // keeps padding on wrapped lines
   margin: 0.25rem auto 0;          /* centres the block horizontally */
   text-align: center;
+  
 
 }
 
@@ -139,40 +149,49 @@ $pad-inner : .5rem;         /* half-size padding between two images  */
 
   img {
     flex: 1 1 0;
-    width: 90%;
+    width: var(--des-width, 100%);                 
     
     object-fit: cover;
     height: auto;
     box-shadow: 0 .125rem 1px rgba(0, 0, 0, 0.889);
     border-radius: 6px;
+    margin-top: .75rem; 
   }
   .image-caption {
-    margin-top: .4rem;
-    font-size: .75em;
-    line-height: 1.3;
-    text-align: center;
-    color: #e0e0e0;          /* tweak to taste / use a variable */
-    max-width: 95%;
-    word-wrap: break-word;
-    font-style:italic;
+    
+  // ***visual hierarchy***
+  font-size: clamp(0.75rem, 0.35vw + 0.75rem, 1.05rem);
+  letter-spacing: 0.03em;            // a touch of breathing room
+  line-height: 1.35;
+  text-align: center;
+
+  // ***pseudo-italic***
+  transform: skewX(-9deg);
+
+  // ***contrast on a dark canvas***
+  color: hsl(0 0% 88%);
+  text-shadow:
+      0 1px 0 rgb(0 0 0 / .45),      // subtle lift
+      0 0 2px rgb(0 0 0 / .35);      // soft glow to fight blur
+
+  margin-top: .75rem;                // space from the preview above
   }
 
   /* ── one image → equal padding left & right ───────────────────*/
-  &.one img { padding: 0 $pad-outer; width: 50%; }
+  &.one img { padding: 0 $pad-outer; width: var(--des-width, 50%);}
   &.creator {
     width: 100%;
     img{
-      width: 20%;
+      width: var(--des-width, 20%);
       border-radius: 50%;
     }
     .image-caption {
-      font-size: 1em;
-      font-style: normal;
+      font-size: 1.25em;
     }
   }
 
   /* ── two images on desktop: row layout with asymmetric padding */
-  &.two{width: 75%;}
+  &.two{width: var(--des-width, 75%);}
   &.two img:first-child { padding: 0 $pad-inner 0 $pad-outer; }
   &.two img:last-child  { padding: 0 $pad-outer 0 $pad-inner; }
   .image-wrap {
@@ -182,23 +201,58 @@ $pad-inner : .5rem;         /* half-size padding between two images  */
     align-items: center;
     /* carry over the per-image padding that was on <img> */
     padding: inherit;
-  }
-}
-
-/* ── mobile: stack the two images, reset to equal padding ───────*/
-@media (max-width: 600px) {
-  .paragraph-images {
-    .image-caption {
-        font-size: .65em;
-      }
-    &.one img{width: 90%;}
-    &.two {flex-direction: column;}
-    &.creator {
-      img {width: 50%;}
-      .image-caption {font-size: .8em;}
+    > a {
+      display: inline-block;             /* ← NO LONGER a flex-item  */
+      max-width: 100%; 
     }
   }
-  .section-paragraph {font-size: .8em;}
-  .section-header{font-size: .9em;}
-  .paragraph-block {margin-bottom: 2.5rem; }
 }
+.flipped-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.flipped-header-right {
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;
+  a {text-decoration: none;}
+}
+
+.flipped-text {
+  flex: 3;
+  text-align: left;
+  color: white;
+}
+
+
+/* ── mobile: stack the two images, reset to equal padding ───────*/
+@media (max-width: 800px) {
+  .paragraph-images {
+    .image-caption {
+        font-size: .58em;
+        opacity: 90%;
+        width: 100%;
+      }
+    &.one img{width: var(--mob-width, var(--des-width, 100%));}
+    &.two {flex-direction: column;}
+    &.creator {
+      img {width: var(--mob-width, var(--des-width, 100%));}
+      .image-caption {font-size: .8em;}
+    }
+    
+  }
+  .section-paragraph {font-size: .75em;}
+  .section-header{font-size: .9em;}
+  .paragraph-block {margin-bottom: 1.5rem; }
+  .indent-rest{ padding: 0; }
+  .flipped-wrapper {flex-direction: column; align-items: center;}
+
+  .flipped-header-right {font-size: .7em;}
+
+  .flipped-text {font-size: 0.6em; line-height: 1.4; }
+}
+

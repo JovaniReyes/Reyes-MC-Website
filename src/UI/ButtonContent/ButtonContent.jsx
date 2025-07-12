@@ -1,132 +1,187 @@
-
-import "./ButtonContent.scss";
+/* ButtonContent.jsx */
+import "./ButtonContent.scss"
 
 /* ─── utility hooks ─── */
 import { useMapControls } from "../../Exp/stores/mapControlsStore";
 import { useModalStore } from "../../Exp/stores/modalStore";
 import { useAudioStore } from "../../Exp/stores/audioStore";
 import { playSound } from "../../Utils/buttonSound";
-import ButtonContentData from "./ButtonContentData";
+import  ContentData from "../../Utils/data/contentData";
 import Tabs from "./Tabs";
-export const Images = ({ img1, img2, imgText1, imgText2, isCreatorSection}) => {
-  /* add a class so CSS knows how many we’re dealing with */
+
+
+/* ─── helper for inline images ─── */
+export const Images = ({ img1, img2, imgText1, imgText2, img1HRef, isCreatorSection, mobWidth, desWidth }) => {
   const howMany = isCreatorSection ? "creator" : (img1 && img2 ? "two" : "one");
-  
+   const styleVars = {};
+  if (mobWidth) styleVars["--mob-width"] = typeof mobWidth === "number" ? `${mobWidth}px` : mobWidth;
+  if (desWidth) styleVars["--des-width"] = typeof desWidth === "number" ? `${desWidth}px` : desWidth;
   return (
-    <div className={`paragraph-images ${howMany}`}>
-      {img1 && (<div className="image-wrap">
-        <img src={img1} alt="" draggable="false" />
-        {imgText1 && <div className="image-caption">{imgText1}</div>}
-      </div>)}
-      {img2 && (<div className="image-wrap">
-        <img src={img2} alt="" draggable="false" />
-        {imgText2 && <div className="image-caption">{imgText2}</div>}
-      </div>)}
+    <div className={`paragraph-images ${howMany}`} style={styleVars}>
+      {img1 && (
+        <div className="image-wrap">
+          {img1HRef 
+            ? (<a href={img1HRef} target="_blank" rel="noopener noreferrer"><img src={img1} alt={imgText1} draggable="false" /></a>) 
+            : <img src={img1} alt={imgText1} draggable="false" />
+          }
+          {imgText1 && <div className="image-caption">{imgText1}</div>}
+        </div>
+      )}
+      {img2 && (
+        <div className="image-wrap">
+          <img src={img2} alt={imgText2} draggable="false" />
+          {imgText2 && <div className="image-caption">{imgText2}</div>}
+        </div>
+      )}
     </div>
   );
 };
-/* ─── images ─── */
-import { audioMuteSymbol, audioPlaySymbol } from "../../Utils/preLoadUIImages";
-import bookImg from "../../images/Buttons/BookSymbol.png";
-import codeImg from "../../images/Buttons/CodeSymbol.png";
-import mapImg from "../../images/Buttons/MapSymbol.webp";
 
+/* ─── static button images ─── */
+import { audioMuteSymbol, audioPlaySymbol } from "../../Utils/preLoadUIImages";
+import  bookImg  from "../../images/Buttons/BookSymbol.png";
+import  codeImg  from "../../images/Buttons/CodeSymbol.png";
+import  mapImg   from "../../images/Buttons/MapSymbol.webp";
+
+/* ---------------------------------------------------------------------- */
+/*  Main modal body                                                       */
+/* ---------------------------------------------------------------------- */
 const ButtonContent = ({ ContentID }) => {
-  const content = ButtonContentData[ContentID];
-  if (!content) return <div>Content Not Found</div>;
-  const isCitations = ContentID === "Cites";
-  const tabLabels = content.content.map(sec => sec.header);
+  const data = ContentData[ContentID];
+  const isProj = ContentID.substring(0,2)=== "PP";
+  const isCitations = ContentID === "Cites" || isProj;
+  if (!data) return <div>Content Not Found</div>;
+
+  const phases = data.content;
+  const tabLabels = phases.map(p => p.header);
+  const renderPhase = (phase) => phase.sections ?? [phase];
+
+  const renderParagraph = (paragraph, sectionHeader, pIdx) => {
+    const {
+      text, highlight, link, glow,
+      img1, img2, imgText1, imgText2,
+      mobWidth, desWidth, img1HRef,
+      flipLayout, header: paragraphHeader
+    } = paragraph;
+
+    const label = paragraphHeader || sectionHeader;
+    const pClass = `section-paragraph${highlight ? " accent-first-line" : ""}`;
+
+    const renderImages = () =>
+      (img1 || img2) && (
+        <Images
+          img1HRef={img1HRef}
+          img1={img1} img2={img2}
+          mobWidth={mobWidth} desWidth={desWidth}
+          imgText1={imgText1} imgText2={imgText2}
+          isCreatorSection={["Creators & Users"].includes(sectionHeader)}
+        />
+      );
+
+    if (flipLayout) {
+      return (
+        <div className="paragraph-block flipped-layout" key={pIdx}>
+          <div className="flipped-wrapper">
+            <div className="flipped-header-right">
+              {highlight && link ? (
+                <a href={link} target="_blank" rel="noopener noreferrer" className={`highlight-link${glow ? " glow" : ""}`}>
+                  {label}
+                </a>
+              ): (label) }
+            </div>
+            <div className="flipped-text"> {text} </div>
+          </div>
+          {renderImages()}
+        </div>
+      );
+    }
+
+    // Normal layout
+    const nl = text.search(/\r?\n/);
+    const head = nl !== -1 ? text.slice(0, nl) : text;
+    const rest = nl !== -1 ? text.slice(nl + (text[nl] === "\r" ? 2 : 1)) : "";
+
+    return (
+      <div className="paragraph-block" key={pIdx}>
+        <p className={pClass}>
+          {highlight ? (
+            <>
+              {glow ? (<a href={link} target="_blank" rel="noopener noreferrer" className={`highlight-link first-line${glow ? " glow" : ""}`}>
+                {head}
+              </a>) : <span  className={`highlight-link first-line`}>{head}</span >}
+              {rest && <span className="indent-rest">{rest}</span>}
+            </>
+          ) : (
+            text
+          )}
+        </p>
+        {renderImages()}
+      </div>
+    );
+  };
+
+  const renderSection = (section, sIdx) => {
+    const sSlug = section.header.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    const hasFlipLayout = section.paragraphs?.some(p => p.flipLayout);
+
+    return (
+      <div className={`content-section section-${sSlug}`} key={sIdx}>
+        {!isCitations && !hasFlipLayout && (
+          <h3 className="section-header">{section.header}</h3>
+        )}
+        {(section.paragraphs ?? []).map((p, pIdx) =>
+          renderParagraph(p, section.header, pIdx)
+        )}
+      </div>
+    );
+  };
+
+  const renderActivePhase = (activeIdx) => {
+    const phase = phases[activeIdx];
+    const slug = phase.header.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+    return (
+      <div className={`content-phase section-${slug}`} key={slug}>
+        {renderPhase(phase).map(renderSection)}
+      </div>
+    );
+  };
 
   return (
     <div className="content-container">
       <Tabs key={ContentID} sections={tabLabels}>
-        {(activeIdx) => {
-          const section = content.content[activeIdx];
-          const slug = section.header.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-          const headerType = !isCitations ? "section-header" : "";
-          return (
-            <div className={`content-section section-${slug}`} key={activeIdx}>
-              <h2 className={headerType}>{!isCitations ? section.header : ""}</h2>
-              {section.paragraphs.map(({ text, highlight, link, glow, img1, img2, imgText1, imgText2 }, pIdx) => {
-                const classNames = `section-paragraph${highlight ? " accent-first-line" : ""}`;
-
-                /* 1 ▸ non-linked paragraph --------------------------------- */
-                if (!highlight || !link) {
-                  return (
-                    <div key={pIdx} className="paragraph-block">
-                      <p className={classNames}>
-                        {text}
-                      </p>
-                      {(img1 || img2) && (
-                          <>
-                            <Images img1={img1} img2={img2} />
-                            <br />
-                          </>
-                        )}
-                    </div>
-                  );
-                }
-
-                /* 2 ▸ split once at the first newline ---------------------- */
-                const nlIdx = text.search(/\r?\n/);
-                const firstLine = nlIdx !== -1 ? text.slice(0, nlIdx) : text;
-                const nlLen = nlIdx !== -1 && text[nlIdx] === "\r" ? 2 : 1;
-                const restText  = nlIdx !== -1 ? text.slice(nlIdx + nlLen) : "";
-
-                /* 3 ▸ render block ----------------------------------------- */
-                return (
-                  <div key={pIdx} className="paragraph-block">
-                    <p className={classNames}>
-                      {/* centred, glowing link */}
-                      <a
-                        href={link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`highlight-link first-line${glow ? " glow" : ""}`}
-                      >
-                        {firstLine}
-                      </a>
-
-                      {/* indented remainder */}
-                      {restText && <span className="indent-rest">{restText}</span>}
-                    </p>
-                    {/* optional images */}
-                    {(img1 || img2) && (
-                      <Images img1={img1} img2={img2} imgText1={imgText1} imgText2={imgText2} isCreatorSection={section.header == "Creators"} />
-                    )}
-
-                  
-                  </div>
-                );
-              })}
-            </div>
-          );
-        }}
+        {renderActivePhase}
       </Tabs>
     </div>
   );
 };
 
 
+/* ---------------------------------------------------------------------- */
+/*  Toggle buttons                                                        */
+/* ---------------------------------------------------------------------- */
 const ModalToggleButton = ({ title, modalTitle, contentID, imgSrc, imgAlt, posClass }) => {
-  const { isModalOpen, modalTitle: curTitle, checkForOpenModal, closeModal } = useModalStore();
+  const {isModalOpen, modalTitle: curTitle, checkForOpenModal, closeModal} = useModalStore();
   const { isMapOpen, closeMap } = useMapControls();
   const handleClick = () => {
     playSound();
-    //Toggle modals between open and closed
+
+    /* toggle self off */
     if (isModalOpen && curTitle === modalTitle) {
       closeModal();
       return;
     }
-    //Close map and open new modal
-    if (isMapOpen && closeMap){
+
+    /* close map first if needed */
+    if (isMapOpen && closeMap) {
       closeMap();
       useModalStore.getState().openAfterMapCloses(modalTitle, <ButtonContent ContentID={contentID}/>, contentID);
       return;
     }
-    //Check for previously open modal, close if one is open and open the new modal
+    /* otherwise open normally */
     checkForOpenModal(modalTitle, <ButtonContent ContentID={contentID}/>, contentID);
   };
+
   return (
     <button className={`toggle-button ${posClass}`} title={title} onClick={handleClick}>
       <img className="button-img" src={imgSrc} alt={imgAlt} />
@@ -134,42 +189,40 @@ const ModalToggleButton = ({ title, modalTitle, contentID, imgSrc, imgAlt, posCl
   );
 };
 
-
+/* ─── audio toggle ─── */
 export const AudioToggle = () => {
-  const { isAudioEnabled, setIsAudioEnabled, pauseMusic, playMusic } = useAudioStore();
-  //Toggle the audio between playing and mute
+  const {isAudioEnabled, setIsAudioEnabled, pauseMusic, playMusic} = useAudioStore();
+
   const toggleAudio = () => {
     if (isAudioEnabled) pauseMusic();
     else playMusic();
     playSound();
     setIsAudioEnabled(!isAudioEnabled);
   };
+
   return (
     <button className="toggle-button audio-position" title="AudioBtn" onClick={toggleAudio}>
-      <img
-        src={isAudioEnabled ? audioPlaySymbol : audioMuteSymbol}
-        alt={isAudioEnabled ? "Audio Play Symbol" : "Audio Mute Symbol"}
-        className="button-img"
-      />
+      <img src={isAudioEnabled ? audioPlaySymbol : audioMuteSymbol} alt={isAudioEnabled ? "Audio Play Symbol" : "Audio Mute Symbol"} className="button-img"/>
     </button>
   );
 };
 
-//Fast travel map toggle button
+/* ─── map toggle ─── */
 export const MapToggle = () => {
   const { isMapOpen, toggleMap, closeMap } = useMapControls();
   const { isModalOpen, closeModal } = useModalStore();
+
   const handleClick = () => {
     playSound();
-    //Toggle the map between open and closed
+
     if (isMapOpen && closeMap) {
       closeMap();
       return;
     }
-    //Before opening map, close any open modals, then open the map
     if (isModalOpen) closeModal();
-    if (toggleMap) toggleMap();
+    toggleMap?.();
   };
+
   return (
     <button className="toggle-button map-position" title="MapBtn" onClick={handleClick}>
       <img src={mapImg} alt="Map symbol" className="button-img" />
@@ -177,7 +230,7 @@ export const MapToggle = () => {
   );
 };
 
-//Citations toggle button
+/* ─── specific modal toggles ─── */
 export const CitationToggle = () => (
   <ModalToggleButton
     title="CitationBtn"
@@ -189,7 +242,6 @@ export const CitationToggle = () => (
   />
 );
 
-//Code roadmap toggle button
 export const CodeToggle = () => (
   <ModalToggleButton
     title="CodeBtn"
@@ -201,15 +253,18 @@ export const CodeToggle = () => (
   />
 );
 
-//Project info toggle button
 export const ProjectToggle = ({ modalTitle, contentID }) => {
   const { checkForOpenModal } = useModalStore();
   const handleClick = () => {
     playSound();
-    checkForOpenModal(modalTitle, <ButtonContent ContentID={contentID}/>, contentID);
+    checkForOpenModal(
+      modalTitle,
+      <ButtonContent ContentID={contentID} />,
+      contentID
+    );
   };
   return (
-    <button className="button-project" title="ProjectBtn" onClick={handleClick} isProject={true}>
+    <button className="button-project" title="ProjectBtn" onClick={handleClick} isproject="true">
       {modalTitle}
     </button>
   );
