@@ -217,6 +217,7 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
   const prevProgress = useRef(0);
   const matPulseRef = useRef(0);
   const sampleRotation = getLerpedRotation();
+  
 
 
   useFrame((state) => {

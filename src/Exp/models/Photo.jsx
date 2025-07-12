@@ -146,7 +146,8 @@ export default function Model({progress = 0, pulseIntensity = 0, ...props}) {
   const handleClick = (elementID, photoID) => {
     if(isMapOpen) return;
     if(elementID === "about") {
-      if(progress >= 0.3392 && progress <=  0.3916) return; //Prevents clicking behind project picture
+      
+      if(progress >= 0.3111 && progress <=  0.3981) return; //Prevents clicking behind project picture
       else if(!aboutNames[photoID]) return;
       
       const mainPhoto = getPhotoGroup(photoID);

@@ -35,7 +35,7 @@ const citations = {
       {
         header: "Software & Websites",
         paragraphs: [
-          {text: "Minecraft\n", highlight: true, link: "https://www.minecraft.net/en-us", 
+          {text: "Minecraft\nPotentially the most well known game in existence, the entirety of this sites art style including the 3D assets are a reflection this sandbox game.", highlight: true, link: "https://www.minecraft.net/en-us", 
             img1:"./images/Citations/MinecraftHome.webp",
             imgText1:"Original home built in Minecraft", 
             desWidth: "50%", mobWidth: "100%",

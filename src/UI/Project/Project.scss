@@ -112,7 +112,10 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
   width: fit-content;      /* shrink-wrap to its text */
   margin: 0.25rem auto 0;          /* centres the block horizontally */
   text-align: center;
-  animation: glowPulse 3s ease-in-out infinite;
+  &.glow{
+     animation: glowPulse 2s ease-in-out infinite;
+  }
+ 
 }
 .indent-rest {
   /* Each tab is ~2ch wide because .section-paragraph has tab-size:2.
@@ -231,6 +234,7 @@ $pad-inner : .5rem;         /* half-size padding between two images  */
 
 /* ── mobile: stack the two images, reset to equal padding ───────*/
 @media (max-width: 800px) {
+  $mobile-label-width: 3.5rem;
   .paragraph-images {
     .image-caption {
         font-size: .58em;
@@ -249,10 +253,22 @@ $pad-inner : .5rem;         /* half-size padding between two images  */
   .section-header{font-size: .9em;}
   .paragraph-block {margin-bottom: 1.5rem; }
   .indent-rest{ padding: 0; }
-  .flipped-wrapper {flex-direction: column; align-items: center;}
+  
+  .flipped-wrapper {
+    display: grid;
+    grid-template-columns: $mobile-label-width 1fr;   // ⬅ fixed, then flex
+    column-gap: .75rem;          // horizontal space between the two
+    
+  }
 
-  .flipped-header-right {font-size: .7em;}
+  /* 2️⃣  Let long words wrap inside that fixed width                   */
+  .flipped-header-right {
+    width: $mobile-label-width - 1rem;   // keeps browsers honest
+    white-space: normal;          // wrap if the word is longer
+  }
 
-  .flipped-text {font-size: 0.6em; line-height: 1.4; }
+  /* 3️⃣  Keep any other font-scale tweaks you already had              */
+  .flipped-header-right { font-size: .5em; }
+  .flipped-text         { font-size: .4em; line-height: 1.4; }
 }
 
