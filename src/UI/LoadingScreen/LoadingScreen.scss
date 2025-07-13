@@ -345,21 +345,21 @@ $black-t: #323232c0;
 .tip--load {top: 72vh;}
 @media (max-width: ($bp-desktop - 1)) {
   .ui-brief-box{
-    font-size: .9em;
+    font-size: .8em;
   }
   .tip{
-    transform: translateX(-16%);
+    transform: translateX(-17%);
     &_caption{
       font-size: 0.7em;
     }
   }
   .tip--load{
-    top: 76.5%;
+    top: 77%;
     transform: translateX(14%);
     .tip_caption { animation: splashBounce2 2s ease-in-out infinite;}
   }
   .tip--photos{
-    top: 24%;
+    top: 25%;
     .tip_caption { animation: splashBounce 2s ease-in-out infinite;}
   }
     
