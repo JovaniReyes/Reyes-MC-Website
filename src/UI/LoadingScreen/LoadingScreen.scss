@@ -21,7 +21,7 @@ $black-t: #323232c0;
 }
 
 .intro-house {
-  @extend .loading-screen;          /* reuse position/size rules          */
+  @extend .loading-screen;
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -36,7 +36,7 @@ $black-t: #323232c0;
 
   @media (max-width: ($bp-desktop - 1)) {
     object-fit: cover;
-    object-position: 46.4% center;  /* keep focal point centred */
+    object-position: 46.4% center;
   }
 }
 
@@ -63,54 +63,52 @@ $black-t: #323232c0;
 
 .instructions-container {
   position: absolute;
-  top: 6%;
+  top: .5%;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   color: #fff;
   font-size: 24px;
-  @include styles.flex-center;
+  @include styles.flex-center(column);
 
   &.revealed { display: none; }
-}/* ─── Loading bar – final alignment ──────────────────────────────────── */
+}
 
 /* Outer frame --------------------------------------------------------- */
-.loading-bar-wrapper {              /* new lightweight wrapper */
+.loading-bar-wrapper {
   position: absolute;
-  left: 50%;                        /* centre horizontally   */
+  left: 50%;
   transform: translateX(-50%);
   bottom: 6%;
-  width: clamp(300px, 60vw, 900px); /* fluid but bounded     */
+  width: clamp(300px, 60vw, 900px); 
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .loading-bar-container {
-  /* same palette, now inside the wrapper */
   width: 100%;
-  height: 2.75vh;                     /* fixed pixel height keeps it crisp */
-  border: 2px solid #182f1d;           /* thick white frame like screenshot */
-  background: #000;                 /* inner bezel (black)               */
-  
+  height: 2.75vh;
+  border: 2px solid #182f1d;
+  background: #000;
 }
 
 /* Grid of blocks ------------------------------------------------------ */
 .loading-bar {
-  --gap: 2px;                       /* tweak once for all sides          */
+  --gap: 2px;
   --segments: 11;
 
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-  padding: var(--gap);              /* bezel on left + right             */
+  padding: var(--gap);
   display: grid;
   grid-template-columns: repeat(var(--segments), 1fr);
-  gap: var(--gap);                  /* 1-pixel slice between blocks      */
+  gap: var(--gap);
 }
 
 .loading-segment {
-  background-image: var(--tex-empty); /* grey by default  */
+  background-image: var(--tex-empty);
   background-size: 100% 100%;
   background-repeat: no-repeat;
   border: .1px solid #2b4809;
@@ -129,7 +127,7 @@ $black-t: #323232c0;
   font-size: clamp(24px, 1.6vw, 40px);
   line-height: 1;
   position: absolute;
-  left: 50%;                        /* centre horizontally   */
+  left: 50%;
   transform: translateX(-50%);
  
 }
@@ -167,14 +165,14 @@ $black-t: #323232c0;
 
 /* — Wrapper that moves the whole trio together — */
 .gesture-bundle {
-  position: absolute;               /* positioned inside helper-icons     */
+  position: absolute;
   z-index: 100;
 
   /* Desktop placement */
   @media (min-width: $bp-desktop) {
     width: clamp(90px, 8vw, 120px);
-    bottom: 35%;
-    right: 19%;
+    bottom: 32%;
+    left: 13%;
   }
 
   /* Mobile placement */
@@ -187,7 +185,7 @@ $black-t: #323232c0;
 
 /* Phone fills the bundle */
 .gesture-bundle .pixel-phone {
-  position: relative;               /* stays in normal flow of wrapper    */
+  position: relative;
   width: 100%;
   height: auto;
 
@@ -204,13 +202,13 @@ $black-t: #323232c0;
 .gesture-bundle .pixel-hand {
   position: absolute;
   z-index: 101;
-  left: 50%; /* put its left edge in the middle … */
-  transform: translateX(-50%); /* … then pull it back half-width   */
+  left: 50%; 
+  transform: translateX(-50%); 
   margin-left: 15px;
   @media (max-width: ($bp-desktop - 1)) {
     width: clamp(30px, 10vw, 60px);
     bottom: 50%;  
-    margin-left: -20px;                   /* tweak to taste*/
+    margin-left: -20px;
   }
 
   @media (min-width: $bp-desktop) {
@@ -225,19 +223,19 @@ $black-t: #323232c0;
   color: #fff;
   white-space: nowrap;
   left: 50%;
-  transform: translateX(-50%);   /* horizontal centring */
+  transform: translateX(-50%);
 
   @media (max-width: ($bp-desktop - 1)) {
     font-size: clamp(25px, 8vw, 40px);
-    top: 100%;                 /* start just under phone   */
-    margin-top: -4vh;           /* ~6-7 % viewport height   */
-    transform: translateX(30%);   /* horizontal centring */
+    top: 100%;
+    margin-top: -4vh;
+    transform: translateX(30%); 
   }
 
   @media (min-width: $bp-desktop) {
     font-size: clamp(28px, 2.1vw, 70px);
-    top: 100%; /* start just under phone   */
-    margin-top: 6rem; /* ≈ 144 px safety gap      */
+    top: 100%;
+    margin-top: 6rem; 
     margin-left: 1rem;
   }
 }
@@ -245,13 +243,13 @@ $black-t: #323232c0;
 /* ─── Forward / backward arrow tweaks (desktop only) ──────────────────── */
 @media (min-width: $bp-desktop) {
   .helper-icons-container.backward .pixel-hand {
-    top: 0;                     /* anchor to wrapper’s top edge          */
+    top: 0;
     bottom: auto;
     animation: arrowPulseUp 3s ease-in-out infinite;
   }
 
   .helper-icons-container.forward .pixel-hand {
-    bottom: 0;                  /* anchor to wrapper’s bottom edge       */
+    bottom: 0;
     top: auto;
     animation: arrowPulseDown 3s ease-in-out infinite;
   }
@@ -274,18 +272,97 @@ $black-t: #323232c0;
   98%,100%{ transform: translateY(9.5vh) translateX(10px) rotate(-35deg) scale(.9); }
 }
 /* ─── UI-brief (icon row + label row) -------------------------------------- */
-
- .ui-brief {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);  /* four equal columns */
-  column-gap: clamp(12px, 3vw, 32px);
-  pointer-events: none;
-  justify-content: center;
+.ui-brief-box {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  padding: clamp(.25em, .6vw, .9em) clamp(.5em, 1.4vw, 1.8em);
+  background: rgba(70, 70, 70, .45);
+  border: 3px solid #000;               
+  @include inset-shadow(2px);         
+  filter: drop-shadow(2px 2px 0 #000);
 }
 
+
+
+/* ─── Caption styling ─────────────────────────────────────────────── */
+.ui-brief-caption {
+  font-size: clamp(18px, 1.3vw, 32px);
+  color: #fff;
+  text-align: center;
+  text-shadow: 2px 2px 1px #000;
+  pointer-events: none;
+}
+
+/* ─── UI-brief grid — restore column gap ─────────────────────────── */
+.ui-brief {
+  display: grid;
+  grid-auto-flow: column;  
+  grid-template-columns: repeat(4, max-content);  
+  column-gap: clamp(12px, 3vw, 32px);
+  border: none;
+  padding: 0;
+  margin-bottom: .3em;
+}
+
+/* ─── Labels — prevent text wrapping ─────────────────────────────── */
 .ui-brief-label {
   font-size: .85em;
-  text-shadow: 2.5px 2.5px 1px #000;
+  white-space: nowrap;
+  text-shadow: 2px 2px 1px #000;
   text-align: center;
 }
+
+/* ─── Base “tip” overlay ─────────────────────────────────────────── */
+.tip {
+  &.revealed { display: none; }
+  position: absolute;
+  left: 0;
+  width: 100%;
+  transform: translateX(-2%);
+  @include styles.flex-center;
+  pointer-events: none;
+
+  
+
+  /* shared caption look */
+  &_caption {
+    color: #FFEC3D;
+    text-shadow: 3px 3px 1px #000;
+    font-size: 1em;
+    line-height: 1;
+    display: inline-block;
+    transform-origin: center;
+    pointer-events: none;
+    animation: splashBounceA 2s ease-in-out infinite;
+  }
+}
+
+/* ─── Modifier: top photo-tip ─────────────────────────────────────── */
+.tip--photos {top: 18.2vh;}
+
+/* ─── Modifier: bottom first-load tip ─────────────────────────────── */
+.tip--load {top: 72vh;}
+@media (max-width: ($bp-desktop - 1)) {
+  .tip{
+    transform: translateX(-14%);
+    &_caption{
+      font-size: 0.65em;
+    }
+  }
+  .tip--load{
+    top: 75vh;
+    transform: translateX(14%);
+    .tip_caption { animation: splashBounce2 2s ease-in-out infinite;}
+  }
+  .tip--photos{
+    top: 21vh;
+    .tip_caption { animation: splashBounce 2s ease-in-out infinite;}
+  }
+    
+}
+
+/* ─── Keyframes (unchanged) ──────────────────────────────────────── */
+@keyframes splashBounce   { 0%,100% { transform: rotate(-30deg) scale(1); } 50% { transform: rotate(-30deg) scale(1.10);} }
+@keyframes splashBounceA  { 0%,100% { transform: rotate(0deg)  scale(1); } 50% { transform: rotate(0deg)  scale(1.10);} }
+@keyframes splashBounce2  { 0%,100% { transform: rotate(15deg) scale(1); } 50% { transform: rotate(15deg) scale(1.10);} }

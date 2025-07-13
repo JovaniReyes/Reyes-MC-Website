@@ -1,5 +1,5 @@
 // LoadingScreen.jsx
-import { useState, useEffect, useCallback, useMemo, memo, Fragment } from "react";
+import { useState, useEffect, useCallback, useMemo, memo } from "react";
 import "./LoadingScreen.scss";
 import { useProgress } from "@react-three/drei";
 import { useAudioStore } from "../../Exp/stores/audioStore";
@@ -120,62 +120,60 @@ export default function LoadingScreen() {
   }, [bgMounted]);
 
   /* Background finished */
-  const handleAnimationFinished = useCallback(
-    () => setAnimationFinished(true),
-    []
-  );
+  const handleAnimationFinished = useCallback(() => setAnimationFinished(true), []);
 
   /* Smooth % counter */
   useEffect(() => {
-  // cancel any earlier chase whenever progress jumps
-  let rafId;
-  const tick = () => {
-    setProg(prev => {
-      if (prev >= progress) return prev;       // already caught up
-      return Math.min(prev + .5, progress);     // +1 % per frame
-    });
+    // cancel any earlier chase whenever progress jumps
+    let rafId;
+    const tick = () => {
+      setProg(prev => {
+        if (prev >= progress) return prev;       // already caught up
+        return Math.min(prev + .5, progress);     // +1 % per frame
+      });
+      rafId = requestAnimationFrame(tick);
+    };
     rafId = requestAnimationFrame(tick);
-  };
-  rafId = requestAnimationFrame(tick);
-  return () => cancelAnimationFrame(rafId);
-}, [progress]);
+    return () => cancelAnimationFrame(rafId);
+  }, [progress]);
+
 /* ─── new: quick descriptor list for the top-right buttons ─── */
-const uiBrief = useMemo(
-  () => [
-    { icon: mapImg,   text: "Fast Travel" },
-    { icon: bookImg,  text: "Citations"       },
-    { icon: codeImg,  text: "Road Map"   },
-    { icon: audioPlaySymbol,  text: "Audio Toggle"    },
-  ],
-  []
-);
+  const uiBrief = useMemo(() => [
+    { icon: mapImg,   text: "Teleport "},
+    { icon: bookImg,  text: "Citations"},
+    { icon: codeImg,  text: "Road Map"},
+    { icon: audioPlaySymbol,  text: "Mute"},
+  ],[]);
 
   /** two-row grid: first row = icons | second row = labels */
   const UIBrief = ({ items }) => (
-    <div className="ui-brief">
-        {items.map(({ text }) => (
-        <span key={`label-${text}`} className="ui-brief-label">
-          {text}
-        </span>
+    <div className="ui-brief"> {items.map(({ text }) => (
+        <span key={`label-${text}`} className="ui-brief-label"> {text} </span>
       ))}
     </div>
-    
   );
 
   /* ────── RENDER ────── */
   if (animationFinished) return null;
 
-  
-
   return (
     <div className="loading-screen" style={{ background: plainBgVisible ? "black" : "transparent", height: plainBgVisible ? "100%" : "0%" }} > 
       {bgMounted && (<Background isRevealed={bgReveal} onDone={handleAnimationFinished}/>)}
       <img src={HouseSymbol} alt="House Symbol" className={`intro-house${isRevealed ? " fade-out" : ""}`}/>
-      {/* optional instructions block, left blank in original */}
-        <div className={`instructions-container ${isRevealed ? "revealed" : ""}`}>
-          {/* ⮑ our new feature */}
+
+      <div className={`instructions-container ${isRevealed ? "revealed" : ""}`}>
+        <div className="ui-brief-box">
           <UIBrief items={uiBrief} />
+          <span className="ui-brief-caption">Button Descriptions</span>
         </div>
+      </div>
+
+      <div className={`tip tip--photos ${isRevealed ? "revealed" : ""}`}>
+        <span className="tip_caption">Interact with glowing photos…</span>
+      </div>
+      <div className={`tip tip--load ${isRevealed ? "revealed" : ""}`}>
+        <span className="tip_caption">First visit takes longer to load…</span>
+      </div>
 
       <div className="loading-screen-info-container">
         <HelperIcons
@@ -186,8 +184,6 @@ const uiBrief = useMemo(
           flipPhase={flipPhase}
           isForwardPhase={isForwardPhase}
         />
-
-        
 
         {prog < 100 ? (<LoadingBar progress={prog}/>) : (!isRevealed && canEnterWorld ? (<Button onClick={handleReveal}>Enter World</Button>) : null)}
       </div>
