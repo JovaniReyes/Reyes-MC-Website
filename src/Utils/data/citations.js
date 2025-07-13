@@ -26,7 +26,7 @@ const citations = {
             img1:"./images/Citations/Users/ZachH.webp", img2:"./images/Citations/Users/Paola.webp",
             imgText1: "Zachary H.", imgText2: "Paola B.", desWidth: "40%", mobWidth: "100%",
             highlight: true, glow: false, },
-          {text: "Fast traveling across the site\n\nThis idea was suggested in regards to potential employers or repeat visitors who have already walked through the sites pathway and don't feel like contiously scrolling back and forth.",
+          {text: "Fast traveling across the site\n\nThis idea was suggested in regards to potential employers or returning visitors who\'ve traveled the sites pathway and want to quickly view the different sections.",
             img1:"./images/Citations/Users/SamG.webp",
             imgText1: "Sammuel G.", desWidth: "20%", mobWidth: "50%",
             highlight: true, glow: false, },
@@ -42,7 +42,7 @@ const citations = {
             glow: true, },
           {text: "Blender\nOpen-source software for 3D modeling, animating, texturing, and rendering.", highlight: true, link: "https://www.blender.org", 
             img1:"./images/Citations/Blender1.webp", img2:"./images/Citations/Blender2.webp", 
-            imgText1:"Solid Mode Viewport",  imgText2:"Material Preview Viewport", 
+            imgText1:"Solid Object View",  imgText2:"Material Preview", 
             glow: true, },
 
           {text: "Poly Haven\nA public asset library with HDRIs, textures, and 3D models.", highlight: true, link: "https://polyhaven.com/", 
@@ -60,23 +60,23 @@ const citations = {
           {text: "Vercel\nCloud platform that updates and hosts the website.", highlight: true, link: "https://vercel.com/", 
              desWidth: "80%", mobWidth: "130%",
             img1: "./images/Citations/Vercel.webp", glow: true, },
-          {text: "ThreeJS Forums\nCommunity forum for troubleshooting React-Three-Fiber issues.", highlight: true, link: "https://discourse.threejs.org/", glow: true, },
-          {text: "Squoosh\nOnline tool for compressing and converting images to WebP.", highlight: true, link: "https://squoosh.app/", glow: true, },
-          {text: "GLTF Report\nViewer that lists meshes, materials, and textures in a glTF file.", highlight: true, link: "https://gltf.report/", glow: true, },
+          {header: "ThreeJS Forums",text: "Community forums, very helpful for troubleshooting and improving usage of useFrame.", highlight: true, link: "https://discourse.threejs.org/", glow: true,flipLayout: true },
+          {header: "Squoosh",text: "Online tool for compressing and converting png/jpg into WebP images.", highlight: true, link: "https://squoosh.app/", glow: true, flipLayout: true},
+          {header: "GLTF Report",text: "Online 3D asset viewer that lists meshes, materials, and textures in the given glTF file.", highlight: true, link: "https://gltf.report/", glow: true, flipLayout: true},
         ],
       },
       {
         header: "Addons",
         paragraphs: [
-          {text: "MCPrep ~ Blender Addon\nOptimizes materials, allows swappable blocks as well as spawning new blocks, items, mobs.", highlight: true, link: "https://theduckcow.com/dev/blender/mcprep/", 
+          {text: "MCPrep\nBlender addon for optimizing MC materials, and allows block swapping as well as spawning new blocks, items, mobs.", highlight: true, link: "https://theduckcow.com/dev/blender/mcprep/", 
             img1:"./images/Citations/McPrep_1.webp", img2:"./images/Citations/McPrep_2.webp",
             imgText1:"Pre-material prep",  imgText2:"Post-material prep", 
              glow: true, },
-          {text: "Mineways ~ MCPrep Addon\nImports a saved Minecraft world into Blender with renderable material.", highlight: true, link: "https://www.realtimerendering.com/erich/minecraft/public/mineways/", 
+          {text: "Mineways\nMCPrep addon that imports a saved Minecraft world into Blender with renderable material.", highlight: true, link: "https://www.realtimerendering.com/erich/minecraft/public/mineways/", 
             img1:"./images/Citations/Mineways1.webp", img2:"./images/Citations/Mineways2.webp",
             imgText1:"UI for location selection in MC world",  imgText2:"Imported location of MC world in Blender", 
              glow: true, }, 
-          {text: "SimpleBake ~ Blender Addon\nBakes material textures into single image maps for web use. Highly recommended for beginners and people wanting to save time.", highlight: true, link: "https://superhivemarket.com/products/simplebake---simple-pbr-and-other-baking-in-blender-2", 
+          {header: "SimpleBake", text: "Blender addon which bakes material textures into single image maps for web use. Highly recommended for beginners and people wanting to save time.", highlight: true, link: "https://superhivemarket.com/products/simplebake---simple-pbr-and-other-baking-in-blender-2", flipLayout: true,
             glow: true, },   
           
         ]
@@ -84,13 +84,13 @@ const citations = {
       {
         header: "Libraries & Tools",
         paragraphs: [
-          {header:"Zustand",text: "State management library for React that keeps the site's UI and map state in a single React store", highlight: true, link: "https://zustand.docs.pmnd.rs/getting-started/introduction", glow: true, flipLayout: true },
-          {header:"gltf-transform",text: "CLI tool that compresses and optimizes glTF models before they go into the repository (~90 % smaller).", highlight: true, link: "https://gltf-transform.dev/", glow: true, flipLayout: true},
-          {header:"gltfjsx",text: "Converts a glTF file into a JSX component for React Three Fiber, keeping each mesh's geometry, materials, and transform (position, rotation, scale) intact.", highlight: true, link: "https://github.com/pmndrs/gltfjsx", glow: true, flipLayout: true},
+          {header:"Zustand",text: "State management library that changes/tracks the UI modal and maps current state.", highlight: true, link: "https://zustand.docs.pmnd.rs/getting-started/introduction", glow: true, flipLayout: true },
+          {header:"gltf-transform",text: "CLI tool that compresses and optimizes glTF models before they go into the repository.", highlight: true, link: "https://gltf-transform.dev/", glow: true, flipLayout: true},
+          {header:"gltfjsx",text: "Converts a glTF file into a JSX component, and places each mesh's geometry, materials, and transform (position, rotation, scale).", highlight: true, link: "https://github.com/pmndrs/gltfjsx", glow: true, flipLayout: true},
           {header:"KTX Textures",text: "Saves the project's texture images as KTX2 files with BasisU compression so the GPU can read them directly, slashing file size and RAM use.", highlight: true, link: "https://www.khronos.org/ktx/", glow: true, flipLayout: true},
           {header:"Transfonter",text: "Converts TTF/OTF fonts into lighter WOFF/WOFF2 files and generates the @font-face block for SCSS files.", highlight: true, link: "https://transfonter.org/", glow: true, flipLayout: true},
-          {header:"SCSS",text: "A Sass syntax that adds variables, nesting, and mixins to keep the stylesheet organized.", highlight: true, link: "https://sass-lang.com/documentation/syntax/", glow: true, flipLayout: true},
-          {header:"Vites React Template",text: "The create-vite starter that set up React, Vite's dev server, and hot-reload for this website.", highlight: true, link: "https://vite.dev", glow: true, flipLayout: true },  
+          {header:"SCSS",text: "Sass syntax that adds variables, nesting, and mixins to organize stylsheets.", highlight: true, link: "https://sass-lang.com/documentation/syntax/", glow: true, flipLayout: true},
+          {header:"Vites React Template",text: "The create-vite starter that sets up React, Vite's dev server, and hot-reload for the project.", highlight: true, link: "https://vite.dev", glow: true, flipLayout: true },  
         ]
       },
         

@@ -11,11 +11,12 @@ import Tabs from "./Tabs";
 
 
 /* ─── helper for inline images ─── */
-export const Images = ({ img1, img2, imgText1, imgText2, img1HRef, isCreatorSection, mobWidth, desWidth }) => {
+export const Images = ({ img1, img2, imgText1, imgText2, img1HRef, isCreatorSection, mobWidth, desWidth,verticalImages }) => {
   const howMany = isCreatorSection ? "creator" : (img1 && img2 ? "two" : "one");
-   const styleVars = {};
+  const styleVars = {};
   if (mobWidth) styleVars["--mob-width"] = typeof mobWidth === "number" ? `${mobWidth}px` : mobWidth;
   if (desWidth) styleVars["--des-width"] = typeof desWidth === "number" ? `${desWidth}px` : desWidth;
+  styleVars["--direct"] = verticalImages ? "column" : "row";
   return (
     <div className={`paragraph-images ${howMany}`} style={styleVars}>
       {img1 && (
@@ -61,7 +62,8 @@ const ButtonContent = ({ ContentID }) => {
       text, highlight, link, glow,
       img1, img2, imgText1, imgText2,
       mobWidth, desWidth, img1HRef,
-      flipLayout, header: paragraphHeader
+      flipLayout, header: paragraphHeader,
+      verticalImages,
     } = paragraph;
 
     const label = paragraphHeader || sectionHeader;
@@ -74,7 +76,9 @@ const ButtonContent = ({ ContentID }) => {
           img1={img1} img2={img2}
           mobWidth={mobWidth} desWidth={desWidth}
           imgText1={imgText1} imgText2={imgText2}
-          isCreatorSection={["Creators & Users"].includes(sectionHeader)}
+          verticalImages={verticalImages}
+          isCreatorSection={["Creators & Users"].includes(sectionHeader)
+          }
         />
       );
 

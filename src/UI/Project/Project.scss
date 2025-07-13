@@ -194,7 +194,7 @@ $pad-inner : .5rem;         /* half-size padding between two images  */
   }
 
   /* ── two images on desktop: row layout with asymmetric padding */
-  &.two{width: var(--des-width, 75%);}
+  &.two{width: var(--des-width, 75%); flex-direction: var(--direct);}
   &.two img:first-child { padding: 0 $pad-inner 0 $pad-outer; }
   &.two img:last-child  { padding: 0 $pad-outer 0 $pad-inner; }
   .image-wrap {
@@ -242,7 +242,7 @@ $pad-inner : .5rem;         /* half-size padding between two images  */
         width: 100%;
       }
     &.one img{width: var(--mob-width, var(--des-width, 100%));}
-    &.two {flex-direction: column;}
+    &.two {flex-direction: column; width: var(--mob-width, var(--des-width, 100%));}
     &.creator {
       img {width: var(--mob-width, var(--des-width, 100%));}
       .image-caption {font-size: .8em;}
