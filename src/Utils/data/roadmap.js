@@ -116,7 +116,10 @@ const roadmap = {
         {
             header: "Loading Screen Tips",
             paragraphs: [
-            {text: "To help new visitors navigate the site I created text tips and helper icons on the loading screen. The context behind the text is the functionality behind the UI buttons and how the controls work depending on visitors screen width (Swiping for Mobile & Scrolling for Desktop).\n\nPreloading the 3D assets takes around 30-50 seconds for first time visitors, to help pass the time I used Sora AI to generate a pixelated version of the home and after touching up the design I placed it as the loading screens background.\n\nA small visual bug I noticed was during the first 1-3 seconds of the scene being available to enter, users who quickly entered the scene would view the world with no assets visible. I created a small delay between the transition between the loading screen and the scene to prevent this from appearing.", highlight: false},
+            {text: "To help new visitors navigate the site I created text tips and helper icons on the loading screen. The context behind the text is the functionality behind the UI buttons and how the controls work depending on visitors screen width (Swiping for Mobile & Scrolling for Desktop).\n\nPreloading the 3D assets takes around 30-50 seconds for first time visitors, to help pass the time I used Sora AI to generate a pixelated version of the home and after touching up the design I placed it as the loading screens background.\n\nA small visual bug I noticed was during the first 1-3 seconds of the scene being available to enter, users who quickly entered the scene would view the world with no assets visible. I created a small delay between the transition between the loading screen and the scene to prevent this from appearing.",
+              img1:"./images/Roadmap/Code/LoadingScreen1.webp", img2:"./images/Roadmap/Code/LoadingScreen2.webp",
+              imgText1:"Desktop layout",  imgText2:"Mobile layout",mobWidth: "100%", desWidth: "65%",
+              highlight: false, verticalImages: true},
             ]
         },
       ],
