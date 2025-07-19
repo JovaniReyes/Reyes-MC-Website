@@ -5,7 +5,7 @@ const citations = {
       {
         header: "Creators & Users",
         paragraphs: [
-           {text: "Jovani Reyes (Me!)", highlight: true, link: "https://www.linkedin.com/in/jovani-reyes-91b532367",
+           {text: "Jovani Reyes (Me!)", highlight: true, link: "https://www.linkedin.com/in/jovani-reyes",
             img1:"./images/Citations/Creators/Joey.webp",
             imgText1: "Email: Jovani.Reyes.Contact@gmail.com",
             glow: true, mobWidth: "50%", },
@@ -21,6 +21,10 @@ const citations = {
             img1:"./images/Citations/Creators/JDGraphics.webp",
             imgText1: "Creator of the Minecraft font used on the site. Thank you JDGraphics, without your work the UI wouldn't be complete!",
             glow: true, mobWidth: "50%",},
+          {text: "Robot LK", highlight: true, link: "https://robotlk.com/",
+            img1:"./images/Citations/Creators/RobotLK.webp",
+            imgText1: "Arduino Bot creators, Robot LK is an educational site that provides free, high-end, and beginner friendly STEM guides.",
+           glow: true, mobWidth: "50%",},
 
            {text: "FOV nudge for nearby interactables\n\nThis idea was suggested as a way to point out the interactable photos in the home. This feature decreases the users Field of View when reaching certain points of the homes pathway as a way to get the users attention through a subtle zoom-in.",
             img1:"./images/Citations/Users/ZachH.webp", img2:"./images/Citations/Users/Paola.webp",
@@ -98,7 +102,12 @@ const citations = {
         header: "LLMs",
         paragraphs: [
           {header:"ChatGPT", text: "Helped troubleshoot launch day site crashes for mobile users (Size of site caused IOS users to be stuck in auto-reload loop.", highlight: true, link: "https://openai.com/", glow: true, flipLayout: true },
-          {header:"Sora AI", text: "Generated the loading screen background, used Figma to clean mistakes.", highlight: true, link: "https://openai.com/sora/", glow: true, flipLayout: true},
+          {header:"Sora AI", text: "Generated the loading screen background, used Figma to clean mistakes.", 
+            img1:"./images/Citations/Mineways1.webp", img2:"./images/Citations/Mineways2.webp",
+            imgText1:"UI for location selection in MC world",  imgText2:"Imported location of MC world in Blender",
+            highlight: true, link: "https://openai.com/sora/", glow: true, flipLayout: true
+
+          },
         ]
       },
     ]

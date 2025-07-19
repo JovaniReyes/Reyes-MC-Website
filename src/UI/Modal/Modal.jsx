@@ -7,15 +7,15 @@ import "../../Styles/Modal.scss";
 
 const Modal = () => {
     const {isModalOpen, modalTitle, modalContent, closeModal, animation, modalType, isModalMap, isTeleportModal} = useModalStore();
-    const type = (modalType === "Code" || modalType === "Cites") ? "button " : "";
+    const special =  (modalType === "Code" || modalType === "Cites" || modalType.substring(0,2)=== "PP");
+    const type = (special || modalType === "projects") ? "button " : "";
     const { moveCursor, teleport, toggleFloor } = useMapControls();
     const [isFirstFloorImg, setisFirstFloorImg] = useState(true)
     const [isDTCmdsOpen, setIsDTCmdsOpen] = useState(false);
     const [pressedRight, setPressedRight] = useState(false);
     const [pressedLeft, setPressedLeft] = useState(false);
     const dtCmdsRef = useRef(null);
-    const isCitations = modalType === "Cites";
-    
+    const hasTabs = special;
 
     useEffect(() => {
         function handleDTCmdClick(click){
@@ -100,7 +100,7 @@ const Modal = () => {
             </>
         );
     }
-    const headerType = !isCitations ? "modal-body" : "modal-body cites";
+    const headerType = !hasTabs ? "modal-body" : "modal-body tabss";
     return (
         <>
             {isModalOpen && <div className="overlay" onClick={handleCloseModal}> </div>}

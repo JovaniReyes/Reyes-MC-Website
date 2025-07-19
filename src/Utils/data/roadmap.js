@@ -13,7 +13,7 @@ const roadmap = {
           paragraphs: [
             {
               text: 'Looking for ideas on a portfolio project, I found a tutorial on building 3D website by Andrew Woan, a content creator who loves to teach others everything they know. His work was foreign to me since I knew almost nothing about Blender and didn\'t regularly write in Web Development languages besides a few smaller projects.\n\nInitially I think I just wanted a website that stood out, though during the process, I realized what I really wanted was something that took real effort and couldn\'t be built mechanically. Overall, a project that would reflect my work ethic and thoughtfulness.',
-              img1:"./images/Roadmap/Videos/AndrewWoanVid.webp",
+              img1:"./images/Roadmap/Videos/AndrewWoanVideo.webp",
               imgText1: "Click above to see the original video!",
               img1HRef: "https://www.youtube.com/watch?v=lf9ZBsi24m4&t=0s",
               mobWidth: "100%", desWidth: "100%",
@@ -27,7 +27,7 @@ const roadmap = {
           paragraphs: [
             {
               text: 'I wanted to minimize my time playing minecraft to spend more time on the later stages of the project. Unfamiliar with 3D assets but aware of their dense sizes, a smaller sized home that optimized its limited space seemed like the safest choice.\n\nI found a home perfect for what I was looking for thanks to Polar Cat! The original creator of the home used for the website, their design provided me the peace of mind I was looking for in regards to rendering and baking the home.',
-              img1:"./images/Roadmap/Videos/CrossiantCatVid.webp",
+              img1:"./images/Roadmap/Videos/PolarCatVideo.webp",
               img1HRef: "https://www.youtube.com/watch?v=gt0VkZy6_pY&t=0s",
               imgText1: "Click above to see the original video!",
               mobWidth: "100%", desWidth: "100%",

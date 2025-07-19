@@ -15,21 +15,10 @@ const aboutMeData = {
       {
         header: "Introduction",
         paragraphs: [
-          {text: "Welcome, and thanks for stopping by! Over the last five months I've invested more than 400 hours into crafting this portfolio, and I'm thankful for you taking the time to explore it. If you run into any bugs or have any suggestions, please let me know at Jovani.Reyes.Contact@gmail.com—I'll happily add your name to the credits.", highlight: false},
+          {text: "Howdy!\n\nThanks for taking time out of your day to visit the site! You'll find more interactables like this one throughout your visit and the first few projects I chose for the site!\n\n\n\t\tEnjoy!", highlight: false},
         ]
       },
-      {
-        header: "Interactables",
-        paragraphs: [
-          {text: "Throughout the homepage you'll see photos of me, the people who are close to me, and snapshots of other projects I've built. Images that can be clicked emit a pulsing glow when nearby, so feel free to poke around and discover the hidden details.", highlight: false},
-        ]
-      },
-      {
-        header: "Under The Hood",
-        paragraphs: [
-          {text: "The site is built with JSX (JavaScript XML), for embeddingHTML directly in JavaScript, and styled with SCSS for reusable, variable-driven CSS. Every object you see in the 3-D scene comes from a GLB file containing its geometry and textures, all manipulated through ThreeJS.\n\n\nEnjoy your visit!\n\n-Jovani Reyes", highlight: false},
-        ]
-      }
+      
     ]
   },
 

@@ -63,7 +63,7 @@ const ButtonContent = ({ ContentID }) => {
       img1, img2, imgText1, imgText2,
       mobWidth, desWidth, img1HRef,
       flipLayout, header: paragraphHeader,
-      verticalImages,
+      verticalImages
     } = paragraph;
 
     const label = paragraphHeader || sectionHeader;
