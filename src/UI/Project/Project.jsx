@@ -6,7 +6,7 @@ import { Fragment } from 'react'
 const Project = ({ projectID }) => {
   const { name, mainImg, content } = projectData[projectID];
   
-  const title = `${name} Project Roadmap`;
+  const title = `${name} Roadmap`;
 
   const Section = ({ header, paragraphs }) => (
     <section className="project-section">

@@ -7,7 +7,9 @@ import { useModalStore } from "../../Exp/stores/modalStore";
 import { useAudioStore } from "../../Exp/stores/audioStore";
 import { playSound } from "../../Utils/buttonSound";
 import  ContentData from "../../Utils/data/contentData";
+
 import Tabs from "./Tabs";
+import PdfViewer from "../../Utils/PDFViewer";
 
 
 /* ─── helper for inline images ─── */
@@ -63,7 +65,7 @@ const ButtonContent = ({ ContentID }) => {
       img1, img2, imgText1, imgText2,
       mobWidth, desWidth, img1HRef,
       flipLayout, header: paragraphHeader,
-      verticalImages
+      verticalImages, hasPDF,
     } = paragraph;
 
     const label = paragraphHeader || sectionHeader;
@@ -104,6 +106,13 @@ const ButtonContent = ({ ContentID }) => {
     const nl = text.search(/\r?\n/);
     const head = nl !== -1 ? text.slice(0, nl) : text;
     const rest = nl !== -1 ? text.slice(nl + (text[nl] === "\r" ? 2 : 1)) : "";
+    if(hasPDF){
+      return (
+        <div className="paragraph-block" key={pIdx}>
+          <PdfViewer />
+      </div>
+      );
+    }
 
     return (
       <div className="paragraph-block" key={pIdx}>

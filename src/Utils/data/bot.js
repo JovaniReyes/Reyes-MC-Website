@@ -31,7 +31,7 @@ const bot ={
         header:"Structural Assembly",
           paragraphs:[
               {text:"Assemblying the skeleton\nThis portion of the project was not difficult since it entailed connecting the servo motors to the body, femurs, and tibias (3x each leg 4x). Afterwhich connecting tibias to femurs, then femurs to the body.", img1: "/images/Projects/QuadBot/Build1.webp", img2: "/images/Projects/QuadBot/Bot2.webp",
-              highlight: true, glow: true,},
+              imgText1: "Tibias, Femurs, Servo Motors Connected", imgText2:"Legs Connected to the Bodies Bottom",  highlight: true, glow: true,},
           ]
       },
       {

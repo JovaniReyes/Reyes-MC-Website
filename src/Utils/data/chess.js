@@ -4,8 +4,9 @@ const chess ={
       {
         header:"Creators",
         paragraphs:[
-          {text:"Implementing Middleware between JS and Java.", highlight: true},
-          {text:"Implementing AI opponent for game sessions.", highlight: true},
+          {text:"Me!\nDeveloped the Frontend of the project & assisted in the backend when needed.", highlight: true},
+          {text:"Henry Lewis\n Developed the Backend logic.", highlight: true},
+          {text:"Andy Borch\n Developed the Backend logic.a", highlight: true},
         ]
       },
       {

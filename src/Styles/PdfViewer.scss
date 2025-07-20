@@ -1,0 +1,38 @@
+$bp-desktop: 1415px;
+
+.pdf-viewer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* keep the wrapper scrollable for tall pages (and wide pages when zoom > 1) */
+.pdf-wrapper {
+flex: 1 1 auto;        /* take all remaining height */
+  overflow-y: auto;
+  overflow-x: auto;          /* horizontal swipe allowed on phones */
+}
+
+/* simple toolbar */
+.pdf-controls {
+  flex: 0 0 auto;
+  padding: 6px 0;
+  display: flex;
+  justify-content: center;   /* centred on every screen size */
+  gap: .5rem;
+  background: inherit;       /* pick up modal bg so it blends in */
+  font-family: inherit;
+}
+
+/* let the canvas grow beyond modal width when zoomed */
+.react-pdf__Page__canvas {
+  max-width: none !important;
+  height: auto !important;
+}
+
+/* Desktop */
+@media (min-width: $bp-desktop) {
+    .pdf-wrapper {
+        overflow-x: hidden;
+    }
+}
