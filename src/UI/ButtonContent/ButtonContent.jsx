@@ -9,7 +9,7 @@ import { playSound } from "../../Utils/buttonSound";
 import  ContentData from "../../Utils/data/contentData";
 
 import Tabs from "./Tabs";
-import PdfViewer from "../../Utils/PDFViewer";
+import PdfViewer from "../../Utils/PdfViewer";
 
 
 /* ─── helper for inline images ─── */
