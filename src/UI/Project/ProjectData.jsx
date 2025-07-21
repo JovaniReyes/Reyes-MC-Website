@@ -2,7 +2,7 @@
 
 const projectData = {
     'PP1': {
-    name: "Assembly Line Typeracer",
+    name: "Research Experiment",
     mainImg: "./images/PP1.webp",
     externalLink: "https://example.com/roll-safe",
     content: [
@@ -16,8 +16,9 @@ const projectData = {
       {
         header: "Overview",
         paragraphs: [
-          {text: "Objective\n\tEnter given prompts to complete assembly operations.", highlight: true},
-          {text: "Versions\n\tDesktop & Virtual Reality Compatible.", highlight: true},
+          {text: "Objective\n\nThis projects focused on why text entry in virtual-reality (VR) lags behind traditional desktop typing and if simulating a users hand virtually can shorten the gap. Participants completed the same typing tasks under three conditions:\n\n\t1. Desktop Baseline.\n\t2. VR with virtual hands.\n\t3. VR without virtual hands.\n\nThe study tracked net words per-minute (WPM), accuracy, and task-completion time for each of the conditions in a within-subjects design.\n\n\n", highlight: true},
+          {text: "Findings\n\n- Desktop typing remained fastest and most accurate\n\n- Both VR setups were much slower and more prone to errors.\n\n- Interestingly, virtual hands produced no significant improvement over the handless VR condition in speed.\n\n- Some participants noted that the virtual hands obscured keys, making typing harder.\n\n\n", highlight: true},
+          {text: "Key take-away\n\nThis project demonstrates that rendering hands in VR does not bridge the performance gap with traditional typing. Achieving efficient text entry for VR workspaces will likely require alternative input techniques, more sophisticated hand/keyboard tracking solution, or improving simulations with collision detection for virtually rendered hands.",highlight: true}
         ]
       }
     ]
@@ -58,7 +59,7 @@ const projectData = {
       {
         header: "Circuit Diagram ",
         paragraphs: [
-          {text: "The diagram below maps each servo motors' positive, negative, and signal wire to its assigned pin on the arduino nano V3 microcontroller as well as the power supply module, battery, and power switch.", highlight: false, img1: "/images/Projects/QuadBot/DiagramQB.webp"},
+          {text: "The Diagram below shows how the 12 micro-servos, the voltage converter, and the battery pack are wired to the Arduino Nano V3 microcontroller.", highlight: false, img1: "/images/Projects/QuadBot/DiagramQB.webp"},
    
         ]
       }
