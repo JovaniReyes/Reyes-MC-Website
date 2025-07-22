@@ -29,8 +29,7 @@ export default function PdfViewerResponsive() {
       setWrapperW(w);
 
       /* device presets: phone 2×, iPad 1.5×, desktop 1× */
-      if (w <= 480)       setZoom(2);
-      else if (w <= 1024) setZoom(1.5); 
+      if (w <= 768)       setZoom(2);
       else                setZoom(1);
     });
 

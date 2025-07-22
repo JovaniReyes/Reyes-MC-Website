@@ -1,5 +1,5 @@
 $bp-desktop: 1415px;
-
+$bp-mobile: 768px;
 .pdf-viewer {
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@ $bp-desktop: 1415px;
 .pdf-wrapper {
 flex: 1 1 auto;        /* take all remaining height */
   overflow-y: auto;
-  overflow-x: auto;          /* horizontal swipe allowed on phones */
+  overflow-x: hidden;          /* horizontal swipe allowed on phones */
 }
 
 /* simple toolbar */
@@ -31,8 +31,8 @@ flex: 1 1 auto;        /* take all remaining height */
 }
 
 /* Desktop */
-@media (min-width: $bp-desktop) {
+@media (max-width: $bp-mobile) {
     .pdf-wrapper {
-        overflow-x: hidden;
+        overflow-x: scroll;
     }
 }
