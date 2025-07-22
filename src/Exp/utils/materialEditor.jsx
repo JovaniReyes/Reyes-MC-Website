@@ -100,11 +100,9 @@ export const getMaterial = ({...props}) => {
     if (!materials) return new THREE.MeshBasicMaterial({ color: 0xff00ff });
     else if (hoveredMesh === elementID) return materials.hover;
     else if (progress >= min && progress <= max) {
-      const pulseColor =  1 + pulseIntensity * 2;
+      const pulseColor =  1 + pulseIntensity * 5;
       const blue = (color === "Blue") ? 24 : 0;
       const green = (color === "Green") ? 6 : 0;
-      //materials.pulse.color.setRGB(30, 77, 43);
-      //materials.pulse.color.set(pulseColor);
        materials.pulse.color.setRGB(pulseColor, pulseColor+green, pulseColor+blue);
       return materials.pulse;
     }

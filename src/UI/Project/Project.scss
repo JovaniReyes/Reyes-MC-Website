@@ -19,9 +19,12 @@
     overflow: hidden;
 }
 .project-image{
-    width: 100%;
+    width: 45%;
     height: 100%;
     object-fit:contain;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    align-self: center;
 }
 .section-header{
     padding: 12px;
@@ -78,7 +81,7 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
      override it inline if you need per-paragraph colours later:      */
   
 
-  font-size: 1.2em;
+  font-size: 1.1em;
   margin: 8px 0;
   color: white;
   white-space: pre-wrap;
@@ -125,6 +128,7 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
   display: inline-block;  // keeps padding on wrapped lines
   margin: 0.25rem auto 0;          /* centres the block horizontally */
   text-align: center;
+  line-height: 120%;
   
 
 }
@@ -234,6 +238,7 @@ $pad-inner : .5rem;         /* half-size padding between two images  */
 
 /* ── mobile: stack the two images, reset to equal padding ───────*/
 @media (max-width: 800px) {
+  .project-image{width: 100%;}
   $mobile-label-width: 3.5rem;
   .paragraph-images {
     .image-caption {
@@ -249,10 +254,10 @@ $pad-inner : .5rem;         /* half-size padding between two images  */
     }
     
   }
-  .section-paragraph {font-size: .75em;}
+  .section-paragraph {font-size: .65em;}
   .section-header{font-size: .9em;}
   .paragraph-block {margin-bottom: 1.5rem; }
-  .indent-rest{ padding: 0; }
+  .indent-rest{ padding: 0; line-height: 130%; }
   
   .flipped-wrapper {
     display: grid;

@@ -31,20 +31,20 @@ const bot ={
         header:"Structural Assembly",
           paragraphs:[
               {text:"Assemblying the skeleton\nThis portion of the project was not difficult since it entailed connecting the servo motors to the body, femurs, and tibias (3x each leg 4x). Afterwhich connecting tibias to femurs, then femurs to the body.", img1: "/images/Projects/QuadBot/Build1.webp", img2: "/images/Projects/QuadBot/Bot2.webp",
-              imgText1: "Tibias, Femurs, Servo Motors Connected", imgText2:"Legs Connected to the Bodies Bottom",  highlight: true, glow: true,},
+              imgText1: "Tibias, Femurs, Servo Motors Connected", imgText2:"Legs Connected to the Bodies Bottom",  highlight: true, },
           ]
       },
       {
         header:"Electronic Assembly",
         paragraphs:[
             {text:"Tidying Up the Tin\nBuilding the circuit board involved soldering, with no prior training I faced numerous setbacks during this stage due to being hasty and not familiarizing myself with solder accessories such as using flux to remove oxidation and impurities before creating a soldered connection.", img1: "/images/Projects/QuadBot/Solder1.webp", img2: "/images/Projects/QuadBot/Solder2.webp",
-              imgText1: "Quality of First Solder", imgText2:"Quality After Hours of Training", highlight: true, glow: true,},
+              imgText1: "Quality of First Solder", imgText2:"Quality After Hours of Training", highlight: true, },
             {text:"Connecting the Dots\nAfter one too many mistakes made while soldering the circuit board, I color coded an image of the blank PCB through-holes by the colors I used for the diagram of the circuit board. For further clearity I also numbered the yellow signal wires by their perspective servo motor #\'s.", img1: "/images/Projects/QuadBot/Board1.webp", img2: "/images/Projects/QuadBot/Board2.webp",
-            imgText1: "Mapping microcontroller pins to blank PCB through-holes", imgText2:"Invertedly soldered the right-side signal wires.", highlight: true, glow: true,},
+            imgText1: "Mapping microcontroller pins to blank PCB through-holes", imgText2:"Invertedly soldered the right-side signal wires.", highlight: true, },
             {text:"", img1: "/images/Projects/QuadBot/Solder3.webp", imgText1: "Post-soldering, red light indicates a complete circuit.",},
             {text:"Copper Conundrum\nConnecting the positive, negative, and signal wires from each servo motor initially was pretty straightforward. However, after accidentally inverting an entire side of the circuit board this stage of the project a nightmare; splicing 36 wires while resoldering the circuit board is a task I will never forget.", img1: "/images/Projects/QuadBot/Wiring1.webp", img2: "/images/Projects/QuadBot/Wiring2.webp",
               imgText1: "Initial wiring for completed circuit", imgText2:"Final wiring for completed circuit",
-            highlight: true,glow: true,},
+            highlight: true,},
         ]
       },
       {
@@ -52,10 +52,10 @@ const bot ={
         paragraphs:[
             {text:"The Tight Sqeeze\nThe wiring dilemma continously haunted the project, with the amount of extra wiring between each servo and the circuit board; space within the robots body was non-existent.", img1: "/images/Projects/QuadBot/Complete1.webp",
               imgText1: "Taken as soon as I attached the top section of the body.",
-              highlight: true, glow: true,},
+              highlight: true, },
             {text:"\nWhile the wiring seems fine in pictures, in action the robot has trouble moving 2 of its legs since they are constrained from certain angles that are blocked by wires that should not be as exposed as they are.", img1: "/images/Projects/QuadBot/Complete2.webp", img2: "/images/Projects/QuadBot/Complete3.webp",
               imgText1: "Photo of the final result", imgText2:"The spillage of wires",
-            highlight: true, glow: true,},
+            highlight: true, },
         ]
       },
       {

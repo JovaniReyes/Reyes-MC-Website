@@ -16,9 +16,9 @@ const projectData = {
       {
         header: "Overview",
         paragraphs: [
-          {text: "Objective\n\nThis projects focused on why text entry in virtual-reality (VR) lags behind traditional desktop typing and if simulating a users hand virtually can shorten the gap. Participants completed the same typing tasks under three conditions:\n\n\t1. Desktop Baseline.\n\t2. VR with virtual hands.\n\t3. VR without virtual hands.\n\nThe study tracked net words per-minute (WPM), accuracy, and task-completion time for each of the conditions in a within-subjects design.\n\n\n", highlight: true},
+          {text: "Objective\n\nObjective focuses on why text entry in virtual-reality (VR) lags behind traditional desktop typing and if simulating a users hand virtually can shorten the gap. Participants completed the same typing tasks under three conditions:\n\n\t1. Desktop Baseline.\n\t2. VR with virtual hands.\n\t3. VR without virtual hands.\n\nThe study tracked net words per-minute (WPM), accuracy, and task-completion time for each of the conditions in a within-subjects design.\n\n\n", highlight: true},
           {text: "Findings\n\n- Desktop typing remained fastest and most accurate\n\n- Both VR setups were much slower and more prone to errors.\n\n- Interestingly, virtual hands produced no significant improvement over the handless VR condition in speed.\n\n- Some participants noted that the virtual hands obscured keys, making typing harder.\n\n\n", highlight: true},
-          {text: "Key take-away\n\nThis project demonstrates that rendering hands in VR does not bridge the performance gap with traditional typing. Achieving efficient text entry for VR workspaces will likely require alternative input techniques, more sophisticated hand/keyboard tracking solution, or improving simulations with collision detection for virtually rendered hands.",highlight: true}
+          {text: "Key take-away\n\nResults indicate that rendering hands in VR does not bridge the performance gap with traditional typing. Achieving efficient text entry for VR workspaces will likely require alternative input techniques, more sophisticated hand/keyboard tracking solution, or improving simulations with collision detection for virtually rendered hands.",highlight: true}
         ]
       }
     ]
@@ -39,8 +39,9 @@ const projectData = {
       {
         header: "Overview",
         paragraphs: [
-          {text: "This is the second paragraph.", highlight: false},
-          {text: "This is the second paragraph.", highlight: false},
+          {text: "\nCreated in 3 months by 3 ambitious individuals who barely knew how to even play chess when beginning, this chess application delivers a rule-accurate experience by pairing a deterministic backend/server built on Java with a, frontend/client interface built on JavaScript.\n\nThe backend enforces every nuance of chess while exposing a minimal JSON API that keeps frontend messages small and stateless. On the frontend, a responsive React component transforms the board given by the backend into an interactable chessboard with real-time move feedback.\n\nThe project also includes automated test suites on both sides, JUnit for the backend and Jest for the frontend; ensuring new features never break the application.",
+             highlight: true},
+         
         ]
       }
     ]

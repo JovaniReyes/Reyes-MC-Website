@@ -101,13 +101,8 @@ const citations = {
       {
         header: "LLMs",
         paragraphs: [
-          {header:"ChatGPT", text: "Helped troubleshoot launch day site crashes for mobile users (Size of site caused IOS users to be stuck in auto-reload loop.", highlight: true, link: "https://openai.com/", glow: true, flipLayout: true },
-          {header:"Sora AI", text: "Generated the loading screen background, used Figma to clean mistakes.", 
-            img1:"./images/Citations/Mineways1.webp", img2:"./images/Citations/Mineways2.webp",
-            imgText1:"UI for location selection in MC world",  imgText2:"Imported location of MC world in Blender",
-            highlight: true, link: "https://openai.com/sora/", glow: true, flipLayout: true
-
-          },
+          {header:"ChatGPT", text: "Helped troubleshoot launch day site crashes for mobile users (Size of site caused IOS users to be stuck in auto-reload loop as well as helping me fix an issue caused by my OneDrive blocking me from overwriting data when installing react-pdf in the codebase. ChatGPT also assisted in creating the opening animation using a 48x2 grid to mimic an eye opening and configure the teleportation animation to be destroyed after usage. Lastly, it taught me quiet a bit about memoization and using variables in SCSS to make layouts between the mobile and desktop view.", highlight: true, link: "https://openai.com/", glow: true, flipLayout: true },
+          {header:"Sora AI", text: "Generated the loading screen background, used Figma to clean mistakes.", highlight: true, link: "https://openai.com/sora/", glow: true, flipLayout: true },
         ]
       },
     ]

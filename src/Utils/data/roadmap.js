@@ -68,7 +68,10 @@ const roadmap = {
             header: "Baking Lighting & Shading into Material Textures",
             paragraphs: [
                 {text: "This phase was the longest and most frustrating, unknowingly I had Blender running on my integrated GPU instead of its discrete GPU. The integrated GPU caused my laptop to overheat and crash often during the heavier bake processes, so the first round of baking the scene dragged on for nearly two weeks.\n\nA few months after release, I decided I wasn't happy with the result of my baked textures, I knew that I could do better. Knowing how to leverage the dicrete GPU in Blender I rebaked the scene and the visual improvements were phenomenal, leaving me with no regrets on taking the time to do so.", 
-                  img1:"./images/Roadmap/Blender/Baked1.webp", img2:"./images/Roadmap/Blender/Baked2.webp",
+                  img1:"./images/Roadmap/LivingRoom1.webp", img2:"./images/Roadmap/LivingRoom2.webp",
+                  imgText1:"Launch day home textures",  imgText2:"Final home textures", desWidth: "100%",
+                highlight: false},
+                {text:"", img1:"./images/Roadmap/Blender/Baked1.webp", img2:"./images/Roadmap/Blender/Baked2.webp",
                   imgText1:"First House Walls Baked Texture",  imgText2:"Final House Walls Baked Texture",
                 highlight: false},
             ]
@@ -126,11 +129,16 @@ const roadmap = {
     },
 
     {
-      header: 'Reflection',
+      header: 'Future Endeavors',
       sections: [
         {
-            header: "BottomText",
+            header: "Bringing Back Mobs",
             paragraphs: [
+              {text: "New visitors will unfortunately not witness the ender dragon flying through the website, the pig grazing in the yard, or the villager being chased by a zombie. After optimizing the scene for a much lower size in 3D assets, the mobs and their animations did not fit into the new outdoor enviroment.", 
+                img1:"./images/Roadmap/Blender/EnderDragon.webp", img2:"./images/Roadmap/Blender/Pig.webp",
+              imgText1:"Rigging The Ender Dragon",  imgText2:"Baking The Pigs Material",mobWidth: "100%", desWidth: "100%", highlight: false},
+              {text: "When I have the available time i'd like to rig the new mob introduced to minecraft, the Copper Golem seems like it can fill the void left by the others. The idea I had in mind was getting 5-6 of them actively moving through the scene, working on the home and just decorating and sorting their little hearts out.", 
+                highlight: false},
             ]
         },
        

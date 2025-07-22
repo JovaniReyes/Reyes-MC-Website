@@ -30,13 +30,14 @@ const aboutMeData = {
       "./images/AboutMePhotos/P2_2.webp"
     ],
     content: [
-      { header: "Core Values & Traits",
+      { header: "Growth Mindset & Resilient Execution",
         paragraphs: [
-          {text: "Intellectual Humility\nI treat my perspective as incomplete and challengeable. Staying open to new ideas and alternative viewpoints helps me refine my own ideas, learn quickly, and build stronger relationships in my life.", highlight: true},
-          {text:"Clear Communication\nHonest transparent language, timely updates, and attentive listening keep relationships, projects, and teams moving smoothly. For me having quality communication has turned potential roadblocks into small bumps.", highlight: true},
-          {text:"Resilience\nI view challenges as prime real estate for personal growth. Every struggle, failure, and setback has taught me to regulate stress, adapt to sudden changes, and quickly overcome obstacles. This has helped me challenge myself to create work I'd never imagine I'd be able to do, such as this website!", highlight: true},
-          {text: "Work Ethic\nI break down my work into small testable incremental steps with due dates to keep progression consistent. I often challenge myself to improve my work towards wrapping up a project, if I feel it's a realistic goal. For instance, I rebaked every texture used in this website right before launch, the decision to do so was well worth it.", highlight: "true"},
-          {text: "Interpersonal Style\nI like to listen to my teammates to better understand their perspective of our goal and possible constraints. I do my best to give constructive feedback that focuses on the problem, never the person. My aim is to create an environment where everyone feels heard as well as comfortable to convey their weaknesses and offer assistance where their strengths lie.", highlight: "true"},
+          {text: "I treat every idea as improvable, welcoming alternative viewpoints to refine my thinking. Obstacles are learning labs: they sharpen my stress-management skills, spur adaptation, and push me to exceed my own standard of quality. I keep momentum by slicing work into increments, testable milestones with clear deadlines.", highlight: false},
+        ]
+      },
+      { header: "Collaborative Communication",
+        paragraphs: [
+          {text: "Honest, timely updates and attentive listening turn potential roadblocks into mere bumps in the road. By zeroing in on feedback on the problem, rather than the person, I foster a space where teammates feel heard, comfortable sharing their weaknesses, and eager to lend their strengths, keeping projects and relationships running smoothly.", highlight: false},
         ]
       },
     ]
@@ -53,15 +54,14 @@ const aboutMeData = {
       "./images/AboutMePhotos/P3_5.webp"
     ],
     content: [
-      { header: "Growing Up",
+      { header: "Childhood & Early Influences",
         paragraphs: [
-          {text: "For the majority of my life I lived in Greenville TX, there wasn't much to do in my hometown and with rough crowds too close to hang out with friends I spent most of my time either gaming or hanging out with my brothers.", highlight: false},
-          {text: "Early Influences\nMy father had a significant impact on my work ethic. I worked for his company doing underground operator work during a period in my life where I was figuring out what I wanted to do with my life. I started to notice how my father carried himself, stoic regardless of how bad a situation was. He'd be the first to work on a solution and the last to give up. No matter the size or importance of a task he approached each with a consistent level of effort.", highlight: "true"},
+          {text: "Growing up in Greenville, TX, I spent most of my time gaming and hanging out with my brothers. Later in my teenage years, on job sites with my dad, I absorbed his calm, unshakeable resolve: tackle every task big or small with the same steady effort, be first to troubleshoot, and never be the one who quits. That example instilled in me a resilient work ethic.", highlight: false},
         ]
       },
-      { header: "What I'm Working Towards",
+      { header: "Future Endeavors",
         paragraphs: [
-          {text: "My goal in life is to experience and see as much as I possibly can and to make memories with my partner and friends that I'll carry close to me forever. I want to work for or build a company that fulfills my passion to create projects that contribute to society.", highlight: false},
+          {text: "I'm driven by exploration, of places, ideas, and meaningful work. My career goal is to build or join a company where creating impactful work fuels both my passion and society, all while collecting memories with my partner and friends along the way.", highlight: false},
         ]
       },
     ]
@@ -75,26 +75,15 @@ const aboutMeData = {
       "./images/AboutMePhotos/P4_2.webp"
     ],
     content: [
-      { header: "Creative Outlets",
+      { header: "Maker's Mindset",
         paragraphs: [
-          {text: "Besides using my fingers for coding, I enjoy crocheting, painting, and doing arts and crafts.  I haven't gotten the chance to, but I'd really like to try out pottery!", highlight: false},
+          {text: "Soldering irons, Crochet hooks, paintbrushes, and Blender hotkeys all serve the same goal for me: turning my thoughts into things you can see or touch.\n\nCurrently on the side, I'm learning about sculpting 3D assets in Blender as well as retopology and material design. I also want to get into pottery but lack the funds & space for a pottery wheel :/", highlight: false},
         ]
       },
-      { header: "Gaming",
+      { header: "Game-Born Grit",
         paragraphs: [
-          {text: "I played games daily up until graduating highschool, my favorite was Ark Survival Evolved. I enjoyed that game so much that I was waking up every 2-3 hours a night to feed adolescent dinosaurs milk.", highlight: false},
+          {text: "I remember being in highschool, setting alarms every three hours in the middle of the night to feed juvenile dinos in ARK: Survival Evolved, quiet honestly I think this is where the full-tilt commitment to goals began.\n\nI've redirected that intensity from late-night gaming to the weight room and hiking. After swapping high-school football for self-directed strength training, I lift heavy, hike new paths whenever I travel.", highlight: false},
         ]
-      },
-      { header: "Fitness",
-        paragraphs: [
-          {text: "I grew up playing a few sports, primarily American football. I decided my senior year of highschool to drop all sports to focus on building my fitness and health and got hooked on weightlifting. I also enjoy going on new hikes when traveling as well.", highlight: false},
-        ]
-      },
-      { header: "Technical Hobbies",
-        paragraphs: [
-          {text: "Soldering\nMy Arduino Nano v4 robot was something I wanted to do for fun during the summer. I had an operating systems class where we used a raspberry PI to power and operate a sonar pulse sensor to measure distance between the sensor and an object. I learned how to solder fairly well after the Arduino Bot project.", highlight: true},
-          {text: "3D Object Designing\nI've gotten into learning 3D modeling in Blender, combining this with my coding experience I can create any 3D object and animation I want within a project. Currently I'm  working on understanding retopology and material designing to create industry standard assets.", highlight: true},
-        ],
       },
     ]
   },
@@ -117,7 +106,7 @@ const aboutMeData = {
     content: [
       { header: "Why I Love Animals",
         paragraphs: [
-          {text: "Whether it's my girlfriend's dog Creed, my grandma's cat Max, or my guinea pig Chris, I like to think animals invite me to slow down and pay attention. Spending time with pets reminds me happiness is based on perspective. I see it when I spend time with them, something like a walk in the park, nap on a lap, or a meal can be enough to brighten your day if you believe that it can.", highlight: false},
+          {text: "Spending time with my girlfriend's dog Creed, my grandma's cat Max, or my guinea pig Chris (rest in piece) reminds me to slow down and find joy in simple things like a walk, a nap, a shared meal. Their contentment keeps my own outlook grounded in gratitude.", highlight: false},
         ]
       },
     ]
@@ -133,7 +122,7 @@ const aboutMeData = {
     content: [
       { header: "Languages & Tools",
         paragraphs: [
-          {text: "The majority of my course work was done with Java and a bit of Python and C++. For other languages like visual coding with UE5 blueprints and web development I learned on my own and used resources such as documentation, forums, and tutorials.", highlight: false},
+          {text: "Most of my academic projects ran on Java, with Python and C++ rounding out the fundamentals. Beyond class, I self-taught Unreal Engine 5 Blueprints and full-stack web development, leaning on docs, forums, and tutorials until each tool felt second nature.", highlight: false},
         ]
       }
     ]

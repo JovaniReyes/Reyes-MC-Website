@@ -26,12 +26,13 @@ const MAP_FOV = 73.5;//FOV when map is opened.
 
 //Progress  points used for setting the FOV to PICTURE_FOV
 const ZOOM_POINTS = [
-  [0.2370, 0.2385],//About Me Set 1
+  [0.236, 0.239],//About Me Set 1
   [0.2540, 0.2560],//About Me Set 2
-  [0.4180, 0.4200],//About Me Set 3
-  [0.5200, 0.5215],//About Me Set 4
-  [0.5300, 0.5320],//About Me Set 5
-  [0.5500, 0.5515],//About Me Set 6
+  [0.342, 0.345],//Projects
+  [0.423, 0.426],//About Me Set 3
+  [0.523, 0.526],//About Me Set 4
+  [0.534, 0.537],//About Me Set 5
+  [0.548, 0.551],//About Me Set 6
 ];
 
 //XZY points for where the user is placed across the scene
