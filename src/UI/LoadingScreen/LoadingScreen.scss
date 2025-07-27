@@ -79,7 +79,7 @@ $tip-accent: #FFEC3D;
   gap: 24px;
 }
 
-.instructions-container {
+.btn-desc-container {
   position: absolute;
   top: .5%;
   @include abs-center-x;
@@ -144,7 +144,7 @@ $tip-accent: #FFEC3D;
 }
 
 /* ─── Helper‑icons (gesture bundle) ───────────────────────────────────── */
-.helper-icons-container {
+.help-icons {
   position: relative;
   @include vwvh;
   z-index: 100;
@@ -161,7 +161,7 @@ $tip-accent: #FFEC3D;
     align-items: center;
     text-align: center;
 
-    &:not(.revealed) .pixel-hand {
+    &:not(.revealed) .move-control {
       animation: handFloat 6s ease-in-out infinite alternate;
     }
   }
@@ -174,7 +174,7 @@ $tip-accent: #FFEC3D;
 }
 
 /* — Wrapper that moves the whole trio together — */
-.gesture-bundle {
+.icons {
   position: absolute;
   z-index: 100;
 
@@ -194,7 +194,7 @@ $tip-accent: #FFEC3D;
 }
 
 /* Phone fills the bundle */
-.gesture-bundle .pixel-phone {
+.icons .move-device {
   position: relative;
   width: 100%;
   height: auto;
@@ -209,7 +209,7 @@ $tip-accent: #FFEC3D;
 }
 
 /* Hand icon */
-.gesture-bundle .pixel-hand {
+.icons .move-control {
   position: absolute;
   z-index: 101;
   @include abs-center-x;
@@ -228,22 +228,22 @@ $tip-accent: #FFEC3D;
 }
 
 /* Gesture label */
-.gesture-bundle .gesture-label {
+.icons .move-text {
   position: absolute;
+  top: 100%;
   color: $white;
   white-space: nowrap;
   @include abs-center-x;
+  font-size: clamp(.7em, 1.7vw, 2em);
+  text-shadow: 3px 3px 1px $black;
 
   @media (max-width: ($bp-desktop - 1)) {
     font-size: clamp(25px, 8vw, 40px);
-    top: 100%;
     margin-top: -4vh;
     transform: translateX(30%);
   }
 
   @media (min-width: $bp-desktop) {
-    font-size: clamp(28px, 2.1vw, 70px);
-    top: 100%;
     margin-top: 6rem;
     margin-left: 1rem;
   }
@@ -251,13 +251,13 @@ $tip-accent: #FFEC3D;
 
 /* ─── Forward / backward arrow tweaks (desktop only) ──────────────────── */
 @media (min-width: $bp-desktop) {
-  .helper-icons-container.backward .pixel-hand {
+  .help-icons.backward .move-control {
     top: 0;
     bottom: auto;
     animation: arrowPulseUp 3s ease-in-out infinite;
   }
 
-  .helper-icons-container.forward .pixel-hand {
+  .help-icons.forward .move-control {
     bottom: 0;
     top: auto;
     animation: arrowPulseDown 3s ease-in-out infinite;
@@ -283,7 +283,7 @@ $tip-accent: #FFEC3D;
 }
 
 /* ─── UI‑brief (icon row + label row) ----------------------------------- */
-.ui-brief-box {
+.btn-descriptions {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -295,7 +295,7 @@ $tip-accent: #FFEC3D;
 }
 
 /* ─── Caption styling ─────────────────────────────────────────────── */
-.ui-brief-caption {
+.btn-desc-text {
   font-size: clamp(18px, 1.3vw, 32px);
   color: $white;
   text-align: center;
@@ -304,7 +304,7 @@ $tip-accent: #FFEC3D;
 }
 
 /* ─── UI‑brief grid — restore column gap ─────────────────────────── */
-.ui-brief {
+.btn-desc {
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: repeat(4, max-content);
@@ -315,7 +315,7 @@ $tip-accent: #FFEC3D;
 }
 
 /* ─── Labels — prevent text wrapping ─────────────────────────────── */
-.ui-brief-label {
+.btn-desc-label {
   font-size: .85em;
   white-space: nowrap;
   text-shadow: 2px 2px 1px $black;
@@ -333,10 +333,10 @@ $tip-accent: #FFEC3D;
   pointer-events: none;
 
   /* shared caption look */
-  &_caption {
+  &-text {
     color: $tip-accent;
     text-shadow: 3px 3px 1px $black;
-    font-size: 1em;
+    font-size: clamp(.65em, 1.7vw, 2em);
     line-height: 1;
     display: inline-block;
     transform-origin: center;
@@ -346,31 +346,23 @@ $tip-accent: #FFEC3D;
 }
 
 /* ─── Modifier: top photo‑tip ─────────────────────────────────────── */
-.tip--photos { top: 18.2vh; }
+.photo-glow { top: 18.2vh; }
 
 /* ─── Modifier: bottom first‑load tip ─────────────────────────────── */
-.tip--load { top: 72vh; }
+.load-time { top: 72vh; }
 
 @media (max-width: ($bp-desktop - 1)) {
-  .ui-brief-box { font-size: .8em; }
+  .btn-descriptions { font-size: .8em; }
+  .tip {transform: translateX(-17%);}
 
-  .tip {
-    transform: translateX(-17%);
-
-    &_caption { font-size: .7em; }
-  }
-
-  .tip--load {
+  .load-time {
     top: 77%;
     transform: translateX(14%);
-
-    .tip_caption { animation: splashBounce2 2s ease-in-out infinite; }
+    .tip-text { animation: splashBounce2 2s ease-in-out infinite; }
   }
-
-  .tip--photos {
+  .photo-glow {
     top: 25%;
-
-    .tip_caption { animation: splashBounce 2s ease-in-out infinite; }
+    .tip-text { animation: splashBounce 2s ease-in-out infinite; }
   }
 }
 

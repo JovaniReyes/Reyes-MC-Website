@@ -173,7 +173,7 @@ const ButtonContent = ({ ContentID }) => {
 /* ---------------------------------------------------------------------- */
 /*  Toggle buttons                                                        */
 /* ---------------------------------------------------------------------- */
-const ModalToggleButton = ({ title, modalTitle, contentID, imgSrc, imgAlt, posClass }) => {
+const ModalToggleButton = ({ title, modalTitle, contentID, imgSrc, imgAlt, btnName }) => {
   const {isModalOpen, modalTitle: curTitle, checkForOpenModal, closeModal} = useModalStore();
   const { isMapOpen, closeMap } = useMapControls();
   const handleClick = () => {
@@ -196,7 +196,7 @@ const ModalToggleButton = ({ title, modalTitle, contentID, imgSrc, imgAlt, posCl
   };
 
   return (
-    <button className={`toggle-button ${posClass}`} title={title} onClick={handleClick}>
+    <button className={`ui-btn ${btnName}`} title={title} onClick={handleClick}>
       <img className="button-img" src={imgSrc} alt={imgAlt} />
     </button>
   );
@@ -214,7 +214,7 @@ export const AudioToggle = () => {
   };
 
   return (
-    <button className="toggle-button audio-position" title="AudioBtn" onClick={toggleAudio}>
+    <button className="ui-btn audio-btn" title="AudioBtn" onClick={toggleAudio}>
       <img src={isAudioEnabled ? audioPlaySymbol : audioMuteSymbol} alt={isAudioEnabled ? "Audio Play Symbol" : "Audio Mute Symbol"} className="button-img"/>
     </button>
   );
@@ -237,7 +237,7 @@ export const MapToggle = () => {
   };
 
   return (
-    <button className="toggle-button map-position" title="MapBtn" onClick={handleClick}>
+    <button className="ui-btn map-btn" title="MapBtn" onClick={handleClick}>
       <img src={mapImg} alt="Map symbol" className="button-img" />
     </button>
   );
@@ -251,7 +251,7 @@ export const CitationToggle = () => (
     contentID="Cites"
     imgSrc={bookImg}
     imgAlt="Book symbol"
-    posClass="cite-position"
+    btnName="cite-btn"
   />
 );
 
@@ -262,7 +262,7 @@ export const CodeToggle = () => (
     contentID="Code"
     imgSrc={codeImg}
     imgAlt="Code symbol"
-    posClass="code-position"
+    btnName="code-btn"
   />
 );
 

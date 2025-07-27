@@ -119,9 +119,10 @@
 /* ─────── modal aspect tweaks ─────── */
 @media (min-width: 1000px) {
   .modal { 
-    height: 80%; 
+    height: 88%; 
+    top: 55%;
     &.button {
-      max-width: 50rem;
+      max-width: 75rem;
     }
 
   }

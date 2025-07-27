@@ -1,5 +1,5 @@
 @use "../../Styles/variables.scss" as styles;
-
+$black: #000;
 .project-container{
     padding: 12px;
 }
@@ -43,7 +43,7 @@
    //Red: af2c2c
 $highlight-color: #0fa046;   // <-- set the hex you want here
 @keyframes glowPulse {
-  0%, 100% { filter: brightness(75%); }
+  0%, 100% { filter: brightness(60%); }
   50%      { filter: brightness(200%); }   // adjust % for stronger glow
 }
 /* Tabs / Citations colour overrides ------------------------------*/
@@ -77,15 +77,13 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
    PARAGRAPH STYLES
    ------------------------------------------------------------------*/
 .section-paragraph {
-  /* fall-back highlight colour as a CSS custom property so you can
-     override it inline if you need per-paragraph colours later:      */
-  
-
-  font-size: 1.1em;
+  text-shadow: 2px 3.5px 2.5px $black;
+  font-size: .65em;
   margin: 8px 0;
   color: white;
   white-space: pre-wrap;
   tab-size: 2;
+  line-height: 140%;
   
 
   /* 1. Turn off link underlines and inherit the paragraph colour  
@@ -115,8 +113,9 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
   width: fit-content;      /* shrink-wrap to its text */
   margin: 0.25rem auto 0;          /* centres the block horizontally */
   text-align: center;
+  text-shadow: 2px 3px 2.5px $black;
   &.glow{
-     animation: glowPulse 2s ease-in-out infinite;
+     animation: glowPulse 4s ease-in-out infinite;
   }
  
 }
@@ -125,17 +124,16 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
      Two tabs ≈ 4ch.  Tweak if you prefer a different width.          */
   padding-left: 2ch;
   padding-right: 2ch;      // ≈ two “tabs” (thanks to tab-size:2)
-  display: inline-block;  // keeps padding on wrapped lines
+  display: block;  // keeps padding on wrapped lines
   margin: 0.25rem auto 0;          /* centres the block horizontally */
   text-align: center;
   line-height: 120%;
-  
+  text-shadow: 2px 3px 2.5px $black;
 
 }
 
 @media (max-width: 480px) {
   .indent-rest { padding-left: 2ch; padding-right: 2ch; }
-  .section-paragraph{font-size: 20px;}
 }
 /* ---------------------------------------------------------------
    Paragraph images
@@ -226,6 +224,7 @@ $pad-inner : .5rem;         /* half-size padding between two images  */
   flex: 1;
   text-align: left;
   white-space: nowrap;
+  text-shadow: 2px 3px 2.5px $black;
   a {text-decoration: none;}
 }
 
@@ -233,6 +232,7 @@ $pad-inner : .5rem;         /* half-size padding between two images  */
   flex: 3;
   text-align: left;
   color: white;
+  text-shadow: 2px 3px 2.5px $black;
 }
 
 
@@ -254,7 +254,6 @@ $pad-inner : .5rem;         /* half-size padding between two images  */
     }
     
   }
-  .section-paragraph {font-size: .65em;}
   .section-header{font-size: .9em;}
   .paragraph-block {margin-bottom: 1.5rem; }
   .indent-rest{ padding: 0; line-height: 130%; }

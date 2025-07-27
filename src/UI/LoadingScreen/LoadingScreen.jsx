@@ -36,13 +36,13 @@ function useMediaQuery(query) {
 
 /** Animated hand + device + label */
 const HelperIcons = memo(function HelperIcons({revealed, controlImg, deviceImg, label, flipPhase,isForwardPhase}) {
-  const containerClass = `helper-icons-container` + (revealed ? ` revealed` : ``) + (isForwardPhase ? ` forward` : ` backward`);
+  const containerClass = `help-icons` + (revealed ? ` revealed` : ``) + (isForwardPhase ? ` forward` : ` backward`);
   return (
     <div className={containerClass}>
-      <div className="gesture-bundle">
-        <img className="pixel-hand" src={controlImg} alt="Hand icon" onAnimationIteration={flipPhase} />
-        <img className="pixel-phone" src={deviceImg} alt="Device icon" />
-        <p className="gesture-label">{label}</p>
+      <div className="icons">
+        <img className="move-control" src={controlImg} alt="Move control icon" onAnimationIteration={flipPhase} />
+        <img className="move-device" src={deviceImg} alt="Move device icon" />
+        <p className="move-text">{label}</p>
       </div>
     </div>
   );
@@ -138,7 +138,7 @@ export default function LoadingScreen() {
   }, [progress]);
 
 /* ─── new: quick descriptor list for the top-right buttons ─── */
-  const uiBrief = useMemo(() => [
+  const btnDescriptions = useMemo(() => [
     { icon: mapImg,   text: "Teleport "},
     { icon: bookImg,  text: "Citations"},
     { icon: codeImg,  text: "Road Map"},
@@ -146,9 +146,9 @@ export default function LoadingScreen() {
   ],[]);
 
   /** two-row grid: first row = icons | second row = labels */
-  const UIBrief = ({ items }) => (
-    <div className="ui-brief"> {items.map(({ text }) => (
-        <span key={`label-${text}`} className="ui-brief-label"> {text} </span>
+  const BtnDesc = ({ items }) => (
+    <div className="btn-desc"> {items.map(({ text }) => (
+        <span key={`label-${text}`} className="btn-desc-label"> {text} </span>
       ))}
     </div>
   );
@@ -161,18 +161,18 @@ export default function LoadingScreen() {
       {bgMounted && (<Background isRevealed={bgReveal} onDone={handleAnimationFinished}/>)}
       <img src={HouseSymbol} alt="House Symbol" className={`intro-house${isRevealed ? " fade-out" : ""}`}/>
 
-      <div className={`instructions-container ${isRevealed ? "revealed" : ""}`}>
-        <div className="ui-brief-box">
-          <UIBrief items={uiBrief} />
-          <span className="ui-brief-caption">Button Descriptions</span>
+      <div className={`btn-desc-container ${isRevealed ? "revealed" : ""}`}>
+        <div className="btn-descriptions">
+          <BtnDesc items={btnDescriptions} />
+          <span className="btn-desc-text">Button Descriptions</span>
         </div>
       </div>
 
-      <div className={`tip tip--photos ${isRevealed ? "revealed" : ""}`}>
-        <span className="tip_caption">Interact with glowing photos…</span>
+      <div className={`tip photo-glow ${isRevealed ? "revealed" : ""}`}>
+        <span className="tip-text">Interact with glowing photos…</span>
       </div>
-      <div className={`tip tip--load ${isRevealed ? "revealed" : ""}`}>
-        <span className="tip_caption">First visit takes longer to load…</span>
+      <div className={`tip load-time ${isRevealed ? "revealed" : ""}`}>
+        <span className="tip-text">First visit takes longer to load…</span>
       </div>
 
       <div className="loading-screen-info-container">

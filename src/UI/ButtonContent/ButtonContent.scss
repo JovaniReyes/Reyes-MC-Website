@@ -39,7 +39,7 @@ $bp-mobile : 767px;
 /* ------------------------------------------------------------------
    BASE button visuals (unchanged colours, + overflow safety)
 -------------------------------------------------------------------*/
-.toggle-button {
+.ui-btn {
   color: styles.$color-base-dark-gray;
   background: linear-gradient(135deg, #d1d0d0 50%, #000000 135%);
   border: 1.5px solid styles.$color-base-darker-gray-four;
@@ -62,37 +62,37 @@ $bp-mobile : 767px;
 /* ------------------------------------------------------------------
    DESKTOP  (≥1024 px)
 -------------------------------------------------------------------*/
-.toggle-button {
+.ui-btn {
   width:  $btn-size-desktop - 15px;
   height: $btn-size-desktop - 15px;
   top:    $cluster-top-desktop;
 
-  &.audio-position { right: $gap-desktop; }
-  &.code-position  { right: calc($gap-desktop + $btn-size-desktop + $gap-desktop); }
-  &.cite-position  { right: calc($gap-desktop + ($btn-size-desktop + $gap-desktop) * 2); }
-  &.map-position   { right: calc($gap-desktop + ($btn-size-desktop + $gap-desktop) * 3); }
+  &.audio-btn { right: $gap-desktop; }
+  &.code-btn  { right: calc($gap-desktop + $btn-size-desktop + $gap-desktop); }
+  &.cite-btn  { right: calc($gap-desktop + ($btn-size-desktop + $gap-desktop) * 2); }
+  &.map-btn   { right: calc($gap-desktop + ($btn-size-desktop + $gap-desktop) * 3); }
 }
 
 /* desktop icon sizes */
-.audio-position .button-img { width:$icon-audio-d; height:$icon-audio-d }
-.code-position  .button-img { width:$icon-code-d;  height:$icon-code-d  * .7; }
-.cite-position  .button-img { width:$icon-cite-d;  height:$icon-cite-d  * .7; }
-.map-position   .button-img { width:$icon-map-d;   height:$icon-map-d }
+.audio-btn .button-img { width:$icon-audio-d; height:$icon-audio-d }
+.code-btn  .button-img { width:$icon-code-d;  height:$icon-code-d  * .7; }
+.cite-btn  .button-img { width:$icon-cite-d;  height:$icon-cite-d  * .7; }
+.map-btn   .button-img { width:$icon-map-d;   height:$icon-map-d }
 
 /* ------------------------------------------------------------------
    TABLET  (768-1023 px) — shrink but keep right-aligned cluster
 -------------------------------------------------------------------*/
 @media (max-width: $bp-tablet) {
-  .toggle-button {
+  .ui-btn {
     width:  $btn-size-tablet;
     height: $btn-size-tablet;
     top:    $cluster-top-desktop;
   }
 
-  .audio-position { right: $gap-tablet; }
-  .code-position  { right: calc($gap-tablet + $btn-size-tablet + $gap-tablet); }
-  .cite-position  { right: calc($gap-tablet + ($btn-size-tablet + $gap-tablet) * 2); }
-  .map-position   { right: calc($gap-tablet + ($btn-size-tablet + $gap-tablet) * 3); }
+  .audio-btn { right: $gap-tablet; }
+  .code-btn  { right: calc($gap-tablet + $btn-size-tablet + $gap-tablet); }
+  .cite-btn  { right: calc($gap-tablet + ($btn-size-tablet + $gap-tablet) * 2); }
+  .map-btn   { right: calc($gap-tablet + ($btn-size-tablet + $gap-tablet) * 3); }
 
   .button-img { width: 70%; height:50%; } /* quick scale-down */
 }
@@ -107,7 +107,7 @@ $bp-mobile : 767px;
                     ($gap-mobile     * ($cluster-btns - 1));
   $base-left      : calc(50% - #{calc($cluster-w / 2)});
 
-  .toggle-button {
+  .ui-btn {
     width:  $btn-size-mobile;
     height: $btn-size-mobile;
     top:    $cluster-top-mobile;
@@ -115,14 +115,14 @@ $bp-mobile : 767px;
     right:  auto;
   }
 
-  .audio-position { left: calc($base-left + ($btn-size-mobile + $gap-mobile) * 3); }
-  .code-position  { left: calc($base-left + ($btn-size-mobile + $gap-mobile) * 2); }
-  .cite-position  { left: calc($base-left + ($btn-size-mobile + $gap-mobile) * 1); }
-  .map-position   { left: $base-left }
+  .audio-btn { left: calc($base-left + ($btn-size-mobile + $gap-mobile) * 3); }
+  .code-btn  { left: calc($base-left + ($btn-size-mobile + $gap-mobile) * 2); }
+  .cite-btn  { left: calc($base-left + ($btn-size-mobile + $gap-mobile) * 1); }
+  .map-btn   { left: $base-left }
 
   /* mobile-specific icon sizes */
-  .audio-position .button-img { width:$icon-audio-m; height:$icon-audio-m * .7; }
-  .code-position  .button-img { width:$icon-code-m;  height:$icon-code-m  * .7; }
-  .cite-position  .button-img { width:$icon-cite-m;  height:$icon-cite-m  * .7; }
-  .map-position   .button-img { width:$icon-map-m;   height:$icon-map-m   * .7; }
+  .audio-btn .button-img { width:$icon-audio-m; height:$icon-audio-m * .7; }
+  .code-btn  .button-img { width:$icon-code-m;  height:$icon-code-m  * .7; }
+  .cite-btn  .button-img { width:$icon-cite-m;  height:$icon-cite-m  * .7; }
+  .map-btn   .button-img { width:$icon-map-m;   height:$icon-map-m   * .7; }
 }
