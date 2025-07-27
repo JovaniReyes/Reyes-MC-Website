@@ -5,16 +5,15 @@ import "./Background.scss";
 const ROWS_PER_HALF = 24;
 const COLS = 2;
 const STAGGER_STEP = 0.06;
-const TX_DURATION = 0.6;
+const TX_DURATION = .35;
 const OP_DURATION = 2;
 
-// 🐞 Debug Mode
+// Debug flag
 const debugMode = false;
-const DEBUG_LOOP_INTERVAL = 3000; // ms
+const DEBUG_LOOP_INTERVAL = 3000;
 
 /* ─────────────── 2. COMPONENT  ─────────────── */
 function Background({ isRevealed: propIsRevealed, onDone }) {
-  // Debug-only animation toggle
   const [debugRevealed, setDebugRevealed] = useState(false);
   const isRevealed = debugMode ? debugRevealed : propIsRevealed;
 
@@ -27,29 +26,27 @@ function Background({ isRevealed: propIsRevealed, onDone }) {
   }, []);
 
   const tiles = useMemo(() => {
-    const t = [];
+    const temp = [];
 
-    const push = (half, r, c, delay) =>
-      t.push({
-        key: `${half}-${r}-${c}`,
+    const push = (half, row, col, delay) =>
+      temp.push({
+        key: `${half}-${row}-${col}`,
         delay,
-        row: half === "t" ? r + 1 : ROWS_PER_HALF + r + 1,
-        col: c + 1,
-        side: c === 0 ? "left" : "right",
-        isLast: half === "t" && r === 0 && c === COLS - 1,
+        col: col + 1,
+        side: col === 0 ? "left" : "right",
+        isLast: half === "top" && row === 0 && col === COLS - 1,
+        row: half === "top" ? row + 1 : ROWS_PER_HALF + row + 1,
       });
 
-    for (let r = 0; r < ROWS_PER_HALF; r++) {
-      const d = (ROWS_PER_HALF - 1 - r) * STAGGER_STEP;
-      for (let c = 0; c < COLS; c++) push("t", r, c, d);
+    for (let row = 0; row < ROWS_PER_HALF; row++) {
+      const delayBottom = row * STAGGER_STEP;
+      const delayTop = (ROWS_PER_HALF - 1 - row) * STAGGER_STEP;
+      for (let col = 0; col < COLS; col++){
+        push("top", row, col, delayTop);
+        push("bottom", row, col, delayBottom);
+      }
     }
-
-    for (let r = 0; r < ROWS_PER_HALF; r++) {
-      const d = r * STAGGER_STEP;
-      for (let c = 0; c < COLS; c++) push("b", r, c, d);
-    }
-
-    return t;
+    return temp;
   }, []);
 
   const gridStyle = {
@@ -63,11 +60,7 @@ function Background({ isRevealed: propIsRevealed, onDone }) {
         <div
           key={key}
           className={`cell ${side} ${isRevealed ? "revealed" : ""}`}
-          style={{
-            "--delay": `${delay}s`,
-            gridRowStart: row,
-            gridColumnStart: col,
-          }}
+          style={{"--delay": `${delay}s`, gridRowStart: row, gridColumnStart: col,}}
           onTransitionEnd={isLast && !debugMode ? onDone : undefined}
         />
       ))}

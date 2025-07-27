@@ -58,18 +58,6 @@ $tip-accent: #FFEC3D;
   }
 }
 
-.background-top,
-.background-bottom {
-  position: absolute;
-  width: 100%;
-  height: 50%;
-  background: $black;
-  transition: transform 1s ease 0.75s;
-}
-
-.background-top      { top: 0;   &.revealed { transform: translateY(-100%); } }
-.background-bottom   { top: 50%; &.revealed { transform: translateY( 100%); } }
-
 /* ─── Loading‑info / bar / percentage ─────────────────────────────────── */
 .loading-screen-info-container {
   @include styles.flex-center(column);
