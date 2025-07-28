@@ -53,7 +53,7 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
 
 .section-paragraph {
   text-shadow: 2px 3.5px 2.5px $black;
-  font-size: .65em;
+  font-size: clamp(.65em, 2vw, 2em);
   margin: 8px 0;
   color: white;
   white-space: pre-wrap;
@@ -90,6 +90,7 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
   text-align: center;
   line-height: 120%;
   text-shadow: 2px 3px 2.5px $black;
+  font-size: clamp(1em, 2vw, 2em);
 }
 
 @media (max-width: 480px) {
@@ -172,6 +173,7 @@ $pad-inner : .5rem;
   align-items: flex-start;
   gap: 1.5rem;
   text-align: left;
+  font-size: clamp(1em, 2vw, 2em);
 }
 
 .flipped-header-right {
