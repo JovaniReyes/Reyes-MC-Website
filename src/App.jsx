@@ -8,6 +8,7 @@ import aboutMeData from './UI/About/AboutMeData';
 import projectData from './UI/Project/ProjectData';
 import ContentData from './Utils/data/contentData';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from "@vercel/speed-insights/react"
 import MiniModalsManager from "./UI/Modal/miniModal";
 import { preloadImages } from "./Exp/utils/preloadImages";
 import LoadingScreen from './UI/LoadingScreen/LoadingScreen';
@@ -23,6 +24,7 @@ function App() {
   return(
     <>
     <Analytics />
+    <SpeedInsights />
     <LoadingScreen/>
     <AudioToggle/>
     <CodeToggle/>
