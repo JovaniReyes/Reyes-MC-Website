@@ -26,11 +26,11 @@ const citations = {
             imgText1: "Arduino Bot creators, Robot LK is an educational site that provides free, high-end, and beginner friendly STEM guides.",
            glow: true, mobWidth: "50%",},
 
-           {text: "FOV nudge for nearby interactables\n\nThis idea was suggested as a way to point out the interactable photos in the home. This feature decreases the users Field of View when reaching certain points of the homes pathway as a way to get the users attention through a subtle zoom-in.",
+           {text: "FOV nudge for nearby interactables\nSuggested as a way to point out the interactable photos in the home. This feature decreases the users Field of View when reaching certain points of the homes pathway as a way to get the users attention through a subtle zoom-in.",
             img1:"./images/Citations/Users/ZachH.webp", img2:"./images/Citations/Users/Paola.webp",
             imgText1: "Zachary H.", imgText2: "Paola B.", desWidth: "40%", mobWidth: "100%",
             highlight: true, glow: false, },
-          {text: "Fast traveling across the site\n\nThis idea was suggested in regards to potential employers or returning visitors who\'ve traveled the sites pathway and want to quickly view the different sections.",
+          {text: "Fast traveling across the site\nRecommended in regards to potential employers or returning visitors who\'ve traveled the sites pathway and want to quickly view the different sections.",
             img1:"./images/Citations/Users/SamG.webp",
             imgText1: "Sammuel G.", desWidth: "20%", mobWidth: "50%",
             highlight: true, glow: false, },
@@ -101,8 +101,8 @@ const citations = {
       {
         header: "LLMs",
         paragraphs: [
-          {header:"ChatGPT", text: "Helped troubleshoot launch day site crashes for mobile users (Size of site caused IOS users to be stuck in auto-reload loop as well as helping me fix an issue caused by my OneDrive blocking me from overwriting data when installing react-pdf in the codebase. ChatGPT also assisted in creating the opening animation using a 48x2 grid to mimic an eye opening and configure the teleportation animation to be destroyed after usage. Lastly, it taught me quiet a bit about memoization and using variables in SCSS to make layouts between the mobile and desktop view.", highlight: true, link: "https://openai.com/", glow: true, flipLayout: true },
-          {header:"Sora AI", text: "Generated the loading screen background, used Figma to clean mistakes.", highlight: true, link: "https://openai.com/sora/", glow: true, flipLayout: true },
+          {text: "ChatGPT\nHelped troubleshoot launch day site crashes for mobile users (Size of site caused IOS users to be stuck in auto-reload loop as well as helping me fix an issue caused by my OneDrive blocking me from overwriting data when installing react-pdf in the codebase. ChatGPT also assisted in creating the opening animation using a 48x2 grid to mimic an eye opening and configure the teleportation animation to be destroyed after usage. Lastly, it taught me quiet a bit about memoization and using variables in SCSS to make layouts between the mobile and desktop view.", highlight: true, link: "https://openai.com/", glow: true,},
+          {text: "Sora AI\nGenerated the loading screen background, used Figma to clean mistakes.", highlight: true, link: "https://openai.com/sora/", glow: true, },
         ]
       },
     ]

@@ -108,7 +108,7 @@ const roadmap = {
             ]
         },
         {
-            header: "Building Desktop & Compatible UI Layouts",
+            header: "Building Responsive UI Layouts",
             paragraphs: [
             {text: "After building the base layout, I started working on making the user interface responsive for both Desktop and Mobile. To get the correct layout I access the width of the users screen and for any window width above my mobile width breakpoint, I display the overlay settings for the Desktop version.\n\nDisplaying the mini modal images on the mobile layout gave me some trouble since I could no longer display the minis on the sides of the main modal. I leveraged the extra space beneath the main modal for the mobile layout and created a container for the minis.", 
               img1:"./images/Roadmap/Code/Layout1.webp", img2:"./images/Roadmap/Code/Layout2.webp",

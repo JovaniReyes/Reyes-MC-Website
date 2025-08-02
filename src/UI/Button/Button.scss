@@ -8,7 +8,7 @@
 $shadow-offset: 40px;
 $light-shadow-color: #ffffffc0;
 $dark-shadow-color: #323232c0;
-
+$bp-desktop: 1415px;
 @mixin inset-shadow($offset: $shadow-offset, $light: $light-shadow-color, $dark: $dark-shadow-color) {
   box-shadow: 
     inset $offset $offset $light,
@@ -52,8 +52,8 @@ $dark-shadow-color: #323232c0;
   place-content: center;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  font-size: 1em;
+  padding: clamp(15px, 2vw, 100px);
+  @include fluid-fs(1rem, 5vw, 1.5rem);
   margin: 7px auto 16px auto;
   text-decoration: none;
   &:hover{

@@ -8,7 +8,7 @@ const MIN_SIZE = 125;           // smallest card edge
 const BREAK    = 1415;          // desktop / mobile switch
 const GAP_DESK = 30;            // gap ≥ BREAK
 const GAP_MOB  = 5;            // gap <  BREAK
-const MAIN_W   = 700;           // width of the big modal (desktop)
+const MAIN_W   = 800;           // width of the big modal (desktop)
 const MAIN_VH  = 55;            // % height occupied by big modal (mobile)
 /* ———————————————— */
 

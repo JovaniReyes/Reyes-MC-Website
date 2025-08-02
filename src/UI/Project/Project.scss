@@ -1,5 +1,7 @@
 @use "../../Styles/variables.scss" as styles;
 $black: #000;
+$header-ratio: 1.125; // 12.5% bigger than base text
+
 .project-container{
     padding: 12px;
 }
@@ -28,7 +30,7 @@ $black: #000;
 }
 .section-header{
     padding: 12px;
-    font-size: 1.25em;
+    .section-header { font-size: clamp(1.25rem, 1.1rem + 1.5vw, 2rem); }
     color: white;
     background-color: styles.$color-base-darker-gray-two;
 }
@@ -53,12 +55,12 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
 
 .section-paragraph {
   text-shadow: 2px 3.5px 2.5px $black;
-  font-size: clamp(.65em, 2vw, 2em);
+  font-size: clamp(1em, 2vw, 2em);
   margin: 8px 0;
   color: white;
   white-space: pre-wrap;
   tab-size: 2;
-  line-height: 140%;
+  line-height: 1.4;
   
   a {text-decoration: none;}
 
@@ -88,9 +90,9 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
   display: block;
   margin: 0.25rem auto 0;
   text-align: center;
-  line-height: 120%;
+  line-height: 1.4;
   text-shadow: 2px 3px 2.5px $black;
-  font-size: clamp(1em, 2vw, 2em);
+  font-size: clamp(1em, 1.5vw, 2em);
 }
 
 @media (max-width: 480px) {
@@ -173,11 +175,13 @@ $pad-inner : .5rem;
   align-items: flex-start;
   gap: 1.5rem;
   text-align: left;
-  font-size: clamp(1em, 2vw, 2em);
+  font-size: clamp(1em, 1.5vw, 2em);
+  line-height: 1.4;
 }
 
 .flipped-header-right {
   flex: 1;
+  margin: auto;
   text-align: left;
   white-space: nowrap;
   text-shadow: 2px 3px 2.5px $black;
@@ -185,7 +189,7 @@ $pad-inner : .5rem;
 }
 
 .flipped-text {
-  flex: 3;
+  flex: 2;
   text-align: left;
   color: white;
   text-shadow: 2px 3px 2.5px $black;
@@ -210,25 +214,25 @@ $pad-inner : .5rem;
     }
     
   }
-  .section-header{font-size: .9em;}
+  .section-header{font-size: 1.2em;}
   .paragraph-block {margin-bottom: 1.5rem; }
-  .indent-rest{ padding: 0; line-height: 130%; }
+  .indent-rest{ padding: 0; line-height: 1.5; }
   
   .flipped-wrapper {
-    display: grid;
     grid-template-columns: $mobile-label-width 1fr;   // ⬅ fixed, then flex
-    column-gap: .75rem;          // horizontal space between the two
+    column-gap: 4rem;          // horizontal space between the two
     
   }
 
-  /* 2️⃣  Let long words wrap inside that fixed width                   */
+  /* Let long words wrap inside that fixed width                   */
   .flipped-header-right {
+    flex: 1;
     width: $mobile-label-width - 1rem;   // keeps browsers honest
     white-space: normal;          // wrap if the word is longer
   }
 
   /* 3️⃣  Keep any other font-scale tweaks you already had              */
-  .flipped-header-right { font-size: .5em; }
-  .flipped-text         { font-size: .4em; line-height: 1.4; }
+  
+  .flipped-text         { line-height: 1.4; flex: 2;}
 }
 

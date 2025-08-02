@@ -30,7 +30,7 @@
   z-index: 1000;
 
   width: 95%; 
-  max-width: 30rem; 
+  max-width: 50rem; 
   height: clamp(360px, 55vh, 500px);
 
   display: flex;
@@ -61,7 +61,7 @@
   align-items: center;
   justify-content: space-between;
 }
-.modal-title       { font-size: 1.32em; }
+.modal-title       { font-size: clamp(1.5em, 2vw, 2.25em);}
 .modal-close-button {
   display: flex;
   align-items: center;
@@ -139,7 +139,7 @@
     }
   }
   .modal-body   { height: auto; }
-  .modal-title  { font-size: .9em; }
+  .modal-title  { font-size: clamp(1em, 5vw, 2em);}
   .modal-close-button { position: absolute; left: 90%; }
 }
 @media (max-width: 500px) {
