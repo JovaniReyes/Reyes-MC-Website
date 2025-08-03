@@ -8,7 +8,7 @@
 /* 1️⃣ Button size & gap */
 $btn-size-desktop : 75px;   // ≥1024 px
 $btn-size-tablet  : 70px;   // 768-1023 px
-$btn-size-mobile  : 40px;   // <768 px
+$btn-size-mobile  : 50px;   // <768 px
 
 $gap-desktop : 22.5px;
 $gap-tablet  : 40px;
@@ -25,8 +25,8 @@ $cluster-top-desktop : 16px;
 $cluster-top-mobile  :  4px;
 
 /* 4️⃣ Break-points */
-$bp-tablet : 1023px;
-$bp-mobile : 767px;
+// $bp-tablet : 1023px;
+$bp-mobile : 1414px;
 .paragraph-images img {
   width: var(--des-width, 100%);                 /* desktop default     */
 }
@@ -80,22 +80,22 @@ $bp-mobile : 767px;
 .map-btn   .button-img { width:$icon-map-d;   height:$icon-map-d }
 
 /* ------------------------------------------------------------------
-   TABLET  (768-1023 px) — shrink but keep right-aligned cluster
+   TABLET  (768-1023 px) —Not using for now
 -------------------------------------------------------------------*/
-@media (max-width: $bp-tablet) {
-  .ui-btn {
-    width:  $btn-size-tablet;
-    height: $btn-size-tablet;
-    top:    $cluster-top-desktop;
-  }
+// @media (max-width: $bp-tablet) {
+//   .ui-btn {
+//     width:  $btn-size-tablet;
+//     height: $btn-size-tablet;
+//     top:    $cluster-top-desktop;
+//   }
 
-  .audio-btn { right: $gap-tablet; }
-  .code-btn  { right: calc($gap-tablet + $btn-size-tablet + $gap-tablet); }
-  .cite-btn  { right: calc($gap-tablet + ($btn-size-tablet + $gap-tablet) * 2); }
-  .map-btn   { right: calc($gap-tablet + ($btn-size-tablet + $gap-tablet) * 3); }
+//   .audio-btn { right: $gap-tablet; }
+//   .code-btn  { right: calc($gap-tablet + $btn-size-tablet + $gap-tablet); }
+//   .cite-btn  { right: calc($gap-tablet + ($btn-size-tablet + $gap-tablet) * 2); }
+//   .map-btn   { right: calc($gap-tablet + ($btn-size-tablet + $gap-tablet) * 3); }
 
-  .button-img { width: 70%; height:50%; } /* quick scale-down */
-}
+//   .button-img { width: 70%; height:60%; } /* quick scale-down */
+// }
 
 /* ------------------------------------------------------------------
    MOBILE (<768 px) — centred cluster

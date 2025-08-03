@@ -267,7 +267,8 @@ $green-hover : #00bb6e;
   padding: 6px 12px;
   border: 2px solid styles.$color-base-darker-gray-four;
   border-radius: 6px;
-  font-weight: 500;
+  font-weight: bold;
+  font-size: clamp(1rem, 2vw, 1.5rem);
   cursor: pointer;
   transition: background-color .2s ease, color .2s ease;
   box-shadow: inset 2px 2px #ffffffc0, inset -2px -2px #323232c0;
@@ -285,12 +286,12 @@ $green-hover : #00bb6e;
   }
 }
 .desktop-dropdown-content {
+  font-size: clamp(.75rem, 2vw, 1.25rem);
   position: absolute;
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  width: 450%;
-  min-width: 200px;
+  width: 30vw;
   padding: 8px 0;
   border-radius: 16px;
   background: linear-gradient(135deg,#e8e8e8a2 0%,#959494b1 100%);
@@ -305,13 +306,13 @@ $green-hover : #00bb6e;
     margin: 0; padding: 0; list-style: none;
     li {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 2fr 1fr;
       place-items: center;
       padding: 6px 0;
       width: 100%;
       cursor: pointer;
       transition: background-color .15s ease, color .15s ease;
-      .cmd, .key { line-height: 1.2; }
+      .cmd, .key { line-height: 1.5; }
     }
   }
 }

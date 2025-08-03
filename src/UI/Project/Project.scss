@@ -30,7 +30,7 @@ $header-ratio: 1.125; // 12.5% bigger than base text
 }
 .section-header{
     padding: 12px;
-    .section-header { font-size: clamp(1.25rem, 1.1rem + 1.5vw, 2rem); }
+    font-size: clamp(1.25rem, 2vw, 2.25rem); 
     color: white;
     background-color: styles.$color-base-darker-gray-two;
 }
@@ -55,12 +55,12 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
 
 .section-paragraph {
   text-shadow: 2px 3.5px 2.5px $black;
-  font-size: clamp(1em, 2vw, 2em);
+  font-size: clamp(1rem, 2vw, 1.5rem);
   margin: 8px 0;
-  color: white;
+  color: rgb(229, 229, 229);
   white-space: pre-wrap;
   tab-size: 2;
-  line-height: 1.4;
+  line-height: 1.75;
   
   a {text-decoration: none;}
 
@@ -72,7 +72,7 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
 
 .highlight-link {
   color: var(--highlight-color); 
-  font-size: 1.15em;
+  font-size: clamp(1.5rem, 2vw, 2.25rem); 
   display: block;
   width: fit-content;
   margin: 0.25rem auto 0;
@@ -85,19 +85,17 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
 }
 
 .indent-rest {
-  padding-left: 2ch;
-  padding-right: 2ch;
   display: block;
   margin: 0.25rem auto 0;
-  text-align: center;
-  line-height: 1.4;
+  padding-left: 1em;
+  padding-right: 1em;
+  text-align: left;
+  justify-self: center;
+  line-height: 1.75;
   text-shadow: 2px 3px 2.5px $black;
-  font-size: clamp(1em, 1.5vw, 2em);
+  font-size: clamp(1rem, 2vw, 1.5rem);
 }
 
-@media (max-width: 480px) {
-  .indent-rest { padding-left: 2ch; padding-right: 2ch; }
-}
 $pad-outer : 1rem;
 $pad-inner : .5rem;
 
@@ -191,7 +189,7 @@ $pad-inner : .5rem;
 .flipped-text {
   flex: 2;
   text-align: left;
-  color: white;
+  color: rgb(229, 229, 229);
   text-shadow: 2px 3px 2.5px $black;
 }
 
@@ -214,9 +212,10 @@ $pad-inner : .5rem;
     }
     
   }
-  .section-header{font-size: 1.2em;}
+  .section-header{font-size: clamp(1.2rem, 2vw, 1.3rem); }
   .paragraph-block {margin-bottom: 1.5rem; }
-  .indent-rest{ padding: 0; line-height: 1.5; }
+  .highlight-link{font-size: clamp(1.5rem, 2vw, 1.75rem); }
+  .indent-rest{  line-height: 1.75; }
   
   .flipped-wrapper {
     grid-template-columns: $mobile-label-width 1fr;   // ⬅ fixed, then flex

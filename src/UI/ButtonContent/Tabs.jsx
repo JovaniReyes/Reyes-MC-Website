@@ -1,10 +1,19 @@
 // Tabs.jsx
 import { useState, useEffect, useRef } from "react";
+import { playSound } from "../../Utils/buttonSound";
 import "./Tabs.scss";
+
+
 
 export default function Tabs({ sections, children }) {
     const [active, setActive] = useState(0);
     const navRef = useRef();
+
+    const handleClick = (i) => {
+        playSound();
+        setActive(i)
+    }
+
 
     useEffect(() => {
     const el = navRef.current;
@@ -26,7 +35,7 @@ export default function Tabs({ sections, children }) {
                 <button
                     key={i}
                     className={`tab-btn${i === active ? " active" : ""}`}
-                    onClick={() => setActive(i)}
+                    onClick={() => handleClick(i)}
                 >
                     {txt}
                 </button>

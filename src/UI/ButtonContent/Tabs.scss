@@ -26,8 +26,9 @@
 
 .tab-btn {
   font: inherit;
+  font-weight: bold;
   padding: .6rem 1rem;   /* ← tighter */
-  font-size: clamp(.2rem, 4vw, 1.2rem);
+  font-size: clamp(1rem, 2vw, 1.5rem);
   line-height: 1;
   white-space: nowrap;     /* keep each label on one line */
   color: styles.$color-base-dark-gray;
