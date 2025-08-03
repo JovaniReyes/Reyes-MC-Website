@@ -87,10 +87,10 @@ $highlight-color: #0fa046;   // <-- set the hex you want here
 .indent-rest {
   display: block;
   margin: 0.25rem auto 0;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-left: .5em;
+  padding-right: .5em;
   text-align: left;
-  justify-self: center;
+  justify-items: center;
   line-height: 1.75;
   text-shadow: 2px 3px 2.5px $black;
   font-size: clamp(1rem, 2vw, 1.5rem);
@@ -214,7 +214,7 @@ $pad-inner : .5rem;
   }
   .section-header{font-size: clamp(1.2rem, 2vw, 1.3rem); }
   .paragraph-block {margin-bottom: 1.5rem; }
-  .highlight-link{font-size: clamp(1.5rem, 2vw, 1.75rem); }
+  .highlight-link{font-size: clamp(1.25rem, 2vw, 1.5rem); }
   .indent-rest{  line-height: 1.75; }
   
   .flipped-wrapper {
