@@ -32,11 +32,12 @@ $tip-accent: #FFEC3D;
 
 /* ─── Loading‑screen chrome ───────────────────────────────────────────── */
 .loading-screen {
-  position: relative;
-  width: 100%;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
   z-index: 9999;
-  background: none;
 }
 
 .intro-house {
