@@ -26,11 +26,11 @@ const citations = {
             imgText1: "Arduino Bot creators, Robot LK is an educational site that provides free, high-end, and beginner friendly STEM guides.",
            glow: true, mobWidth: "50%",},
 
-           {text: "FOV nudge for nearby interactables\nSuggested as a way to point out the interactable photos in the home. This feature decreases the users Field of View when reaching certain points of the homes pathway as a way to get the users attention through a subtle zoom-in.",
+           {text: "FOV nudge for nearby interactables\nSuggested as a way to point out the interactive photos in the home. This feature reduces the user's Field of View when reaching certain points on the home's pathway, drawing the user's attention through a subtle zoom-in.",
             img1:"./images/Citations/Users/ZachH.webp", img2:"./images/Citations/Users/Paola.webp",
             imgText1: "Zachary H.", imgText2: "Paola B.", desWidth: "40%", mobWidth: "100%",
             highlight: true, glow: false, },
-          {text: "Fast traveling across the site\nRecommended in regards to potential employers or returning visitors who\'ve traveled the sites pathway and want to quickly view the different sections.",
+          {text: "Fast traveling across the site\nRecommended for potential employers and returning visitors who've traveled the site's pathwayn this feature provides a unique way to travel through the site instantaneously.",
             img1:"./images/Citations/Users/SamG.webp",
             imgText1: "Sammuel G.", desWidth: "20%", mobWidth: "50%",
             highlight: true, glow: false, },
@@ -39,7 +39,7 @@ const citations = {
       {
         header: "Software & Websites",
         paragraphs: [
-          {text: "Minecraft\nPotentially the most well known game in existence, the entirety of this sites art style including the 3D assets are a reflection this sandbox game.", highlight: true, link: "https://www.minecraft.net/en-us", 
+          {text: "Minecraft\nPotentially the most well known video game in existence, the entirety of this sites art style including the 3D assets are a reflection this sandbox game.", highlight: true, link: "https://www.minecraft.net/en-us", 
             img1:"./images/Citations/MinecraftHome.webp",
             imgText1:"Original home built in Minecraft", 
             desWidth: "50%", mobWidth: "100%",

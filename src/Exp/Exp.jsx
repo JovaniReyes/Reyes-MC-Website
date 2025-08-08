@@ -188,37 +188,45 @@ function playTeleportSound(){
   setIsTeleporting(false);
 }
 
-function getLerpedRotation(){
-  const startQuat = useMemo(() => new THREE.Quaternion(), []);
-  const endQuat = useMemo(() => new THREE.Quaternion(), []);
-  const lerpedRot = useMemo(() => new THREE.Euler(), []);
-  const idxRef = useRef(0);
-  return useCallback((prog) => {
-      let i = idxRef.current;
-      // move pointer forward / backward at most a few steps
-      if (prog < ROT_PROGS[i]) while (i > 0 && prog < ROT_PROGS[i]) i--;
-      else while (i < ROT_PROGS.length - 2 && prog >= ROT_PROGS[i + 1]) i++;
-      
-      idxRef.current = i;
+ // Returns a *quaternion* representing the slerped target rotation at `prog`
+ function useLerpedRotationQuat() {//
+   const startQuat = useMemo(() => new THREE.Quaternion(), []);
+   const endQuat = useMemo(() => new THREE.Quaternion(), []);
+   const tempQuat = useMemo(() => new THREE.Quaternion(), []);
+   const idxRef = useRef(0);
+   return useCallback((prog) => {
+      let idx = idxRef.current;
+      if (prog < ROT_PROGS[idx]) { 
+        while (idx > 0 && prog < ROT_PROGS[idx]) idx--; 
+      }
+      else { 
+        while (idx < ROT_PROGS.length - 2 && prog >= ROT_PROGS[idx + 1]) idx++; 
+      }
+      idxRef.current = idx;
 
-      const p1 = ROT_PROGS[i];
-      const p2 = ROT_PROGS[i + 1];
-      const t  = (prog - p1) / (p2 - p1);
-
-      startQuat.setFromEuler(ROT_EULERS[i]);
-      endQuat.setFromEuler(ROT_EULERS[i + 1]);
-      startQuat.slerp(endQuat, t);
-      lerpedRot.setFromQuaternion(startQuat);
-      return lerpedRot;
-  }, []);
-}
+      const p1 = ROT_PROGS[idx];
+      const p2 = ROT_PROGS[idx + 1];
+      const temp  = (prog - p1) / (p2 - p1);
+      startQuat.setFromEuler(ROT_EULERS[idx]);
+      endQuat.setFromEuler(ROT_EULERS[idx + 1]);
+      // tempQuat = slerp(start -> end, t)
+      tempQuat.copy(startQuat).slerp(endQuat, temp);
+      return tempQuat;
+    }, []);
+ }//
 
 const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerpFactor, mouseOffset, setFieldOfView, isMapOpen, onTeleport, teleportEffects = [], fovShake, }) => {
   const tp_FOVS = fovShake?.current?.keys ?? TELEPORT_FOVS;
   const prevProgress = useRef(0);
   const matPulseRef = useRef(0);
-  const sampleRotation = getLerpedRotation();
-  
+  const sampleRotationQuat = useLerpedRotationQuat();//
+  const rotationBufferQuat = useRef(new THREE.Quaternion().setFromEuler(ROT_EULERS[0]));
+  const ROT_BUFFER_ALPHA = 0.10; // smoothing factor; tweak 0.05–0.2
+    useEffect(() => {
+    if (camera.current) {
+      camera.current.quaternion.copy(rotationBufferQuat.current);
+    }
+  }, [camera]);//
 
 
   useFrame((state) => {
@@ -277,8 +285,10 @@ const Scene = ({camera, scrollRef, targetScrollProgress, setScrollProgress, lerp
     newPosition.x += mouseOffset.current.x;
     newPosition.y += mouseOffset.current.y;
     camera.current.position.lerp(newPosition, .5);
-    // Camera Rotation - zero allocations
-    camera.current.rotation.copy(sampleRotation(newProgress));
+    // Camera Rotation (buffered): slerp a buffer quat toward the target, then apply to camera
+    const targetQuat = sampleRotationQuat(newProgress); // returns a stable, reused quaternion
+    rotationBufferQuat.current.slerp(targetQuat, ROT_BUFFER_ALPHA);//
+    camera.current.quaternion.copy(rotationBufferQuat.current);//
     
   });
   return (
