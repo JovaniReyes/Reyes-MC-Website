@@ -77,6 +77,45 @@
     }
   }
 }
+/* NEW: force-stacked layout that works at any width when wrapper has .bottom */
+.mini-modals-wrapper.bottom {
+  position : fixed;
+  left     : 50%;
+  transform: translateX(-50%);
+  right    : 0;
+  top      : calc(var(--modal-bottom, 60vh) + var(--gap)); /* <— follow actual modal bottom */
+  bottom   : .1%;
+  max-width: 1090px;
+  width    : 100%;
+  max-height: 45%;
+  z-index  : 121;
+  overflow-y: auto;
+  border: .2em solid black;
+  border-radius: 10px;
+  background-color: styles.$color-base-darker-gray-two;
+
+  /* scrollbar visuals unchanged … */
+}
+
+.mini-modals-wrapper.bottom .mini-modal {
+  position : static !important;
+  transform: none !important;
+  background: styles.$color-base-darker-gray-three;
+  flex: 0 0 var(--mini);
+}
+
+.mini-modals-wrapper.bottom .mini-modal-body {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  place-content: center;
+  align-items: center;
+  gap: var(--gap);
+  padding-block: var(--gap);
+}
+
+
 /* stacked layout under the big modal */
 @media (max-width: 1414px) {
 
@@ -101,7 +140,7 @@
     padding-block: var(--gap);
   }
 
-  .mini-modals-wrapper {
+  .mini-modals-wrapper:not(.bottom) {
     position : fixed;
     top      : 72.2%;
     left     : 50%;
@@ -148,3 +187,5 @@
     }
   }
 }
+.mini-modals-wrapper.bottom.enter { animation: enteringBottom 1s ease-in both; }
+.mini-modals-wrapper.bottom.exit  { animation: exitingBottom .5s ease-out both; }

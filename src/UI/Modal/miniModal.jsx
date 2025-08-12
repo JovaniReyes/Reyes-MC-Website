@@ -8,15 +8,47 @@ const MIN_SIZE = 125;           // smallest card edge
 const BREAK    = 1415;          // desktop / mobile switch
 const GAP_DESK = 30;            // gap ≥ BREAK
 const GAP_MOB  = 5;            // gap <  BREAK
-const MAIN_W   = 800;           // width of the big modal (desktop)
-const MAIN_VH  = 55;            // % height occupied by big modal (mobile)
 /* ———————————————— */
 
 export default function MiniModalsManager() {
   const { miniModals, animation } = useMiniModalsStore();
 
   /* gap depends on viewport width */
-  const GAP = window.innerWidth >= BREAK ? GAP_DESK : GAP_MOB;
+  const [gap, setGap] = useState(
+   window.innerWidth >= BREAK ? GAP_DESK : GAP_MOB
+ );
+ useLayoutEffect(() => {
+  const onResize = () =>
+     setGap(window.innerWidth >= BREAK ? GAP_DESK : GAP_MOB);
+   onResize();
+   window.addEventListener("resize", onResize);
+   return () => window.removeEventListener("resize", onResize);
+ }, []);
+
+  //Live Main Modal Measurements
+  const [modalSize, setModalSize] = useState({
+    width: Math.min(window.innerWidth * 0.95, 800),
+    bottom: Math.round(window.innerHeight * 0.6),
+  });
+
+  //Watch .modal element to keep the UI consistent
+  useLayoutEffect(() => {
+    const modalEl = document.querySelector(".modal");
+    const update = () => {
+      const r = modalEl?.getBoundingClientRect();
+        const width = r?.width ?? Math.min(window.innerWidth * 0.95, 800);
+        const bottom = r?.bottom ?? Math.round(window.innerHeight * 0.6);
+        setModalSize({ width, bottom });
+        // expose to CSS for stacked positioning
+        document.documentElement.style.setProperty("--modal-w", `${width}px`);
+        document.documentElement.style.setProperty("--modal-bottom", `${Math.round(bottom)}px`);
+      };
+    update();
+   window.addEventListener("resize", update);
+    const ro = modalEl ? new ResizeObserver(update) : null;
+    if (modalEl && ro) ro.observe(modalEl);
+    return () => { window.removeEventListener("resize", update); ro?.disconnect(); };
+  }, []);
 
   /** chosen card size (px) */
   const [card, setCard] = useState(MAX_SIZE);
@@ -29,17 +61,19 @@ export default function MiniModalsManager() {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       const n  = Math.max(miniModals.length, 1);
-      const stacked = vw <= BREAK;
+      // side space available on ONE side of the modal
+      const sideFree = (vw - modalSize.width) / 2 - gap;
+      // Force stacked layout if there isn’t room for even the smallest card
+      const stacked = vw <= BREAK || sideFree < MIN_SIZE;
 
       /* —— desktop layout (cards on each side of big modal) —— */
-      const sideFree = (vw - MAIN_W) / 2 - GAP;      // width on one side
       const sideCount = Math.ceil(n / 2);            // cards each side
       let best = { cols: 1, size: MIN_SIZE };
 
       [1, 2].forEach((c) => {
         const rows  = Math.ceil(sideCount / c);
-        const limitH = (vh - (rows - 1) * GAP) / rows;
-        const limitW = (sideFree - (c - 1) * GAP) / c;
+        const limitH = (vh - (rows - 1) * gap) / rows;
+        const limitW = (sideFree - (c - 1) * gap) / c;
         const size = Math.max(
           MIN_SIZE,
           Math.min(MAX_SIZE, Math.floor(Math.min(limitH, limitW)))
@@ -48,11 +82,11 @@ export default function MiniModalsManager() {
       });
 
       /* —— stacked / mobile layout (cards under big modal) —— */
-      const freeH = vh * (1 - MAIN_VH / 100);
+      const freeH = Math.max(0, vh - modalSize.bottom - gap);
       const freeW = vw;
       const gridCols = Math.max(
         1,
-        Math.floor((freeW + GAP) / (MIN_SIZE + GAP))
+        Math.floor((freeW + gap) / (MIN_SIZE + gap))
       );
       const gridRows = Math.ceil(n / gridCols);
       const sizeMob = Math.max(
@@ -61,8 +95,8 @@ export default function MiniModalsManager() {
           MAX_SIZE,
           Math.floor(
             Math.min(
-              (freeH - (gridRows - 1) * GAP) / gridRows,
-              (freeW - (gridCols - 1) * GAP) / gridCols
+              (freeH - (gridRows - 1) * gap) / gridRows,
+              (freeW - (gridCols - 1) * gap) / gridCols
             )
           )
         )
@@ -80,7 +114,7 @@ export default function MiniModalsManager() {
     chooseLayout();
     window.addEventListener("resize", chooseLayout);
     return () => window.removeEventListener("resize", chooseLayout);
-  }, [miniModals.length]);
+  }, [miniModals.length, modalSize.width, modalSize.bottom, gap]);
 
   /* how many cards live on each side */
   const leftCount  = Math.ceil(miniModals.length / 2);
@@ -90,9 +124,9 @@ export default function MiniModalsManager() {
   /* 3 ▸ vertical anchors **per side** — each side is centred on its own */
   const makeTops = (count) => {
     const rows = Math.ceil(Math.max(count, 1) / cols);
-    const totalH = rows * card + (rows - 1) * GAP;
+    const totalH = rows * card + (rows - 1) * gap;
     const startY = (window.innerHeight - totalH) / 2;
-    return Array.from({ length: rows }, (_, r) => startY + r * (card + GAP));
+    return Array.from({ length: rows }, (_, r) => startY + r * (card + gap));
   };
   const topsLeft  = useMemo(() => makeTops(leftCount), [leftCount, card, cols]);
   const topsRight = useMemo(() => makeTops(rightCount), [rightCount, card, cols]);
@@ -100,9 +134,11 @@ export default function MiniModalsManager() {
   /* 3 ▸ render nothing if no cards */
   if (!miniModals.length) return null;
 
-  const sideBlockW = cols * card + (cols - 1) * GAP;  // width of one column stack
-  const edgeOffset = (window.innerWidth - MAIN_W) / 2 - sideBlockW - GAP;
-  const wrapperType = window.innerWidth < BREAK ? `bottom ${animation}` : "";
+  const sideBlockW = cols * card + (cols - 1) * gap;  // width of one column stack
+  const edgeOffset = (window.innerWidth - modalSize.width) / 2 - sideBlockW - gap;
+  // Use the bottom tray only on DESKTOP when there isn't enough side space.
+  const needsBottomTray = window.innerWidth >= BREAK && edgeOffset < 0;
+  const wrapperType = needsBottomTray ? `bottom ${animation}` : "";
 
 
   /* helpers to track per-side index */
@@ -112,7 +148,7 @@ export default function MiniModalsManager() {
   return (
     <div
       className={`mini-modals-wrapper ${wrapperType}`}
-      style={{ "--mini": `${card}px`, "--gap": `${GAP}px` }}
+      style={{ "--mini": `${card}px`, "--gap": `${gap}px` }}
     >
       <div className="mini-modal-body">
         {miniModals.map((m, i) => {
@@ -122,7 +158,7 @@ export default function MiniModalsManager() {
           const row = Math.floor(idxInSide / cols);
           const col = idxInSide % cols;
 
-          const x = edgeOffset + col * (card + GAP);
+          const x = Math.max(0, edgeOffset) + col * (card + gap);
           const y = onRight ? topsRight[row] : topsLeft[row];
           
 

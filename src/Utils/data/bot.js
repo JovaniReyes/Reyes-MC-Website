@@ -38,9 +38,9 @@ const bot ={
         header:"Electronic Assembly",
         paragraphs:[
             {text:"Tidying Up the Tin\nBuilding the circuit board involved soldering, with no prior training I faced numerous setbacks during this stage due to being hasty and not familiarizing myself with solder accessories such as using flux to remove oxidation and impurities before creating a soldered connection.", img1: "/images/Projects/QuadBot/Solder1.webp", img2: "/images/Projects/QuadBot/Solder2.webp",
-              imgText1: "Quality of First Solder", imgText2:"Quality After Hours of Training", highlight: true, },
+              imgText1: "Quality of First Solder", imgText2:"Quality of 10th Solder", highlight: true, },
             {text:"Connecting the Dots\nAfter one too many mistakes made while soldering the circuit board, I color coded an image of the blank PCB through-holes by the colors I used for the diagram of the circuit board. For further clearity I also numbered the yellow signal wires by their perspective servo motor #\'s.", img1: "/images/Projects/QuadBot/Board1.webp", img2: "/images/Projects/QuadBot/Board2.webp",
-            imgText1: "Mapping microcontroller pins to blank PCB through-holes", imgText2:"Invertedly soldered the right-side signal wires.", highlight: true, },
+            imgText1: "Mapping Nano V3 pins to blank PCB through-holes", imgText2:"Invertedly soldered the right-side signal wires.", highlight: true, },
             {text:"", img1: "/images/Projects/QuadBot/Solder3.webp", imgText1: "Post-soldering, red light indicates a complete circuit.",},
             {text:"Copper Conundrum\nConnecting the positive, negative, and signal wires from each servo motor initially was pretty straightforward. However, after accidentally inverting an entire side of the circuit board this stage of the project a nightmare; splicing 36 wires while resoldering the circuit board is a task I will never forget.", img1: "/images/Projects/QuadBot/Wiring1.webp", img2: "/images/Projects/QuadBot/Wiring2.webp",
               imgText1: "Initial wiring for completed circuit", imgText2:"Final wiring for completed circuit",
@@ -54,7 +54,7 @@ const bot ={
               imgText1: "Taken as soon as I attached the top section of the body.",
               highlight: true, },
             {text:"\nWhile the wiring seems fine in pictures, in action the robot has trouble moving 2 of its legs since they are constrained from certain angles that are blocked by wires that should not be as exposed as they are.", img1: "/images/Projects/QuadBot/Complete2.webp", img2: "/images/Projects/QuadBot/Complete3.webp",
-              imgText1: "Photo of the final result", imgText2:"The spillage of wires",
+              imgText1: "The final product", imgText2:"The spillage of wires",
             highlight: true, },
         ]
       },
@@ -64,7 +64,7 @@ const bot ={
             {text:"Programming Actions\nBeing that this was my first project, the time allocated to building the robot was far beyond what I had initially planned. With my senior year of college beginning in a week, I had to make the tough decision of postponing the programming portion of the project until I had the time to learn about microcontroller programming in the Arduino IDE's simplified C++.",img1: "/images/Projects/QuadBot/ArduinoCode.webp",
               imgText1: "Starter code given by RobotLK for rotating each servo 90°", highlight: true},
             {text:"Redesigning The Body\nNow familiarized with designing 3D assets, I started working on redesigning the robots body, specifically the top-section. I widened its center opening to add breathing room for the wires, as well as added a compartment above the body to hold the batteries and a component for object detection such as a ultrasonic sensor.", img1: "/images/Projects/QuadBot/BotRedesign1.webp", img2: "/images/Projects/QuadBot/BotRedesign2.webp",
-              imgText1: "Body-top is green, Body-bottom is purple", imgText2:"Redesign of the body including other components",
+              imgText1: "Body-top is green, Body-bottom is purple", imgText2:"Body redesign with other components",
             highlight: true},
         ]
       }

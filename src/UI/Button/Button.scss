@@ -44,7 +44,7 @@ $bp-desktop: 1415px;
 }
 .button-project{
   color: styles.$color-base-dark-gray;
-  box-shadow: inset 2px 2px #ffffffc0, inset -2px -2px #323232c0;
+  @include inset-shadow(.15em, #fff9, #2229); // custom values
   background-color: styles.$color-base-gray;
   border: 2px solid styles.$color-base-darker-gray-four;
 
@@ -52,7 +52,7 @@ $bp-desktop: 1415px;
   place-content: center;
   justify-content: center;
   align-items: center;
-  padding: clamp(15px, 2vw, 100px);
+  padding: clamp(15px, 1.25vw, 100px);
   @include fluid-fs(1rem, 5vw, 1.5rem);
   margin: 7px auto 16px auto;
   text-decoration: none;
@@ -61,6 +61,6 @@ $bp-desktop: 1415px;
       border: 2px solid white;
       background-color: styles.$color-base-green;
       cursor: pointer;
-      box-shadow: inset 2px 2px #53d95ac0, inset -2px -2px #118316c0;
+      @include inset-shadow(.075em, #53d95ac0, #118316c0); 
   }
 }
