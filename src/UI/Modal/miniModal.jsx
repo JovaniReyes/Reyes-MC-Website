@@ -19,7 +19,7 @@ export default function MiniModalsManager() {
  );
  useLayoutEffect(() => {
   const onResize = () =>
-     setGap(window.innerWidth >= BREAK ? GAP_DESK : GAP_MOB);
+    setGap(window.innerWidth >= BREAK ? GAP_DESK : GAP_MOB);
    onResize();
    window.addEventListener("resize", onResize);
    return () => window.removeEventListener("resize", onResize);
@@ -138,7 +138,7 @@ export default function MiniModalsManager() {
   const edgeOffset = (window.innerWidth - modalSize.width) / 2 - sideBlockW - gap;
   // Use the bottom tray only on DESKTOP when there isn't enough side space.
   const needsBottomTray = window.innerWidth >= BREAK && edgeOffset < 0;
-  const wrapperType = needsBottomTray ? `bottom ${animation}` : "";
+  const wrapperType = `${needsBottomTray ? "bottom " : ""}${animation || ""}`.trim();
 
 
   /* helpers to track per-side index */

@@ -140,7 +140,7 @@
     padding-block: var(--gap);
   }
 
-  .mini-modals-wrapper:not(.bottom) {
+  .mini-modals-wrapper {
     position : fixed;
     top      : 74%;
     left     : 50%;
@@ -177,15 +177,8 @@
         box-shadow: inset 0px 2px #ffffffc0, inset 0px 2px #323232c0;
         
     }
-    &.bottom { 
-      &.enter{
-        animation: enteringBottom 1s ease-in both;
-      }
-      &.exit{
-        animation: exitingBottom .5s ease-out both;
-      }
-    }
+    /* Play the mobile tray animation regardless of .bottom */
+    &.enter { animation: enteringBottom 1s ease-in both;  will-change: transform; }
+    &.exit  { animation: exitingBottom  .5s ease-out both; will-change: transform; }
   }
 }
-.mini-modals-wrapper.bottom.enter { animation: enteringBottom 1s ease-in both; }
-.mini-modals-wrapper.bottom.exit  { animation: exitingBottom .5s ease-out both; }
