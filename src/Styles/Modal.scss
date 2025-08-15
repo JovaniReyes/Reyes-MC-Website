@@ -30,7 +30,7 @@
   z-index: 1000;
 
   width: 95%; 
-  @media (min-width: 1415px) {width: 55%; }
+  
   max-width: 50rem; 
   height: clamp(360px, 55vh, 500px);
 
@@ -43,6 +43,7 @@
   &.exit  { animation: exiting  1s ease both; }
 
 }
+@media (min-width: 1415px) {.modal{width: 55%;} }
 
 .modal-header {
   display: flex;
@@ -131,7 +132,7 @@
 }
 @media (max-width: 1415px) {
   .modal {
-    top: 40%;
+    top: 42.25%;
     height: 62.5%;
 
     &.button {
