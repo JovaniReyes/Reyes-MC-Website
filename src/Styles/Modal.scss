@@ -31,7 +31,7 @@
 
   width: 95%; 
   
-  max-width: 50rem; 
+  max-width: 1000px; 
   height: clamp(360px, 55vh, 500px);
 
   display: flex;
@@ -43,7 +43,7 @@
   &.exit  { animation: exiting  1s ease both; }
 
 }
-@media (min-width: 1415px) {.modal{width: 50vw;} }
+@media (min-width: 1415px) {.modal{width: 50vw; } }
 
 .modal-header {
   display: flex;
