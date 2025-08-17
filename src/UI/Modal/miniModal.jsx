@@ -27,7 +27,7 @@ export default function MiniModalsManager() {
 
   //Live Main Modal Measurements
   const [modalSize, setModalSize] = useState({
-    width: Math.min(window.innerWidth * 0.95, 800),
+    width: Math.min(window.innerWidth * 2, 800),
     bottom: Math.round(window.innerHeight * 0.6),
   });
 
