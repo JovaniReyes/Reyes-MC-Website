@@ -9,16 +9,16 @@ const projectData = {
       {
         header: "Development Tools",
         paragraphs: [
-          {text: "Blender\n\tCreated 3D meshes, materials, and animated armatures.", highlight: true},
-          {text: "Unreal Engine\n\tVisual Scripting with blueprints for all game logic. ", highlight: true},
+          {text: "Blender\nCreated 3D meshes, materials, and animated armatures.", highlight: true},
+          {text: "Unreal Engine\nVisual Scripting with blueprints for all game logic. ", highlight: true},
         ]
       },
       {
         header: "Overview",
         paragraphs: [
-          {text: "Objective\n\nObjective focuses on why text entry in virtual-reality (VR) lags behind traditional desktop typing and if simulating a users hand virtually can shorten the gap. Participants completed the same typing tasks under three conditions:\n\n\t1. Desktop Baseline.\n\t2. VR with virtual hands.\n\t3. VR without virtual hands.\n\nThe study tracked net words per-minute (WPM), accuracy, and task-completion time for each of the conditions in a within-subjects design.\n\n\n", highlight: true},
-          {text: "Findings\n\n- Desktop typing remained fastest and most accurate\n\n- Both VR setups were much slower and more prone to errors.\n\n- Interestingly, virtual hands produced no significant improvement over the handless VR condition in speed.\n\n- Some participants noted that the virtual hands obscured keys, making typing harder.\n\n\n", highlight: true},
-          {text: "Key take-away\n\nResults indicate that rendering hands in VR does not bridge the performance gap with traditional typing. Achieving efficient text entry for VR workspaces will likely require alternative input techniques, more sophisticated hand/keyboard tracking solution, or improving simulations with collision detection for virtually rendered hands.",highlight: true}
+          {text: "The Objective\nFocuses on why text entry in virtual-reality (VR) lags behind traditional desktop typing and if simulating a users hand virtually can shorten the gap. Participants completed the same typing tasks under three conditions:\n\n\t1. Desktop Baseline.\n\t2. VR with virtual hands.\n\t3. VR without virtual hands.\n\nThe study tracked net words per-minute (WPM), accuracy, and task-completion time for each of the conditions in a within-subjects design.\n\n", highlight: true},
+          {text: "Findings\n- Desktop typing remained fastest and most accurate\n- Both VR setups were much slower and more prone to errors.\n- Interestingly, virtual hands produced no significant improvement over the handless VR condition in speed.\n- Some participants noted that the virtual hands obscured keys, making typing harder.\n\n", highlight: true},
+          {text: "Key take-away\nResults indicate that rendering hands in VR does not bridge the performance gap with traditional typing. Achieving efficient text entry for VR workspaces will likely require alternative input techniques, more sophisticated hand/keyboard tracking solution, or improving simulations with collision detection for virtually rendered hands.",highlight: true}
         ]
       }
     ]

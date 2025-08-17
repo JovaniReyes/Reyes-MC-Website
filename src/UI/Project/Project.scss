@@ -213,9 +213,9 @@ $pad-inner : .5rem;
     
   }
   .section-header{font-size: clamp(1.2rem, 2vw, 1.3rem); }
-  .paragraph-block {margin-bottom: 1.5rem; }
+  .paragraph-block {margin-bottom: 1.15rem; text-align: center;  }
   .highlight-link{font-size: clamp(1.25rem, 2vw, 1.5rem); }
-  .indent-rest{  line-height: 1.75; }
+  .indent-rest{  line-height: 1.75; text-align: center; }
   
   .flipped-wrapper {
     grid-template-columns: $mobile-label-width 1fr;   // ⬅ fixed, then flex

@@ -56,7 +56,7 @@ const research =  {
       {
         header:"Future Endeavors",
         paragraphs:[
-          {text: "Building the Executable\nThe last portion of this project is building the executable file for the experiment, doing this will allow anyone who has the required hardware to run the executable to download and play the experiment themselves! After creating the executable my goal is to make it accessible here on my portfolio website.", highlight: true, glow: true},
+          {text: "Building the Executable\nThe last portion of this project is building the executable file for the experiment, doing this will allow anyone who has the required hardware to run the executable to download and play the experiment themselves! After creating the executable my goal is to make it accessible here on my portfolio website.", highlight: true, },
         ]
       },
     ]
