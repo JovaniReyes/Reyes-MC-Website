@@ -29,10 +29,3 @@ flex: 1 1 auto;        /* take all remaining height */
   max-width: none !important;
   height: auto !important;
 }
-
-/* Desktop */
-@media (max-width: $bp-mobile) {
-    .pdf-wrapper {
-        overflow-x: scroll;
-    }
-}
