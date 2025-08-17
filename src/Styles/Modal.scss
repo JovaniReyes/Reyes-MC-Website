@@ -43,7 +43,7 @@
   &.exit  { animation: exiting  1s ease both; }
 
 }
-@media (min-width: 1415px) {.modal{width: 55%;} }
+@media (min-width: 1415px) {.modal{width: 50vw;} }
 
 .modal-header {
   display: flex;
