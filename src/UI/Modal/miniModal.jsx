@@ -27,7 +27,7 @@ export default function MiniModalsManager() {
 
   //Live Main Modal Measurements
   const [modalSize, setModalSize] = useState({
-    width: Math.min(window.innerWidth * 2, 1000),
+    width: Math.min(window.innerWidth * 1.5, 1000),
     bottom: Math.round(window.innerHeight * 0.6),
   });
 
@@ -36,7 +36,7 @@ export default function MiniModalsManager() {
     const modalEl = document.querySelector(".modal");
     const update = () => {
       const r = modalEl?.getBoundingClientRect();
-        const width = r?.width ?? Math.min(window.innerWidth * 0.95, 800);
+        const width = r?.width ?? Math.min(window.innerWidth * 1.5, 1000);
         const bottom = r?.bottom ?? Math.round(window.innerHeight * 0.6);
         setModalSize({ width, bottom });
         // expose to CSS for stacked positioning
