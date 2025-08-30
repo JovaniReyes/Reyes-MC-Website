@@ -358,3 +358,14 @@ $tip-accent: #FFEC3D;
 @keyframes splashBounce   { 0%,100% { transform: rotate(-30deg) scale(1); } 50% { transform: rotate(-30deg) scale(1.10); } }
 @keyframes splashBounceA  { 0%,100% { transform: rotate(0deg)  scale(1); } 50% { transform: rotate(0deg)  scale(1.10); } }
 @keyframes splashBounce2  { 0%,100% { transform: rotate(15deg) scale(1); } 50% { transform: rotate(15deg) scale(1.10); } }
+
+@keyframes glowFlick {
+  0%, 49% { filter: brightness(50%); }
+  50%, 100% { filter: brightness(150%); }
+}
+
+/*Awwwards badge*/
+#awwwards  { transition: opacity 4s ease-in-out; animation: glowFlick 3s infinite; pointer-events: auto; }
+#awwwards .js-color-bg  { fill: rgba(11, 11, 11, 0.5); }
+#awwwards .js-color-text  { fill: $tip-accent; }
+#awwwards.revealed  { pointer-events: none; opacity: 0; }
