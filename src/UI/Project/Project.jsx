@@ -2,6 +2,7 @@ import { ProjectToggle } from '../ButtonContent/ButtonContent'
 import projectData from './ProjectData'
 import "./Project.scss"
 import { Images } from '../ButtonContent/ButtonContent'
+import { track } from '@vercel/analytics';
 import { Fragment } from 'react'
 const Project = ({ projectID }) => {
   const { name, mainImg, content } = projectData[projectID];
@@ -21,6 +22,7 @@ const Project = ({ projectID }) => {
   );
 
   // 3. the main return is now only three logical blocks
+  track("Project Clicked: "+projectID);
   return (
     <div className="project-container">
       <figure className="image-wrapper">

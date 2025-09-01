@@ -9,6 +9,7 @@ import { playSound } from "../../Utils/buttonSound";
 import  ContentData from "../../Utils/data/contentData";
 
 import Tabs from "./Tabs";
+import { track } from '@vercel/analytics';
 import PdfViewer from "../../Utils/PdfViewer";
 
 
@@ -50,6 +51,7 @@ import  mapImg   from "../../images/Buttons/MapSymbol.webp";
 /*  Main modal body                                                       */
 /* ---------------------------------------------------------------------- */
 const ButtonContent = ({ ContentID }) => {
+  track("Button Clicked: " + ContentID);
   const data = ContentData[ContentID];
   const isProj = ContentID.substring(0,2)=== "PP";
   const isCitations = ContentID === "Cites" || isProj;

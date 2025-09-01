@@ -1,3 +1,4 @@
+import { track } from '@vercel/analytics';
 import aboutMeData from './AboutMeData'
 import "./About.scss"
 
@@ -6,7 +7,7 @@ const About = ({ aboutID }) => {
   const about = aboutMeData[aboutID];
   if(!about) return <div>About Not Found</div>;
   let mainImage = about.mainImg;
-  
+  track("About Clicked: "+ aboutID);
   return (
     <div className="about-container"> 
       <div className="image-wrapper">

@@ -1,6 +1,7 @@
 // Tabs.jsx
 import { useState, useEffect, useRef } from "react";
 import { playSound } from "../../Utils/buttonSound";
+import { track } from '@vercel/analytics';
 import "./Tabs.scss";
 
 
@@ -10,6 +11,7 @@ export default function Tabs({ sections, children }) {
     const navRef = useRef();
 
     const handleClick = (i) => {
+        track("Tab Clicked: " + sections[i]);
         playSound();
         setActive(i)
     }

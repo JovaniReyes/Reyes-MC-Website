@@ -4,6 +4,7 @@ import { useGLTFWithKTX2 } from '../utils/useGLTFWithKTX2'
 import { useModalStore } from '../stores/modalStore'
 import { useMapControls } from '../stores/mapControlsStore'
 import { useFrame } from '@react-three/fiber'
+import { track } from '@vercel/analytics';
 import * as THREE from 'three'
 
 //Rotation and Position offset from user POV
@@ -99,6 +100,7 @@ function Maps ({ pos = [0,0,0], rot = new THREE.Euler(), visible = false, onTele
   //Takes the progress array prop from the map data obj and access an index from the array
   const handleTeleport = useCallback(() => {
     const {prg} = mapData[floorRef.current];
+    track("Teleported on " + floorRef.current + "stairs map to waypoint: " + waypointRef.current);
     onTeleport(prg[waypointRef.current]);
   }, [onTeleport, mapData]);
 
