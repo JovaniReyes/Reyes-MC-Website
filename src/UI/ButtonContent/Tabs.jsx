@@ -11,7 +11,7 @@ export default function Tabs({ sections, children }) {
     const navRef = useRef();
 
     const handleClick = (i) => {
-        track("Tab Clicked: " + sections[i]);
+        track("Tab: " + sections[i]);
         playSound();
         setActive(i)
     }

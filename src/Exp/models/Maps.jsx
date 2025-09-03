@@ -100,7 +100,7 @@ function Maps ({ pos = [0,0,0], rot = new THREE.Euler(), visible = false, onTele
   //Takes the progress array prop from the map data obj and access an index from the array
   const handleTeleport = useCallback(() => {
     const {prg} = mapData[floorRef.current];
-    track("Teleported on " + floorRef.current + "stairs map to waypoint: " + waypointRef.current);
+    track("TP: " + floorRef.current + "stairs, waypoint: " + (waypointRef.current + 1));
     onTeleport(prg[waypointRef.current]);
   }, [onTeleport, mapData]);
 

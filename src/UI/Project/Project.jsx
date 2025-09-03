@@ -22,7 +22,8 @@ const Project = ({ projectID }) => {
   );
 
   // 3. the main return is now only three logical blocks
-  track("Project Clicked: "+projectID);
+  const project = (projectID.charAt(2) == "1" ? "Research" : (projectID.charAt(2) == "2" ? "Chess" : "Bot"));
+  track("Project: " + project);
   return (
     <div className="project-container">
       <figure className="image-wrapper">
