@@ -73,7 +73,9 @@ const POSITIONS = [
   new THREE.Vector3(-20, 17.3, 0.4),    //2nd step
   new THREE.Vector3(-17, 17.3, 0.85),   //1st step
 ];
+
 export const CAT_CURVE = new THREE.CatmullRomCurve3(POSITIONS, true);
+
 export const ROTATIONS = [
     {prog: 0.000, rot: new THREE.Euler(-3.3, -1.05, -3.3)},
     {prog: 0.030, rot: new THREE.Euler(-3.15, -.2, -3.15)},
@@ -125,11 +127,13 @@ export const ROTATIONS = [
     {prog: 0.945, rot: new THREE.Euler(-2, -1.234, -2)},
     {prog: 0.999, rot: new THREE.Euler(-3.3, -1.05, -3.3)}
 ];
+
 const ROT_PROGS = ROTATIONS.map(k => k.prog);
 const ROT_EULERS = ROTATIONS.map(k => k.rot);
 
 const RESOLUTION = 1000;
 const pictureZoneLUT = new Uint8Array(RESOLUTION);
+
 for(const [s, e] of ZOOM_POINTS){
   const a = Math.floor(s * RESOLUTION);
   const b = Math.ceil(e * RESOLUTION);
@@ -140,8 +144,10 @@ for(const [s, e] of ZOOM_POINTS){
 const getLerpedFov = (prog, newFOV = PICTURE_FOV) => {
   const idx = Math.round(prog * RESOLUTION);
   if(!pictureZoneLUT[idx]) return BASE_FOV;
+
   const range = ZOOM_POINTS.find(([s, e]) => prog >= s && prog <= e);
   if (!range) return BASE_FOV; // fallback
+
   const [start, end] = range;
   const temp = (prog-start) / (end-start);
   const ease = Math.abs(2 * temp - 1);// 1→0→1 tri-ease
@@ -177,6 +183,7 @@ function playMapSound(){
   mapSounds[mapSoundIndex].play();
   mapSoundIndex++;
 }
+
 //Selects and plays 1 of 2 teleporting sounds
 function playTeleportSound(){
   const {isAudioEnabled, setIsTeleporting} = useAudioStore.getState();
