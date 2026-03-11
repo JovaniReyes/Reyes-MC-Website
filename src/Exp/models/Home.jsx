@@ -34,6 +34,7 @@ export default memo(function Model({ progress = 0, ...props }) {
     '/GLBs/Home/HWT-transformed.glb',//13
     '/GLBs/Home/HCT-transformed.glb',//14
     '/GLBs/Home/H7_2T-transformed.glb',//15
+    '/GLBs/Home/DLT-transformed.glb',
   ];
   
   const gltfResults = gltfPaths.map(useGLTFWithKTX2);
@@ -57,6 +58,7 @@ export default memo(function Model({ progress = 0, ...props }) {
     { nodes: n13, materials: mat13},
     { nodes: n14, materials: mat14},
     { nodes: n15, materials: mat15},
+    {nodes: n16, materials: mat16},
   ] = gltfResults;
 
   useMemo(() => {
@@ -75,7 +77,8 @@ export default memo(function Model({ progress = 0, ...props }) {
     convertMaterialsToMeshBasicMaterial(mat13)
     convertMaterialsToMeshBasicMaterial(mat14)
     convertMaterialsToMeshBasicMaterial(mat15)
-  }, [mat1, mat2, mat3, mat4, mat5, mat6, mat7, mat8, mat9, mat10, mat11, mat12, mat13, mat14, mat15]);
+    convertMaterialsToMeshBasicMaterial(mat16)
+  }, [mat1, mat2, mat3, mat4, mat5, mat6, mat7, mat8, mat9, mat10, mat11, mat12, mat13, mat14, mat15, mat16]);
 
   const doorRef = useRef()
   const doorState = useRef('closed')
@@ -152,6 +155,7 @@ export default memo(function Model({ progress = 0, ...props }) {
        <mesh geometry={n14.Chain_Baked.geometry} material={mat14.Chain_Baked} position={[1.643, 14.744, 1.654]} />
 
       <mesh geometry={n15.HangShelf_Wood2_Baked.geometry} material={mat15.Set7_1_Baked} position={[10.515, 19.316, 1.964]} scale={[0.069, 0.009, 0.558]} />
+      <mesh geometry={n16.DL_Baked.geometry} material={mat16.DL_Baked} position={[2.201, 17.817, 4.404]} />
     </group>
   )
 });
