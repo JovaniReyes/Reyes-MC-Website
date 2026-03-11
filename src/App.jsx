@@ -17,7 +17,7 @@ import { CitationToggle, CodeToggle, AudioToggle, MapToggle} from './UI/ButtonCo
 function App() {
  //For preloading images
  useEffect(() =>{
-  preloadImages(ContentData, aboutMeData, projectData);
+  preloadImages(ContentData, projectData);
  }, []);
 
 

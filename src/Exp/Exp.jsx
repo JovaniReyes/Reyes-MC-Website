@@ -20,15 +20,15 @@ let mapSoundIndex = 0;//Toggles between opening and closing map sound
 const TELEPORT_DURATION = 0.35;//How long the Teleport FOV effect takes place
 const TELEPORT_COOLDOWN = 1000;//Teleportation Cooldown timer, 1,000 MS = 1 second
 const TELEPORT_FOVS = [73.5, 40, 130, 73.5];//The sequence of FOV switches during teleportation
-const PICTURE_FOV = 63;//FOV when progress is within a ZOOM_POINTS window
+const PICTURE_FOV = 50;//FOV when progress is within a ZOOM_POINTS window
 const BASE_FOV = 70;//Base FOV for scene
 const MAP_FOV = 73.5;//FOV when map is opened.
 
 //Progress  points used for setting the FOV to PICTURE_FOV
 const ZOOM_POINTS = [
-  [0.236, 0.239],//About Me Set 1
-  [0.2540, 0.2560],//About Me Set 2
-  [0.342, 0.345],//Projects
+  [0.22, 0.235],//About Me Set 1
+  [0.2550, 0.2650],//About Me Set 2
+  [0.342, 0.345],//Projects 
   [0.423, 0.426],//About Me Set 3
   [0.523, 0.526],//About Me Set 4
   [0.534, 0.537],//About Me Set 5
@@ -46,8 +46,8 @@ const POSITIONS = [
 
   new THREE.Vector3(-3.5, 18.5,  7.00),      //Door Opens
   new THREE.Vector3(-3.50, 18.35,  11.0),       //Infront Of door
-  new THREE.Vector3( 2.00, 18.35,  10.75),        //First Step inside (Door Closes)
-  new THREE.Vector3( 8.50, 18.35,  11.25),         //Infront of Kitchen
+  new THREE.Vector3( 2.00, 18.35,  11),        //First Step inside (Door Closes)
+  new THREE.Vector3( 10, 18.35,  11),         //Infront of Kitchen
   new THREE.Vector3( 7.25, 18.35,  8.00),          //Looking into living room
   new THREE.Vector3( 7.00, 18.35,  4.00),           //By Couch
   new THREE.Vector3( 2.25, 18.35,  2.35),            //On Couch
@@ -73,9 +73,7 @@ const POSITIONS = [
   new THREE.Vector3(-20, 17.3, 0.4),    //2nd step
   new THREE.Vector3(-17, 17.3, 0.85),   //1st step
 ];
-
 export const CAT_CURVE = new THREE.CatmullRomCurve3(POSITIONS, true);
-
 export const ROTATIONS = [
     {prog: 0.000, rot: new THREE.Euler(-3.3, -1.05, -3.3)},
     {prog: 0.030, rot: new THREE.Euler(-3.15, -.2, -3.15)},
@@ -127,13 +125,11 @@ export const ROTATIONS = [
     {prog: 0.945, rot: new THREE.Euler(-2, -1.234, -2)},
     {prog: 0.999, rot: new THREE.Euler(-3.3, -1.05, -3.3)}
 ];
-
 const ROT_PROGS = ROTATIONS.map(k => k.prog);
 const ROT_EULERS = ROTATIONS.map(k => k.rot);
 
 const RESOLUTION = 1000;
 const pictureZoneLUT = new Uint8Array(RESOLUTION);
-
 for(const [s, e] of ZOOM_POINTS){
   const a = Math.floor(s * RESOLUTION);
   const b = Math.ceil(e * RESOLUTION);
